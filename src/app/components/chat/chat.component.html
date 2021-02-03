@@ -1,0 +1,92 @@
+<!-- /**
+* Ionic 5 Dating App https://store.enappd.com/product/ionic-tinder-dating-app-starter
+ *
+ * Copyright © 2018-present Enappd. All rights reserved.
+ *
+ * This source code is licensed as per the terms found in the
+ * LICENSE.md file in the root directory of this source .
+ */ -->
+
+
+
+<!-- <ion-content padding-vertical fullscreen #content scrollY="false"> -->
+<ion-list class="withPadding">
+  <ion-radio-group>
+    <ion-item class="searchItemCont">
+      <ion-searchbar slot="start" placeholder="Search Matches"> </ion-searchbar>
+      <ion-button fill="clear" slot="end" size="small" class="searchItem" color="danger" (click)="changeClick()"
+        *ngIf="buttonClicked">
+        <div class="flex">
+          <span>Default</span>
+          <ion-icon name="arrow-down" expand="icon-only"></ion-icon>
+
+        </div>
+      </ion-button>
+      <ion-button fill="clear" slot="end" size="small" class="searchItem" (click)="changeClick()" *ngIf="!buttonClicked"
+        color="danger">Default <ion-icon name="arrow-up" expand="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <div *ngIf="buttonClicked" [ngClass]="(buttonClicked === false)  ? 'hidden' : 'buttonClickedAnimate' ">
+      <ion-item (click)="changeSelected()" *ngFor="let clicks of clickData;let i = index">
+        <p class="checkcolor">{{clicks.name}}</p>
+        <ion-radio slot="end" color="medium" [value]="clicks.name"></ion-radio>
+      </ion-item>
+    </div>
+  </ion-radio-group>
+</ion-list>
+<ion-list>
+  <ion-list-header>
+    <ion-label>New Matches</ion-label>
+  </ion-list-header>
+  <ion-row>
+    <ion-col size="12">
+      <div class="scroll">
+        <div *ngFor="let item of imageData; let i = index" (click)="goForChat(item)">
+          <ion-avatar [ngClass]="{'cardBorder': !item.image, 'cardBorderless': item.image}">
+            <div [ngStyle]="{'background':'url('+ item.image  +')', 'background-size':'cover'}" class="avatarImage">
+              <div *ngIf="item.image" class="absHeart">
+                <ion-icon name="heart" expand="icon-only" color="danger" mode="ios"></ion-icon>
+              </div>
+            </div>
+          </ion-avatar>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-list>
+<ion-list>
+  <div *ngFor="let chat of chatData">
+    <!-- <ion-item-sliding> -->
+    <ion-item (click)="goForChat(chat)">
+      <div class="ProfileAvatr" slot="start">
+        <ion-avatar class="chatImage">
+          <ion-img [src]="chat.image"></ion-img>
+        </ion-avatar>
+      </div>
+      <ion-label>
+        <div class="withcount">
+          <div class="nameAvatar">
+            <h2>{{chat.name}}
+            </h2>
+          </div>
+          <div class="timeEnd">
+            <ion-text slot="end" color="medium">{{chat.time}}</ion-text>
+            <ion-avatar class="chatCount" *ngIf="chat.count">{{chat.count}}</ion-avatar>
+          </div>
+        </div>
+        <p class="widthHalf">{{chat.description}}</p>
+        <div class="typeAnddistance">
+          <div class="center">
+            <ion-icon name="pin" expand="icon-only" color="primary"></ion-icon>
+            <p color="medium" class="typeAnddistancePara">{{chat.distance}}</p>
+          </div>
+          <div class="center">
+            <ion-img [src]=chat.crown class="crown"></ion-img>
+            <p class="typeAnddistancePara">{{chat.type}}</p>
+          </div>
+        </div>
+      </ion-label>
+    </ion-item>
+
+  </div>
+</ion-list>

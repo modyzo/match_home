@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Delete Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-row class="row_with_Border">
+      <ion-col size="12">
+        <div class="colFirst">
+          <h5> Are you sure you want to delete your account?</h5>
+          <p>Please let us know the reason you are leaving</p>
+        </div>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+
+      <ion-col size="6" *ngFor="let item of deleteData; let i = index" class="ion-no-padding"
+        (click)="goForModalReason(item,i)">
+        <div class="contentCenter">
+          <div [ngStyle]="{'background': item.color, 'background-size':'cover'}" class="imageDiv">
+            <ion-img [src]=item.image></ion-img>
+          </div>
+          <h6 class="marginCustom ion-text-uppercase text-center">{{item.head}}</h6>
+          <h6 class="ion-text-uppercase ion-text-center ion-no-margin">{{item.head1}}</h6>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+</ion-content>

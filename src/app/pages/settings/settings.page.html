@@ -1,0 +1,266 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+  <ion-row>
+    <ion-col size="12">
+      <ion-card class="nomargin">
+        <ion-item>
+          <ion-label>
+            <div class="tinder_gold_Column">
+              <ion-icon name="flame" expand="icon-only" color="warning"></ion-icon>
+              <h1>Dating</h1>
+              <ion-img src="assets/chat/gold.png"></ion-img>
+            </div>
+            <p class="ion-text-center">Unlock your most exclusive features</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+
+    </ion-col>
+    <ion-col size="12">
+      <ion-card class="nomargin">
+        <ion-item>
+          <ion-label>
+            <div class="tinder_gold_Column">
+              <ion-icon name="flame" expand="icon-only" color="danger"></ion-icon>
+              <h1>Dating</h1>
+              <ion-icon name="add" expand="icon-only" color="danger"></ion-icon>
+            </div>
+            <p class="ion-text-center">Unlimited like's & more!</p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card class="marginRight">
+        <div class="ovelDivContent" color="medium">
+          <div class="backgroundDiv ion-margin-vertical" (click)="gotoFunctions()">
+            <ion-icon name='flash' expand="icon-only" class="ovalIcon" color="tertiary"></ion-icon>
+          </div>
+          <p class="super">Get Boosts</p>
+
+        </div>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card class="marginLeft">
+        <div class="ovelDivContent" color="medium">
+          <div class="backgroundDiv ion-margin-vertical" (click)="gotoFunctions()">
+            <ion-icon name='star' expand="icon-only" class="ovalIcon" color="secondary"></ion-icon>
+          </div>
+          <p class="boosts">Get Super Likes</p>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-list-header>
+    <ion-label>Account Settings</ion-label>
+  </ion-list-header>
+  <ion-card (click)="goToPage('phone-number')">
+    <ion-item>
+      <ion-text slot="start">Phone Number</ion-text>
+      <ion-text slot="end" class="h6Color" color="medium">91 000 0000 000</ion-text>
+    </ion-item>
+  </ion-card>
+
+  <p class="verifyTextMargin ion-text-center">Verify a Phone number to help secure your account.</p>
+
+
+  <ion-list-header>
+    <ion-label>Discovery Settings</ion-label>
+  </ion-list-header>
+
+
+  <ion-card (click)="showNewLocation()">
+    <ion-item *ngIf="!clicked">
+      <ion-text slot="start">Swiping in</ion-text>
+      <ion-button expand="full" fill="clear" slot="end" class="ion-text-capitalize">My current location</ion-button>
+    </ion-item>
+    <div *ngIf="clicked">
+      <ion-item>
+        <ion-icon name="pin" slot="start" expand="icon-only" color="primary" class="customIcon"></ion-icon>
+        <ion-text color="dark">My current location</ion-text>
+        <ion-icon name="checkmark" slot="end" expand="icon-only" color="primary" class="customIcon"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="clicked">
+        <ion-button expand="full" fill="clear" class="margin_left">Add a new location</ion-button>
+      </ion-item>
+    </div>
+  </ion-card>
+
+
+
+  <ion-item>
+    <p class="verifyText ion-text-center ">Change your swipe location to see Dating members in other cities.</p>
+
+  </ion-item>
+  <ion-card (click)="goToPage('show-me')">
+    <ion-item>
+      <ion-label>
+        <ion-text class="textBold">Show me as</ion-text>
+        <p>Women</p>
+      </ion-label>
+      <ion-icon slot="end" color="danger" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-text class="textBold" slot="start">Maximum distance</ion-text>
+      <ion-text color="danger" slot="end">{{rangeSingle}}Km.</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range min="10" max="100" step="10" color="danger" [(ngModel)]="rangeSingle"></ion-range>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-text class="textBold" slot="start">Age range</ion-text>
+      <ion-text color="danger" slot="end">{{rangeDualKnobs.lower}} - {{rangeDualKnobs.upper}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range dualKnobs="true" min="18" max="92" step="3" [(ngModel)]="rangeDualKnobs" color="danger"></ion-range>
+    </ion-item>
+  </ion-card>
+  <ion-item>
+    <p class="verifyText ion-text-center">Dating uses these preferences to suggest matches. Some match suggestions may
+      not fall within your desired parameters.</p>
+  </ion-item>
+
+  <ion-card>
+    <ion-item>
+      <ion-text>Show me on Dating</ion-text>
+      <ion-toggle slot="end" color="danger"></ion-toggle>
+    </ion-item>
+  </ion-card>
+  <ion-item>
+    <p class="verifyText ion-text-center">You wont show up in the card stack but can still message your existing
+      matches.
+    </p>
+
+  </ion-item>
+  <ion-card (click)="goToPage('feed')">
+    <ion-item>
+      <ion-label>
+        <ion-text>Share my feed</ion-text>
+      </ion-label>
+      <ion-icon slot="end" color="danger" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-card>
+  <ion-item>
+    <p class="verifyText ion-text-center">Sharing your social content will greatly increase your chances of receiving
+      messages!</p>
+
+  </ion-item>
+
+  <ion-list-header>
+    <ion-label>Data usage</ion-label>
+  </ion-list-header>
+  <ion-card (click)="goToPage('autoplay-video')">
+    <ion-item>
+      <ion-label>
+        <ion-text>Autoplay videos</ion-text>
+      </ion-label>
+      <ion-icon slot="end" color="danger" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-text class="textBold">Web Profile</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text slot="start" color="medium">Username</ion-text>
+      <ion-text slot="end" color="medium">claim yours</ion-text>
+    </ion-item>
+    <ion-item>
+      <p class="excepTextSize"> Create a Username.Share your username,Have People Natus aperiam repellat rerum cum
+        ipsam.</p>
+    </ion-item>
+  </ion-card>
+  <ion-list-header>
+    <ion-label>Top Picks</ion-label>
+  </ion-list-header>
+  <ion-card>
+    <ion-item>
+      <ion-text class="textBold">Manage Top Picks</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-text>Show me on Top Picks</ion-text>
+      <ion-toggle slot="end" color="danger"></ion-toggle>
+    </ion-item>
+  </ion-card>
+  <ion-list-header>App settings</ion-list-header>
+  <ion-card>
+    <ion-item>
+      <ion-label class="legalLabelContent">
+        <p class="dangerColor">Notification</p>
+        <p (click)="goToPage('email-verification')">Email</p>
+        <p (click)="goToPage('push-notification')">Push Notifications</p>
+        <p (click)="goToPage('team-tinder')">Team Dating</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-text class="textBold" slot="start">Show distance in</ion-text>
+      <ion-text color="danger" slot="end">Km.</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-button color="danger" fill="solid" expand="large" class="minWidthButton">Km</ion-button>
+        <ion-button color="danger" fill="clear" class="minWidthButton">Mi.</ion-button>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-list-header>
+    <ion-label>Contact Us</ion-label>
+  </ion-list-header>
+  <ion-card>
+    <ion-item>
+      <ion-button color="dark" fill="clear" expand="block" class="help">Help & Support</ion-button>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label class="legalLabelContent">
+        <p>Share Dating</p>
+        <p>Restore Purchase</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-label class="legalLabelContent">
+        <p class="dangerColor">Legal</p>
+        <p (click)="gotoLegal()">License</p>
+        <p (click)="gotoLegal()">Privacy Policy</p>
+        <p (click)="gotoLegal()">Terms of Service</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item>
+      <ion-button fill="clear" expand="full" class="logout" color="dark">LogOut</ion-button>
+    </ion-item>
+  </ion-card>
+  <div class="ovelDivContentBottom">
+    <ion-icon name="flame" expand="icon-only" class="ovalIcon" color="danger"></ion-icon>
+    <p class="excepTextSize">Version 01.0.7.0(1101566)</p>
+  </div>
+  <ion-card (click)="goToPage('delete-account')">
+    <ion-button fill="clear" expand="full" class="logout ion-text-capitalize" color="danger">Delete Account
+    </ion-button>
+  </ion-card>
+
+
+</ion-content>

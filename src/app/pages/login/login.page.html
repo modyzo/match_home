@@ -1,0 +1,28 @@
+<ion-content>
+  <div>
+    <ion-slides pager="true" [options]="slideOpts" class="ion-margin-bottom" >
+      <ion-slide *ngFor="let slide of data">
+        <ion-card [ngStyle]="{'background':'url('+ slide.image +' )'}" no-shadow></ion-card>
+      </ion-slide>
+    </ion-slides>
+    <div class="logincontent">
+      <!-- <ion-label> -->
+      <p class="ion-text-center ion-margin-bottom">By tapping Login,you agree with our <u> Terms of Services </u> and
+        <u> Privacy
+          Policy</u></p>
+      <ion-button expand="round" class="facebook ion-text-uppercase"><small>Login with Facebook</small> </ion-button>
+      <ion-button expand="round" class="ion-margin-bottom ion-text-uppercase" color="medium" fill="outline"
+        (click)="loginWithPhone()">
+        <small>login
+          in with phone number</small>
+      </ion-button>
+      <!-- </ion-label> -->
+      <div class="medium">
+        <p class="ion-no-margin" (click)="gotAccountRecovery()"><u>Trouble Logging In?</u></p>
+        <div class="lastItem" (click)="toggleContent()">
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

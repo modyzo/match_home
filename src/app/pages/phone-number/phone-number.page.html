@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">phone number settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Phone Number</ion-label>
+    </ion-list-header>
+    <ion-card>
+      <ion-item>
+        <ion-input type="number" placeholder="XXXX XXXX XX"></ion-input>
+        <ion-icon slot="end" color="danger" name="phone-portrait"></ion-icon>
+      </ion-item>
+    </ion-card>
+    <p class="verified ion-padding-start">Verified phone Number</p>
+
+  </ion-list>
+  <ion-list>
+    <!-- <ion-list-header></ion-list-header> -->
+    <ion-card>
+      <ion-button fill="clear" expand="block" color="danger" class="ion-text-capitalize">Update my phone number
+      </ion-button>
+    </ion-card>
+  </ion-list>
+</ion-content>

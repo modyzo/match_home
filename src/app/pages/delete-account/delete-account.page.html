@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Delete Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="centerAccountPosition">
+    <ion-item>
+      <!-- <ion-label> -->
+      <div class="centerAccountPositionDiv">
+        <div class="centerAccountclose">
+          <ion-icon name="pause" expand="icon-only"></ion-icon>
+        </div>
+        <h5 class="ion-text-uppercase">pause my account</h5>
+        <p class="ion-text-wrap ion-text-center ion-no-margin">If you would like to keep your account but not be shown
+          to others.You can
+          pause your account instead.You can turn this off in setting.</p>
+      </div>
+      <!-- </ion-label> -->
+    </ion-item>
+
+  </div>
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button class="ion-margin-vertical" color="danger" expand="block">Pause my account</ion-button>
+  <ion-button class="ion-margin-vertical ion-text-capitalize" color="medium" expand="full" fill="clear"
+    (click)="goToDeleteConfirm()">
+    Delete my account >
+  </ion-button>
+</ion-footer>

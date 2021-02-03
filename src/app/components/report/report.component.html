@@ -1,0 +1,22 @@
+<ion-content>
+  <div class="content">
+    <ion-card *ngFor="let report of reportData">
+      <div class="avatarAbs">
+        <ion-avatar [ngStyle]="{'background':'url('+ report.image +')','background-size':'cover'}"></ion-avatar>
+      </div>
+      <ion-item>
+        <ion-label>
+          <h2 class="ion-text-center">{{report.head}}</h2>
+          <p class="ion-text-wrap ion-text-center">{{report.desc}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-list>
+        <ion-item *ngFor="let reportItem of report.items" class="reportItem" (click)="closeModal()">
+          <ion-icon slot="start" name={{reportItem.icon}} [ngStyle]="{'color': reportItem.color }"></ion-icon>
+          <p>{{reportItem.detail}}</p>
+        </ion-item>
+      </ion-list>
+
+    </ion-card>
+  </div>
+</ion-content>

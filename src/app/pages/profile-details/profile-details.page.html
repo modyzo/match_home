@@ -1,0 +1,114 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="openPopoverOptions($event)">
+        <ion-icon name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+
+  <ion-slides [options]="slideOpts" scrollbar="true" (ionSlideDidChange)="change($event)">
+    <ion-slide *ngFor="let slide of slidesData">
+      <ion-card [ngStyle]="{'background':'url('+ slide.slideImage +')','background-size':'cover'}">
+        <ion-fab *ngIf="!isIos" vertical="top" horizontal="end" slot="fixed" class="topIcon">
+          <ion-fab-button>
+            <ion-icon name="more" (click)="openPopoverOptions($event)" color="light" mode="ios"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+  <div class="position-relative">
+    <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="goBack()">
+      <ion-fab-button color="danger">
+        <ion-icon name="arrow-down"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <h3>{{name}}, <span>{{price}}&euro;</span></h3>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-label>
+        <div class="sameLineContent">
+          <ion-icon slot="start" name="home-outline" expand="icon-only" mode="ios"></ion-icon>
+          <p class="ion-text-start">{{rooms}} Rooms</p>
+        </div>
+        <div class="sameLineContent">
+          <ion-icon slot="start" name="water-outline" expand="icon-only" mode="ios"></ion-icon>
+          <p class="ion-text-start">{{bathrooms}} Bathrooms</p>
+        </div>
+      </ion-label>
+    </ion-item>
+    <ion-item class="sameLineContent">
+      <p>{{quote}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent2">
+      <h6>{{name}} Photos</h6>
+    </ion-item>
+    <ion-list class="nopaddingBottom ion-padding-horizontal">
+      <ion-slides pager="false" (ionSlideDidChange)="change($event)">
+        <ion-slide class="slideHeight">
+          <ion-row>
+            <ion-col size="4" *ngFor="let slide of slidesData">
+              <div [ngStyle]="{'background':'url('+ slide.slideImage +')','background-size':'cover'}"
+                class="profilePics">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-slide>
+      </ion-slides>
+      <ion-row class="instaPart ion-padding-bottom">
+        <ion-col size="6">
+          <div class="flex">
+            <ion-text class="ion-text-center">Share your photos</ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="flex">
+            <ion-button color="danger" size="small" expand="block">
+              <ion-icon name="logo-instagram" expand="icon-only" slot="start" color="light"></ion-icon>
+              <span>Connect</span>
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- <div class="instaPart">
+      </div> -->
+      <ion-item>
+        <div class="shareProfile">
+          <ion-text color="danger" class="ion-text-uppercase"> share {{name}} property</ion-text>
+         <!-- <p color="danger" class="ion-text-uppercase"> see what a friend thinks</p>-->
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list class="extraPadding">
+      <ion-item (click)="goForReport()">
+        <div class="centreText">
+          <ion-text class="ion-text-uppercase ion-text-center" color="medium">Report this {{name}} property</ion-text>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div class="footerContent">
+      <div class="icon_background" *ngFor="let icon of icons;let i = index"
+        [ngClass]="{'hide-icon': i === 0 || i === 4, 'transform-icon': i === 1 || i === 3}">
+        <ion-icon name={{icon.title}} expand="icon-only" color={{icon.color}} (click)="clickedIconIs(icon.title)"
+          class="icon_size" mode={{icon.mode}}></ion-icon>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

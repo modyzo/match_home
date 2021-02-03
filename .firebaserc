@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "matchmyhome-7054f": {
+      "hosting": {
+        "app": [
+          "matchmyhome-7054f"
+        ]
+      }
+    }
+  }
+}
