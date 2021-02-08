@@ -24,6 +24,7 @@ import { TermsComponent } from '@app/components/terms/terms.component';
 import { Device } from '@ionic-native/device/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 
 import { environment } from '../environments/environment';
@@ -56,6 +57,7 @@ import { environment } from '../environments/environment';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFirestoreModule,
+    AngularFireAuthModule,
     HttpClientModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

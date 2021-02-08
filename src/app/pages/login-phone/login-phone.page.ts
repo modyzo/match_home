@@ -17,15 +17,23 @@ export class LoginPhonePage implements OnInit {
   selectedValue: any = '';
   inputValue: any = '';
   phoneNumber: any;
-  constructor(public route: Router, private firestore: AngularFirestore) {
+  constructor(
+    public route: Router,
+    private firestore: AngularFirestore
+  ) {
     this.data = environment.COUNTRY_DATA;
   }
 
 
   ngOnInit() {
   }
+
   gotVerification(input: any, selected: any) {
-    this.phoneNumber = selected + input;
-    this.route.navigate(['login-phone-verification', { selected, input }]);
+    if (selected) {
+      this.phoneNumber = selected + input;
+    } else {
+      this.phoneNumber = input;
+    }
+    this.route.navigate(['login-phone-verification', { phoneNumber: this.phoneNumber }]);
   }
 }
