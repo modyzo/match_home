@@ -66,9 +66,14 @@
   </div>
 
   <div class="ion-padding ion-margin ion-text-center">
-    <ion-button color="danger" expand="block" class="btnSubmit textBold ion-margin-bottom" (click)="verify()">continue
+    <ion-button
+      color="danger"
+      expand="block"
+      class="btnSubmit textBold ion-margin-bottom"
+      (click)="verify()">
+      continue
     </ion-button>
-    <ion-text color="danger">I didn't get a code</ion-text>
+    <ion-text (click)="onGetOTP()" color="danger">I didn't get a code</ion-text>
   </div>
   <div class="divMedium ion-text-center">
     <p>Tap continue to accept Facebook's <u>Terms,data Policy,cookie use </u>and the <u>Privacy Policy</u> and <u>Terms

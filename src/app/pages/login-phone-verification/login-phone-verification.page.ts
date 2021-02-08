@@ -1,4 +1,3 @@
-/** */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -52,7 +51,7 @@ export class LoginPhoneVerificationPage implements OnInit {
     this.onGetOTP();
   }
 
-  verify() {
+  public verify() {
     const otp = this.otpInput1.toString() +
       this.otpInput2.toString() +
       this.otpInput3.toString() +
@@ -69,7 +68,7 @@ export class LoginPhoneVerificationPage implements OnInit {
       .catch(reason => alert(`Error: ${reason}`));
   }
 
-  onchange(num) {
+  public onchange(num) {
     if (num === 1) {
       this.inputFocus1 = false;
       this.inputFocus2 = true;
@@ -92,7 +91,7 @@ export class LoginPhoneVerificationPage implements OnInit {
 
   }
 
-  next(el, val) {
+  public next(el, val) {
     const numberRegex = /^[0-9\s]*$/;
     const regexp = /^\S*$/;
     if (val === '1' && numberRegex.test(this.otpInput1) && regexp.test(this.otpInput1)) {
@@ -109,13 +108,13 @@ export class LoginPhoneVerificationPage implements OnInit {
 
   }
 
-  preview(el) {
+  public preview(el) {
     if (el === 'otp6') {
       el.setFocus();
     }
   }
 
-  onGetOTP() {
+  public onGetOTP() {
     this.angularFireAuth.auth
       .signInWithPhoneNumber(
         this.phoneNumber,
