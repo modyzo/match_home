@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "src",
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
@@ -10,33 +12,18 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "target": "es6",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2020", "dom"],
     "paths": {
-      "@app/*": [
-        "app/*"
-      ],
-      "@env/*": [
-        "environments/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
+      "@app/*": ["app/*"],
+      "@env/*": ["environments/*"],
+      "@assets/*": ["assets/*"],
       "core-js/es7/reflect": [
         "./node_modules/core-js/proposals/reflect-metadata"
       ],
-      "core-js/es6/": [
-        "./node_modules/core-js/es/"
-      ],
-      "@angular/*": [
-        "../node_modules/@angular/*"
-      ]
-    },
+      "core-js/es6/": ["./node_modules/core-js/es/"],
+      "@angular/*": ["../node_modules/@angular/*"]
+    }
   }
 }

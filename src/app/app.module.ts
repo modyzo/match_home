@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -24,13 +23,13 @@ import { TermsComponent } from '@app/components/terms/terms.component';
 import { Device } from '@ionic-native/device/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from "@angular/fire/auth";
-
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent,
+  declarations: [
+    AppComponent,
     TinderIconsComponent,
     ShareProfileComponent,
     ChatStartComponent,
@@ -40,9 +39,10 @@ import { environment } from '../environments/environment';
     ToggleLoginComponent,
     RefreshComponent,
     AccountDeleteReasonComponent,
-    TermsComponent
+    TermsComponent,
   ],
-  entryComponents: [TinderIconsComponent,
+  entryComponents: [
+    TinderIconsComponent,
     ShareProfileComponent,
     ChatStartComponent,
     ReportComponent,
@@ -51,7 +51,8 @@ import { environment } from '../environments/environment';
     ToggleLoginComponent,
     TermsComponent,
     RefreshComponent,
-    AccountDeleteReasonComponent],
+    AccountDeleteReasonComponent,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -61,16 +62,13 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-
-
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Device,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
