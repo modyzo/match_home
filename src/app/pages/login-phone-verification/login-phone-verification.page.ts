@@ -32,7 +32,7 @@ export class LoginPhoneVerificationPage implements OnInit {
     private route: Router,
     private menuCtrl: MenuController,
     public activeRoute: ActivatedRoute,
-    private angularFireAuth: AngularFireAuth,
+    private angularFireAuth: AngularFireAuth
   ) {
     this.activeRoute.params.subscribe((params) => {
       this.phoneNumber = params.phoneNumber;
@@ -43,16 +43,19 @@ export class LoginPhoneVerificationPage implements OnInit {
 
   ngOnInit() {
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      'recaptcha-container', {
-        'size': 'invisible'
-      });
+      'recaptcha-container',
+      {
+        size: 'invisible',
+      }
+    );
     this.recaptchaVerifier.render();
     console.log(this.recaptchaVerifier);
     this.onGetOTP();
   }
 
   public verify() {
-    const otp = this.otpInput1.toString() +
+    const otp =
+      this.otpInput1.toString() +
       this.otpInput2.toString() +
       this.otpInput3.toString() +
       this.otpInput4.toString() +
@@ -61,11 +64,11 @@ export class LoginPhoneVerificationPage implements OnInit {
 
     this.confirmationResult
       .confirm(otp)
-      .then(resp => {
+      .then((resp) => {
         console.log('resp', resp);
         this.route.navigate(['home']);
       })
-      .catch(reason => alert(`Error: ${reason}`));
+      .catch((reason) => alert(`Error: ${reason}`));
   }
 
   public onchange(num) {
@@ -88,24 +91,42 @@ export class LoginPhoneVerificationPage implements OnInit {
       this.inputFocus5 = false;
       this.inputFocus6 = false;
     }
-
   }
 
   public next(el, val) {
     const numberRegex = /^[0-9\s]*$/;
     const regexp = /^\S*$/;
-    if (val === '1' && numberRegex.test(this.otpInput1) && regexp.test(this.otpInput1)) {
+    if (
+      val === '1' &&
+      numberRegex.test(this.otpInput1) &&
+      regexp.test(this.otpInput1)
+    ) {
       el.setFocus();
-    } else if (val === '2' && numberRegex.test(this.otpInput2) && regexp.test(this.otpInput2)) {
+    } else if (
+      val === '2' &&
+      numberRegex.test(this.otpInput2) &&
+      regexp.test(this.otpInput2)
+    ) {
       el.setFocus();
-    } else if (val === '3' && numberRegex.test(this.otpInput3) && regexp.test(this.otpInput3)) {
+    } else if (
+      val === '3' &&
+      numberRegex.test(this.otpInput3) &&
+      regexp.test(this.otpInput3)
+    ) {
       el.setFocus();
-    } else if (val === '4' && numberRegex.test(this.otpInput4) && regexp.test(this.otpInput4)) {
+    } else if (
+      val === '4' &&
+      numberRegex.test(this.otpInput4) &&
+      regexp.test(this.otpInput4)
+    ) {
       el.setFocus();
-    } else if (val === '5' && numberRegex.test(this.otpInput5) && regexp.test(this.otpInput5)) {
+    } else if (
+      val === '5' &&
+      numberRegex.test(this.otpInput5) &&
+      regexp.test(this.otpInput5)
+    ) {
       el.setFocus();
     }
-
   }
 
   public preview(el) {
@@ -116,14 +137,11 @@ export class LoginPhoneVerificationPage implements OnInit {
 
   public onGetOTP() {
     this.angularFireAuth.auth
-      .signInWithPhoneNumber(
-        this.phoneNumber,
-        this.recaptchaVerifier
-      )
-      .then(confirmationResult => {
+      .signInWithPhoneNumber(this.phoneNumber, this.recaptchaVerifier)
+      .then((confirmationResult) => {
         console.log('confirmationResult', confirmationResult);
         this.confirmationResult = confirmationResult;
       })
-      .catch(reason => alert(`Error: ${reason}`));
+      .catch((reason) => alert(`Error: ${reason}`));
   }
 }
