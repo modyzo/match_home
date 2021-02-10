@@ -136,7 +136,7 @@ export class LoginPhoneVerificationPage implements OnInit {
   }
 
   public onGetOTP() {
-    this.angularFireAuth.auth
+    this.angularFireAuth
       .signInWithPhoneNumber(this.phoneNumber, this.recaptchaVerifier)
       .then((confirmationResult) => {
         console.log('confirmationResult', confirmationResult);
