@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
 import { ShareProfileComponent } from '@app/components/share-profile/share-profile.component';
 import { ChatStartComponent } from '@app/components/chat-start/chat-start.component';
@@ -26,6 +26,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
+import { TokenizerService } from './services/tokenizer.service';
+import { AddTokenInterceptor } from './services/add-token-interceptors.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { environment } from '../environments/environment';
     StatusBar,
     SplashScreen,
     Device,
+    TokenizerService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

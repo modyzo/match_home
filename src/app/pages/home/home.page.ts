@@ -1,14 +1,20 @@
-
-
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { IonSlides, IonContent } from '@ionic/angular';
 import { DataService } from '@app/services/data.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
-import { SwingCardDirective, SwingStackDirective, Direction, ThrowEvent, DragEvent, StackConfig } from '../../ionic-swing/ionic-swing.module';
+import {
+  SwingCardDirective,
+  SwingStackDirective,
+  Direction,
+  ThrowEvent,
+  DragEvent,
+  StackConfig,
+} from '../../ionic-swing/ionic-swing.module';
 import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
 import { environment } from '@env/environment';
+import { ApiService } from '@app/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -16,41 +22,41 @@ import { environment } from '@env/environment';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   filterTerm: string;
-  userRecords = [{
-    'id': 1,
-    'name': 'House',
-  },
-  {
-    'id': 2,
-    'name': 'Apartaments',
-
-  }
-]
-
+  userRecords = [
+    {
+      id: 1,
+      name: 'House',
+    },
+    {
+      id: 2,
+      name: 'Apartaments',
+    },
+  ];
 
   @ViewChild('IonContent', { static: true }) content: IonContent;
   @ViewChild('Slides', { static: true }) slides: IonSlides;
-  @ViewChild('swingStack', { static: true, read: SwingStackDirective }) swingStack: SwingStackDirective;
-  @ViewChildren('swingCards', { read: SwingCardDirective }) swingCards: QueryList<SwingCardDirective>;
+  @ViewChild('swingStack', { static: true, read: SwingStackDirective })
+  swingStack: SwingStackDirective;
+  @ViewChildren('swingCards', { read: SwingCardDirective })
+  swingCards: QueryList<SwingCardDirective>;
   slideOpts = {
     effect: 'flip',
     direction: 'horizontal',
     autoplay: {
       delay: 2000,
-    }
+    },
   };
   segment = '';
   index = 0;
   data: Array<any> = [];
 
   segmentButton: any = 'flame';
-  userDetail: { userDetails: string; }[];
+  userDetail: { userDetails: string }[];
   cards: Array<any>;
   stackConfig: StackConfig;
   recentCard = '';
-  slidesImg: { image: string; }[];
+  slidesImg: { image: string }[];
   footerIcon: any[];
   subSegmentButton = 'messages';
   modalData: any;
@@ -59,7 +65,7 @@ export class HomePage {
   modalRefreshData: any;
   showButton: boolean;
   modalGold: any;
-  hasUserData: any;
+  hasUserData = false;
   conversation = environment.conversation;
   phone_model = 'iPhone';
   input = '';
@@ -72,10 +78,12 @@ export class HomePage {
   constructor(
     public dataService: DataService,
     public route: Router,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    private apiService: ApiService
+  ) {
     this.data = environment.tabs;
     this.userDetail = environment.details;
-    this.cards = environment.card;
+    this.cards = [];
     this.footerIcon = environment.footer_icons;
     this.modalStarData = environment.star;
     this.modalFlashData = environment.flash;
@@ -87,11 +95,21 @@ export class HomePage {
     this.superLike = false;
     this.clicked = true;
     this.hasUserData = false;
-
     this.stackConfig = {
-      allowedDirections: [Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT],
+      allowedDirections: [
+        Direction.UP,
+        Direction.DOWN,
+        Direction.LEFT,
+        Direction.RIGHT,
+      ],
       throwOutConfidence: (offsetX, offsetY, element) => {
-        return Math.min(Math.max(Math.abs(offsetX) / (element.offsetWidth / 1.7), Math.abs(offsetY) / (element.offsetHeight / 2)), 1);
+        return Math.min(
+          Math.max(
+            Math.abs(offsetX) / (element.offsetWidth / 1.7),
+            Math.abs(offsetY) / (element.offsetHeight / 2)
+          ),
+          1
+        );
       },
 
       transform: (element, x, y, r) => {
@@ -99,11 +117,20 @@ export class HomePage {
       },
       throwOutDistance: (d) => {
         return 800;
-      }
+      },
     };
-    setTimeout(() => {
-      this.hasUserData = true;
-    }, 2000);
+    this.getCards();
+  }
+
+  getCards() {
+    this.apiService.getList().subscribe(
+      (res) => {
+        this.cards = res.estates;
+        console.log(this.cards);
+        this.hasUserData = true;
+      },
+      (error) => console.log(error)
+    );
   }
 
   clickedIconIs(icon) {
@@ -128,24 +155,35 @@ export class HomePage {
         this.cards.pop();
       }, 200);
     } else if (icon === 'star') {
-      this.dataService.openModal(TinderIconsComponent, this.modalStarData, 'modalBackground');
+      this.dataService.openModal(
+        TinderIconsComponent,
+        this.modalStarData,
+        'modalBackground'
+      );
     } else if (icon === 'flash') {
-      this.dataService.openModal(TinderIconsComponent, this.modalFlashData, 'modalBackground');
+      this.dataService.openModal(
+        TinderIconsComponent,
+        this.modalFlashData,
+        'modalBackground'
+      );
     } else if (icon === 'star') {
-      this.dataService.openModal(TinderIconsComponent, this.modalStarData, 'modalBackground');
+      this.dataService.openModal(
+        TinderIconsComponent,
+        this.modalStarData,
+        'modalBackground'
+      );
     }
   }
 
-
-
-  updateImage(i) {
-  }
+  updateImage(i) {}
   onItemMove(element, x, y, r) {
     const color = '';
     const abs = Math.abs(x);
     const min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
     const hexCode = this.decimalToHex(min, 2);
-    element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
+    element.style[
+      'transform'
+    ] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
   }
 
   voteUp(like: boolean) {
@@ -164,7 +202,10 @@ export class HomePage {
 
   decimalToHex(d, padding) {
     let hex = Number(d).toString(16);
-    padding = typeof (padding) === 'undefined' || padding === null ? padding = 2 : padding;
+    padding =
+      typeof padding === 'undefined' || padding === null
+        ? (padding = 2)
+        : padding;
 
     while (hex.length < padding) {
       hex = '0' + hex;
@@ -173,20 +214,19 @@ export class HomePage {
     return hex;
   }
 
-
-
   segmentChanged(event: any) {
     this.segmentButton = event.detail.value;
   }
   openAndHideDetail(userData: any) {
-    this.route.navigate(['profile-details', { userData: JSON.stringify(userData) }]);
+    this.route.navigate([
+      'profile-details',
+      { userData: JSON.stringify(userData) },
+    ]);
     console.log(userData);
-
   }
 
-
   async change() {
-    await this.slides.getActiveIndex().then(data => this.index = data);
+    await this.slides.getActiveIndex().then((data) => (this.index = data));
     if (this.index === 0) {
       this.showButton = true;
     } else if (this.index !== 0) {
@@ -199,7 +239,6 @@ export class HomePage {
       this.like = true;
       this.disLike = false;
       this.superLike = false;
-
     } else if (event.offset < -5 || event.throwDirection === 'Symbol(LEFT)') {
       this.like = false;
       this.disLike = true;
@@ -216,12 +255,10 @@ export class HomePage {
     this.superLike = false;
   }
 
-
   segmentButtonClicked(event: any) {
     this.subSegmentButton = event.detail.value;
   }
   doRefresh(event) {
-
     setTimeout(() => {
       event.target.complete();
     }, 2000);
@@ -237,7 +274,11 @@ export class HomePage {
 
   send() {
     if (this.input !== '') {
-      this.conversation.push({ text: this.input, sender: 1, image: 'assets/images/sg1.jpg' });
+      this.conversation.push({
+        text: this.input,
+        sender: 1,
+        image: 'assets/images/sg1.jpg',
+      });
       this.input = '';
       setTimeout(() => {
         this.content.scrollToBottom(50);
@@ -248,6 +289,3 @@ export class HomePage {
     $event.preventDefault();
   }
 }
-
-
-
