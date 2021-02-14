@@ -5,8 +5,8 @@ import {
 } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
-import { Observable, of } from 'rxjs';
-import {} from 'rxjs/observable/ErrorObservable';
+import { Observable } from 'rxjs';
+
 import { tap, catchError } from 'rxjs/operators';
 
 @Injectable()
