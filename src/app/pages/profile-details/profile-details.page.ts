@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '@app/services/data.service';
-import { NavController, PopoverController, Platform } from '@ionic/angular';
+import {
+  NavController,
+  PopoverController,
+  Platform,
+  IonSlides,
+} from '@ionic/angular';
 import { ShareProfileComponent } from '@app/components/share-profile/share-profile.component';
 import { ReportComponent } from '@app/components/report/report.component';
 import { environment } from '@env/environment';
@@ -12,6 +17,7 @@ import { environment } from '@env/environment';
   styleUrls: ['./profile-details.page.scss'],
 })
 export class ProfileDetailsPage implements OnInit {
+  @ViewChild('mySlider') slider: IonSlides;
   isIos: boolean;
   profileData: any;
   icons: any;
@@ -22,9 +28,9 @@ export class ProfileDetailsPage implements OnInit {
       el: '.swiper-scrollbar',
       draggable: true,
     },
-    // autoplay: {
-    //   delay: 2000,
-    // }
+    autoplay: {
+      delay: 2000,
+    },
   };
   slidesData: any;
   name: any;
@@ -33,30 +39,34 @@ export class ProfileDetailsPage implements OnInit {
   distance: any;
   rooms: any;
 
-  constructor(public activeRouter: ActivatedRoute, public service: DataService, public navCtrl: NavController, public popOver: PopoverController, public platform: Platform) {
+  constructor(
+    public activeRouter: ActivatedRoute,
+    public service: DataService,
+    public navCtrl: NavController,
+    public popOver: PopoverController,
+    public platform: Platform
+  ) {
     this.isIos = this.platform.is('ios');
     this.icons = environment.footer_icons;
     this.activeRouter.params.subscribe((params) => {
       this.profileData = JSON.parse(params.userData);
-      this.slidesData = this.profileData.slides;
+      this.slidesData = this.profileData.pictures;
       this.name = this.profileData.name;
       this.price = this.profileData.price;
-      this.bathrooms = this.profileData.bathrooms;
       this.distance = this.profileData.distance;
-      this.rooms = this.profileData.rooms;
       console.log('param data coming from home', this.slidesData);
     });
   }
   goBack() {
     this.navCtrl.back();
   }
-  ngOnInit() {
-  }
+
+  ngOnInit() {}
   async openPopoverOptions(ev) {
     const popover = await this.popOver.create({
       component: ShareProfileComponent,
       event: ev,
-      translucent: true
+      translucent: true,
     });
     return await popover.present();
   }
@@ -64,7 +74,7 @@ export class ProfileDetailsPage implements OnInit {
     this.service.openModal(ReportComponent, '');
   }
   async change(ev: any) {
-    // await this.slides.getActiveIndex().then(data => this.index = data);
+    // await this.slidesData.getActiveIndex().then((data) => (this.index = data));
     // // this.segment = this.data[this.index].title;
     // // this.drag();
     // if (this.index === 0) {
@@ -72,5 +82,9 @@ export class ProfileDetailsPage implements OnInit {
     // } else if (this.index !== 0) {
     //   this.showButton = false
     // }
+  }
+
+  async setActiveSliderIndex(index: any) {
+    this.slider.slideTo(index);
   }
 }

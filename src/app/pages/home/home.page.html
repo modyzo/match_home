@@ -1,13 +1,20 @@
 <ion-header mode="md">
   <ion-toolbar mode="md">
     <ion-segment (ionChange)="segmentChanged($event)" [value]="segmentButton">
-      <ion-segment-button *ngFor="let item of data" [value]=item.title mode="md">
-        <ion-icon name={{item.title}}></ion-icon>
+      <ion-segment-button
+        *ngFor="let item of data"
+        [value]="item.title"
+        mode="md"
+      >
+        <ion-icon name="{{item.title}}"></ion-icon>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
   <ion-toolbar mode="md" *ngIf="segmentButton === 'chatbubbles'">
-    <ion-segment [value]="subSegmentButton" (ionChange)="segmentButtonClicked($event)">
+    <ion-segment
+      [value]="subSegmentButton"
+      (ionChange)="segmentButtonClicked($event)"
+    >
       <ion-segment-button value="messages" mode="md" class="borderRight">
         <ion-text>Messages</ion-text>
       </ion-segment-button>
@@ -22,34 +29,44 @@
   <!--Search bar-->
 </ion-content>
 
+<ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true">
+</ion-searchbar>
 
-<ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true"> </ion-searchbar>
-
-<ion-list *ngIf='filterTerm?.length > 0'>
-      <ion-item *ngFor="let data of userRecords | filter:filterTerm">
-      <ion-label>{{data.name}}</ion-label>
-      </ion-item>
-</ion-list>   
-
-
-
-
-
+<ion-list *ngIf="filterTerm?.length > 0">
+  <ion-item *ngFor="let data of userRecords | filter:filterTerm">
+    <ion-label>{{data.name}}</ion-label>
+  </ion-item>
+</ion-list>
 
 <ion-content *ngIf="segmentButton === 'flame'">
   <div *ngIf="!hasUserData || !cards.length" class="nodataDiv ion-padding">
     <ion-avatar>
       <ion-img src="assets/chat/house.png"></ion-img>
     </ion-avatar>
-    <h3 class="text-center neutra font-caps red" style="font-weight: bolder;">
-      {{ cards.length ? 'We are looking for people around you' : 'No more prospects around you' }}
+    <h3 class="text-center neutra font-caps red" style="font-weight: bolder">
+      {{ cards.length ? 'We are looking for estates around you' : 'No more
+      prospects around you' }}
     </h3>
   </div>
-  <div appSwingStack #swingStack (throwoutleft)="voteUp(true)" (throwoutright)="voteUp(false)"
-    (throwout)="onThrowOut($event)" (dragmove)="onDragMove($event)" (dragend)="onDragEnd($event)"
-    [stackConfig]="stackConfig" class="stack">
-    <ion-card class="card" id="dummycard" appSwingCard #swingCards *ngFor="let item of cards; let i = index"
-      [ngStyle]="{'background':'url('+ item.image +')','background-size':'cover', 'height': '60%', 'margin-bottom': '150px'}">
+  <div
+    appSwingStack
+    #swingStack
+    (throwoutleft)="voteUp(true)"
+    (throwoutright)="voteUp(false)"
+    (throwout)="onThrowOut($event)"
+    (dragmove)="onDragMove($event)"
+    (dragend)="onDragEnd($event)"
+    [stackConfig]="stackConfig"
+    class="stack"
+  >
+    <ion-card
+      class="card"
+      id="dummycard"
+      appSwingCard
+      #swingCards
+      *ngFor="let item of cards; let i = index"
+      [ngStyle]="{'background':'url('+ item.pictures[0].urlXXL +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}"
+    >
       <div class="itemdiv">
         <div class="like" *ngIf="like && i === cards.length -1">
           <p class="ion-text-uppercase">Like</p>
@@ -60,30 +77,51 @@
         <div class="superLike" *ngIf="superLike && i === cards.length -1">
           <p class="ion-text-uppercase">SuperLike</p>
         </div>
-        <ion-item (click)="openAndHideDetail(item)" *ngIf="i === cards.length -1">
+        <ion-item
+          (click)="openAndHideDetail(item)"
+          *ngIf="i === cards.length -1"
+        >
           <ion-label>
-            <h1 class="ion-text-start">{{item.name}} , <span>{{item.price}}&euro;</span></h1>
+            <h1 class="ion-text-start">
+              {{item.name}} , <span>{{item.price}}{{item.currency}}</span>
+            </h1>
             <div class="sameLineContent">
-              <ion-icon slot="start" name="home-outline" expand="icon-only"></ion-icon>
+              <ion-icon
+                slot="start"
+                name="home-outline"
+                expand="icon-only"
+              ></ion-icon>
               <p class="ion-text-start">{{item.rooms}} Rooms</p>
             </div>
             <div class="sameLineContent">
-              <ion-icon slot="start" name="water-outline" expand="icon-only"></ion-icon>
-              <p class="ion-text-start">{{item.bathroom}} Bathrooms</p>
+              <ion-icon
+                slot="start"
+                name="water-outline"
+                expand="icon-only"
+              ></ion-icon>
+              <p class="ion-text-start">{{item.bathRooms}} Bathrooms</p>
             </div>
           </ion-label>
-          <ion-icon name="information-circle" slot="end" expand="icon-only" color="light" class="info"></ion-icon>
-
+          <ion-icon
+            name="information-circle"
+            slot="end"
+            expand="icon-only"
+            color="light"
+            class="info"
+          ></ion-icon>
         </ion-item>
       </div>
     </ion-card>
   </div>
 </ion-content>
 
-
 <ion-content *ngIf="segmentButton === 'chatbubbles'" #IonContent>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="crescent">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="crescent"
+    >
     </ion-refresher-content>
   </ion-refresher>
   <ion-row>
@@ -98,16 +136,23 @@
   </ion-row>
 </ion-content>
 
-
 <ion-footer *ngIf="cards.length && segmentButton === 'flame' && hasUserData">
   <ion-toolbar>
     <div class="footerContent">
-      <div class="icon_background" *ngFor="let icon of footerIcon;let i = index"
-        [ngClass]="{'transform-icon': i % 2 != 0}">
-        <ion-icon name={{icon.title}} expand="icon-only" color={{icon.color}} (click)="clickedIconIs(icon.title)"
-          class="icon_size" mode={{icon.mode}}></ion-icon>
+      <div
+        class="icon_background"
+        *ngFor="let icon of footerIcon;let i = index"
+        [ngClass]="{'transform-icon': i % 2 != 0}"
+      >
+        <ion-icon
+          name="{{icon.title}}"
+          expand="icon-only"
+          color="{{icon.color}}"
+          (click)="clickedIconIs(icon.title)"
+          class="icon_size"
+          mode="{{icon.mode}}"
+        ></ion-icon>
       </div>
     </div>
-    
   </ion-toolbar>
 </ion-footer>
