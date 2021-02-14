@@ -1,7 +1,12 @@
 ion-content {
 	--background: #f0f4f9;
-	--padding-bottom: 0.5rem;
-	--padding-top: 0.5rem;
-	--padding-start: 1.25rem;
-	--padding-end: 1.25rem; 
+}
+
+.apply-btn {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	padding: 1rem;
+	background: #fff;
+    color: red;
 }
