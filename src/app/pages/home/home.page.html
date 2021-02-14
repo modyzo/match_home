@@ -29,8 +29,12 @@
   <!--Search bar-->
 </ion-content>
 
-<ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true">
-</ion-searchbar>
+<!-- <ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true">
+</ion-searchbar> -->
+<div class="filter-container">
+  <ion-icon (click)="showFilter()" name="filter-circle-outline"></ion-icon>
+</div>
+
 
 <ion-list *ngIf="filterTerm?.length > 0">
   <ion-item *ngFor="let data of userRecords | filter:filterTerm">

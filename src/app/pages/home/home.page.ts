@@ -15,6 +15,8 @@ import {
 import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
 import { environment } from '@env/environment';
 import { ApiService } from '@app/services/api.service';
+import { mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -122,8 +124,8 @@ export class HomePage {
     this.getCards();
   }
 
-  getCards() {
-    this.apiService.getList().subscribe(
+  private getCards() {
+    this.apiService.getList({}).subscribe(
       (res) => {
         this.cards = res.estates;
         console.log(this.cards);
@@ -175,7 +177,7 @@ export class HomePage {
     }
   }
 
-  updateImage(i) {}
+  updateImage(i) { }
   onItemMove(element, x, y, r) {
     const color = '';
     const abs = Math.abs(x);
@@ -285,7 +287,29 @@ export class HomePage {
       }, 200);
     }
   }
+
   something($event: any) {
     $event.preventDefault();
+  }
+
+  public showFilter() {
+    this.dataService.openRxModal('filter', null, true, '', false).pipe(
+      mergeMap((modalRes) => {
+        console.log(modalRes);
+        if (modalRes.data) {
+          return this.apiService.getList({ Filter: modalRes.data })
+        } else {
+          return of(null);
+        }
+      })
+    ).subscribe(
+      (res) => {
+        if (res) {
+          this.cards = res.estates;
+          console.log(res)
+          this.hasUserData = true;
+        }
+      }
+    );
   }
 }

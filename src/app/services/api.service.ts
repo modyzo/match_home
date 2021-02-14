@@ -23,8 +23,8 @@ export class ApiService {
     });
   }
 
-  public getList() {
+  public getList(requestData) {
     console.log('propal');
-    return this.postRequest('v1/estates/list', {});
+    return this.postRequest('v1/estates/list', requestData);
   }
 }

@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
 import { ShareProfileComponent } from '@app/components/share-profile/share-profile.component';
 import { ChatStartComponent } from '@app/components/chat-start/chat-start.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportComponent } from '@app/components/report/report.component';
 import { FeedPopoverComponent } from '@app/components/feed-popover/feed-popover.component';
 import { MatchComponent } from '@app/components/match/match.component';
@@ -63,6 +63,7 @@ import { AddTokenInterceptor } from './services/add-token-interceptors.service';
     AngularFireAuthModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [
