@@ -24,7 +24,6 @@ export class ApiService {
   }
 
   public getList() {
-    console.log('propal');
     return this.postRequest('v1/estates/list', {});
   }
 }

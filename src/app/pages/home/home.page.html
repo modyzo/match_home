@@ -85,7 +85,7 @@
             <h1 class="ion-text-start">
               {{item.name}} , <span>{{item.price}}{{item.currency}}</span>
             </h1>
-            <div class="sameLineContent">
+            <div *ngIf="item.rooms" class="sameLineContent">
               <ion-icon
                 slot="start"
                 name="home-outline"
@@ -93,7 +93,7 @@
               ></ion-icon>
               <p class="ion-text-start">{{item.rooms}} Rooms</p>
             </div>
-            <div class="sameLineContent">
+            <div *ngIf="item.bathRooms" class="sameLineContent">
               <ion-icon
                 slot="start"
                 name="water-outline"
