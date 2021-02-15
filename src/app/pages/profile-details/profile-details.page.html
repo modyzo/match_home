@@ -12,13 +12,13 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-item>
+  <!-- <ion-item>
     <pre>
     {{profileData | json}} 
   </pre
     >
-  </ion-item>
-  <!-- <ion-slides
+  </ion-item> -->
+  <ion-slides
     [options]="slideOpts"
     #mySlider
     scrollbar="true"
@@ -46,7 +46,7 @@
         </ion-fab>
       </ion-card>
     </ion-slide>
-  </ion-slides> -->
+  </ion-slides>
 
   <div class="position-relative">
     <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="goBack()">
@@ -70,7 +70,7 @@
             expand="icon-only"
             mode="ios"
           ></ion-icon>
-          <p class="ion-text-start">{{profileData.rooms}} Kamers</p>
+          <p class="ion-text-start">Kamers: {{profileData.rooms}}</p>
         </div>
         <div *ngIf="profileData.bathRooms" class="sameLineContent">
           <ion-icon
@@ -79,8 +79,35 @@
             expand="icon-only"
             mode="ios"
           ></ion-icon>
-          <p class="ion-text-start">{{profileData.bathRooms}} Badkamers</p>
+          <p class="ion-text-start">Badkamers: {{profileData.bathRooms}}</p>
         </div>
+        <div *ngIf="profileData.area" class="sameLineContent">
+          <ion-icon
+            slot="start"
+            name="home-outline"
+            expand="icon-only"
+            mode="ios"
+          ></ion-icon>
+          <p class="ion-text-start">Oppervlakte: {{profileData.area}} м²</p>
+        </div>
+        <div
+          *ngFor="let detail of mainDetailTranslateList; let i = index"
+          [attr.data-index]="i"
+        >
+          <div *ngIf="profileData[detail]" class="sameLineContent">
+            <ion-icon
+              slot="start"
+              name="home-outline"
+              expand="icon-only"
+              mode="ios"
+            ></ion-icon>
+            <p class="ion-text-start">
+              {{mainDetailTranslate[detail] | titlecase}}:
+              {{profileData[detail]}}
+            </p>
+          </div>
+        </div>
+
         <div
           *ngIf="stateOfBuilding[profileData.state.id]"
           class="sameLineContent"
@@ -92,8 +119,22 @@
             mode="ios"
           ></ion-icon>
           <p class="ion-text-start">
-            Staat van het gebouw: {{stateOfBuilding[profileData.state.id]}}
+            Staat van het gebouw: {{stateOfBuilding[profileData.state.id] |
+            titlecase}}
           </p>
+        </div>
+        <div
+          *ngFor="let item of details; let i = index"
+          [attr.data-index]="i"
+          class="sameLineContent"
+        >
+          <ion-icon
+            slot="start"
+            name="home-outline"
+            expand="icon-only"
+            mode="ios"
+          ></ion-icon>
+          <p class="ion-text-start">{{item | titlecase}}</p>
         </div>
       </ion-label>
     </ion-item>
