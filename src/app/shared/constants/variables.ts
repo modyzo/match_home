@@ -25,6 +25,33 @@ export const stateOfBuilding = {
   24: 'terrein klaar voor constructie',
 };
 
+export const stateOfBuildingList = [
+  { id: 1, name: 'nieuw' },
+  { id: 2, name: 'uitstekend' },
+  { id: 3, name: 'hernieuwd' },
+  { id: 4, name: 'goede staat' },
+  { id: 5, name: 'deels te renoveren' },
+  { id: 6, name: 'te renoveren' },
+  { id: 7, name: 'te hermaken' },
+  { id: 8, name: 'af te breken' },
+  { id: 9, name: 'niet gekend' },
+  { id: 10, name: 'Groen vastgoed' },
+  { id: 11, name: 'te bouwen' },
+  { id: 12, name: 'ruwbouw' },
+  { id: 13, name: 'nieuwbouw project' },
+  { id: 14, name: 'kleine werken' },
+  { id: 15, name: 'gerenoveerd' },
+  { id: 16, name: 'concept' },
+  { id: 17, name: 'ontwikkeld' },
+  { id: 18, name: 'klaar om te starten' },
+  { id: 19, name: 'water- en winddicht' },
+  { id: 20, name: 'afgewerkt' },
+  { id: 21, name: 'opgeleverd' },
+  { id: 22, name: 'gepleisterd' },
+  { id: 23, name: 'terrein nog af te werken' },
+  { id: 24, name: 'terrein klaar voor constructie' },
+];
+
 export const availabilityOfBuilding = {
   1: 'vanaf akte',
   2: 'af te spreken met eigenaar',
@@ -34,3 +61,13 @@ export const availabilityOfBuilding = {
   6: 'bij oplevering',
   7: 'in onderling overleg',
 };
+
+export const availabilityOfBuildingList = [
+  { id: 1, name: 'vanaf akte' },
+  { id: 2, name: 'af te spreken met eigenaar' },
+  { id: 3, name: 'mits inachtneming huurders' },
+  { id: 4, name: 'niet beschikbaar' },
+  { id: 5, name: 'onmiddellijk' },
+  { id: 6, name: 'bij oplevering' },
+  { id: 7, name: 'in onderling overleg' },
+];
