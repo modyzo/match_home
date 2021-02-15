@@ -293,21 +293,43 @@ export class HomePage {
   }
 
   public showFilter() {
-    this.dataService.openRxModal('filter', null, true, '', false).pipe(
+    this.dataService.openRxModal('filter', null, true, '', true).pipe(
       mergeMap((modalRes) => {
-        console.log(modalRes);
         if (modalRes.data) {
-          return this.apiService.getList({ Filter: modalRes.data })
+          const data = modalRes.data;
+          console.log(data);
+          
+          const requestBody = {
+            PriceRange: {
+              Min: data.price.lower,
+              Max: data.price.upper
+            },
+            AvailabilityIds: data.availability,
+            AreaRange: {
+              Min: data.square.lower,
+              Max: data.square.upper
+            },
+            GardenAreaRange: {
+              Min: data.squareGarden.lower,
+              Max: data.squareGarden.upper
+            },
+            EstateIds: data.stateOfBuild,
+            BathRooms: data.bathroom,
+            Garage: data.garage
+          };
+          return this.apiService.getList({ Filter: requestBody })
         } else {
           return of(null);
         }
       })
     ).subscribe(
       (res) => {
-        if (res) {
+        this.hasUserData = true;
+        if (res && res.estates && res.estates.length) {
           this.cards = res.estates;
           console.log(res)
-          this.hasUserData = true;
+        } else {
+          this.cards = [];
         }
       }
     );

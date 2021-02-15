@@ -12,7 +12,13 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-slides
+  <ion-item>
+    <pre>
+    {{profileData | json}} 
+  </pre
+    >
+  </ion-item>
+  <!-- <ion-slides
     [options]="slideOpts"
     #mySlider
     scrollbar="true"
@@ -40,7 +46,7 @@
         </ion-fab>
       </ion-card>
     </ion-slide>
-  </ion-slides>
+  </ion-slides> -->
 
   <div class="position-relative">
     <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="goBack()">
@@ -51,29 +57,43 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <h3>{{name}}, <span>{{price}}&euro;</span></h3>
+          <h3>{{name}}, <span>{{price}}{{profileData.currency}}</span></h3>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-item>
       <ion-label>
-        <div class="sameLineContent">
+        <div *ngIf="profileData.rooms" class="sameLineContent">
           <ion-icon
             slot="start"
             name="home-outline"
             expand="icon-only"
             mode="ios"
           ></ion-icon>
-          <p class="ion-text-start">{{profileData.rooms}} Rooms</p>
+          <p class="ion-text-start">{{profileData.rooms}} Kamers</p>
         </div>
-        <div class="sameLineContent">
+        <div *ngIf="profileData.bathRooms" class="sameLineContent">
           <ion-icon
             slot="start"
             name="water-outline"
             expand="icon-only"
             mode="ios"
           ></ion-icon>
-          <p class="ion-text-start">{{profileData.bathRooms}} Bathrooms</p>
+          <p class="ion-text-start">{{profileData.bathRooms}} Badkamers</p>
+        </div>
+        <div
+          *ngIf="stateOfBuilding[profileData.state.id]"
+          class="sameLineContent"
+        >
+          <ion-icon
+            slot="start"
+            name="home-outline"
+            expand="icon-only"
+            mode="ios"
+          ></ion-icon>
+          <p class="ion-text-start">
+            Staat van het gebouw: {{stateOfBuilding[profileData.state.id]}}
+          </p>
         </div>
       </ion-label>
     </ion-item>
