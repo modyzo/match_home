@@ -81,15 +81,18 @@
           ></ion-icon>
           <p class="ion-text-start">{{profileData.bathRooms}} Badkamers</p>
         </div>
-        <div *ngIf="profileData.bathRooms" class="sameLineContent">
+        <div
+          *ngIf="stateOfBuilding[profileData.state.id]"
+          class="sameLineContent"
+        >
           <ion-icon
             slot="start"
-            name="water-outline"
+            name="home-outline"
             expand="icon-only"
             mode="ios"
           ></ion-icon>
           <p class="ion-text-start">
-            {{stateOfBuilding[profileData.state.id]}} State
+            Staat van het gebouw: {{stateOfBuilding[profileData.state.id]}}
           </p>
         </div>
       </ion-label>
