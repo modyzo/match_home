@@ -5,7 +5,12 @@ import {
 } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
+<<<<<<< HEAD
 import { Observable, of } from 'rxjs';
+=======
+import { Observable } from 'rxjs';
+
+>>>>>>> main
 import { tap, catchError } from 'rxjs/operators';
 
 @Injectable()
