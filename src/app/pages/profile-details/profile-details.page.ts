@@ -10,7 +10,7 @@ import {
 import { ShareProfileComponent } from '@app/components/share-profile/share-profile.component';
 import { ReportComponent } from '@app/components/report/report.component';
 import { environment } from '@env/environment';
-
+import { stateOfBuilding } from '@app/shared/constants/variables';
 @Component({
   selector: 'app-profile-details',
   templateUrl: './profile-details.page.html',
@@ -21,6 +21,7 @@ export class ProfileDetailsPage implements OnInit {
   isIos: boolean;
   profileData: any;
   icons: any;
+  stateOfBuilding = stateOfBuilding;
   slideOpts = {
     effect: 'flip',
     direction: 'horizontal',
