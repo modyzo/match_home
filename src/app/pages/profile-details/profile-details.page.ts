@@ -10,6 +10,12 @@ import {
 import { ShareProfileComponent } from '@app/components/share-profile/share-profile.component';
 import { ReportComponent } from '@app/components/report/report.component';
 import { environment } from '@env/environment';
+import {
+  stateOfBuilding,
+  mainDetailTranslate,
+  mainDetailTranslateList,
+} from '@app/shared/constants/variables';
+import { adaptDataToNormalizedInfo } from '@app/shared/helprers/details-helper';
 
 @Component({
   selector: 'app-profile-details',
@@ -21,6 +27,9 @@ export class ProfileDetailsPage implements OnInit {
   isIos: boolean;
   profileData: any;
   icons: any;
+  stateOfBuilding = stateOfBuilding;
+  mainDetailTranslateList = mainDetailTranslateList;
+  mainDetailTranslate = mainDetailTranslate;
   slideOpts = {
     effect: 'flip',
     direction: 'horizontal',
@@ -38,6 +47,7 @@ export class ProfileDetailsPage implements OnInit {
   bathrooms: any;
   distance: any;
   rooms: any;
+  details = [];
 
   constructor(
     public activeRouter: ActivatedRoute,
@@ -50,6 +60,10 @@ export class ProfileDetailsPage implements OnInit {
     this.icons = environment.footer_icons;
     this.activeRouter.params.subscribe((params) => {
       this.profileData = JSON.parse(params.userData);
+      this.details = adaptDataToNormalizedInfo(
+        this.profileData.details,
+        this.profileData.currency
+      );
       this.slidesData = this.profileData.pictures;
       this.name = this.profileData.name;
       this.price = this.profileData.price;
