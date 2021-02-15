@@ -22,5 +22,5 @@ export const adaptDataToNormalizedInfo = (
       adaptedData.push(`${translate}: ${iterator.value} м²`);
     }
   }
-  return data;
+  return adaptedData;
 };
