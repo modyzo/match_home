@@ -28,6 +28,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { TokenizerService } from './services/tokenizer.service';
 import { AddTokenInterceptor } from './services/add-token-interceptors.service';
+import { CapitalCasePipe } from './shared/pipes/capital-case.pipe';
 
 @NgModule({
   declarations: [

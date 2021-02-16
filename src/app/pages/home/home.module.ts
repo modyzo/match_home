@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -25,13 +24,15 @@ import { MessageFeedComponent } from '@app/components/message-feed/message-feed.
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
-      }
-    ])
+        component: HomePage,
+      },
+    ]),
   ],
-  declarations: [HomePage, ChatComponent, ContactsComponent, MessageFeedComponent]
+  declarations: [
+    HomePage,
+    ChatComponent,
+    ContactsComponent,
+    MessageFeedComponent,
+  ],
 })
-export class HomePageModule { }
-
-
-
+export class HomePageModule {}

@@ -6,12 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ProfileDetailsPage } from './profile-details.page';
+import { CapitalCasePipe } from '@app/shared/pipes/capital-case.pipe';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfileDetailsPage
-  }
+    component: ProfileDetailsPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +20,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [ProfileDetailsPage]
+  declarations: [ProfileDetailsPage, CapitalCasePipe],
 })
-export class ProfileDetailsPageModule { }
+export class ProfileDetailsPageModule {}

@@ -102,7 +102,7 @@
               mode="ios"
             ></ion-icon>
             <p class="ion-text-start">
-              {{mainDetailTranslate[detail] | titlecase}}:
+              {{mainDetailTranslate[detail] | capitalCase}}:
               {{profileData[detail]}}
             </p>
           </div>
@@ -120,7 +120,7 @@
           ></ion-icon>
           <p class="ion-text-start">
             Staat van het gebouw: {{stateOfBuilding[profileData.state.id] |
-            titlecase}}
+            capitalCase}}
           </p>
         </div>
         <div
@@ -134,7 +134,7 @@
             expand="icon-only"
             mode="ios"
           ></ion-icon>
-          <p class="ion-text-start">{{item | titlecase}}</p>
+          <p class="ion-text-start">{{item | capitalCase}}</p>
         </div>
       </ion-label>
     </ion-item>
