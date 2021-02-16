@@ -1,8 +1,7 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { HomePage } from './home.page';
@@ -12,11 +11,13 @@ import { IonicSwingModule } from '../../ionic-swing/ionic-swing.module';
 import { ChatComponent } from '@app/components/chat/chat.component';
 import { ContactsComponent } from '@app/components/contacts/contacts.component';
 import { MessageFeedComponent } from '@app/components/message-feed/message-feed.component';
+import { FilterComponent } from '@app/components/filter/filter.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     Ng2SearchPipeModule,
     IonicModule,
     HttpClientModule,
@@ -25,13 +26,16 @@ import { MessageFeedComponent } from '@app/components/message-feed/message-feed.
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
-      }
-    ])
+        component: HomePage,
+      },
+    ]),
   ],
-  declarations: [HomePage, ChatComponent, ContactsComponent, MessageFeedComponent]
+  declarations: [
+    HomePage,
+    ChatComponent,
+    ContactsComponent,
+    MessageFeedComponent,
+    FilterComponent,
+  ]
 })
-export class HomePageModule { }
-
-
-
+export class HomePageModule {}

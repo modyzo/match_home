@@ -792,6 +792,19 @@ ion-title {
 .toolbarDiv {
   display: flex;
 }
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+
+  ion-icon {
+    font-size: 1.5rem;
+    color: var(--ion-color-danger);
+  }
+}
+
 ion-searchbar {
   width: 235px;
   -webkit-padding-start: 0 !important;

@@ -15,6 +15,8 @@ import {
 import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
 import { environment } from '@env/environment';
 import { ApiService } from '@app/services/api.service';
+import { mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -74,6 +76,7 @@ export class HomePage {
   superLike: boolean;
   nope: boolean;
   clicked: any;
+  public filterFields: any;
 
   constructor(
     public dataService: DataService,
@@ -122,8 +125,8 @@ export class HomePage {
     this.getCards();
   }
 
-  getCards() {
-    this.apiService.getList().subscribe(
+  private getCards() {
+    this.apiService.getList({}).subscribe(
       (res) => {
         this.cards = res.estates;
         console.log(this.cards);
@@ -175,7 +178,7 @@ export class HomePage {
     }
   }
 
-  updateImage(i) {}
+  updateImage(i) { }
   onItemMove(element, x, y, r) {
     const color = '';
     const abs = Math.abs(x);
@@ -285,7 +288,55 @@ export class HomePage {
       }, 200);
     }
   }
+
   something($event: any) {
     $event.preventDefault();
+  }
+
+  public showFilter() {
+    this.dataService.openRxModal(
+      'filter',
+      this.filterFields,
+      true,
+      '',
+      true
+    ).pipe(
+      mergeMap((modalRes) => {
+        if (modalRes.data) {
+          const data = modalRes.data;
+          const requestBody = {
+            PriceRange: {
+              Min: data.price.lower,
+              Max: data.price.upper
+            },
+            AvailabilityIds: data.availability,
+            AreaRange: {
+              Min: data.square.lower,
+              Max: data.square.upper
+            },
+            MinRooms: data.rooms.lower,
+            MaxRooms: data.rooms.upper,
+            EstateIds: data.stateOfBuild,
+            BathRooms: data.bathroom,
+            Garage: data.garage
+          };
+
+          this.filterFields = data;
+          return this.apiService.getList({ Filter: requestBody })
+        } else {
+          return of(null);
+        }
+      })
+    ).subscribe(
+      (res) => {
+        console.log(res);
+        this.hasUserData = true;
+        if (res && res.estates && res.estates.length) {
+          this.cards = res.estates;
+        } else if (res.isValidRequest) {
+          this.cards = [];
+        }
+      }
+    );
   }
 }

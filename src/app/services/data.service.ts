@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { from } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { FilterComponent } from '@app/components/filter/filter.component';
 
 
 @Injectable({
@@ -7,6 +10,9 @@ import { ModalController } from '@ionic/angular';
 })
 
 export class DataService {
+  private componentTypes = {
+    'filter': FilterComponent
+  };
 
   constructor(public modalCtrl: ModalController) { }
 
@@ -17,5 +23,29 @@ export class DataService {
       cssClass: cssClass
     });
     return modal.present();
+  }
+
+  public openRxModal(
+    component: string,
+    data?: any,
+    backdropDismiss?: boolean,
+    cssClass?: string,
+    showBackdrop?: boolean
+  ) {
+    return from(this.modalCtrl.create({
+      component: this.componentTypes[component],
+      componentProps: data ? { data } : null,
+      backdropDismiss: backdropDismiss ? backdropDismiss : false,
+      cssClass: cssClass ? cssClass : '',
+      showBackdrop: showBackdrop ? showBackdrop : false
+    })).pipe(
+      mergeMap((modal) => {
+        return from(modal.present()).pipe(
+          mergeMap(() => {
+            return from(modal.onDidDismiss());
+          })
+        )
+      })
+    );
   }
 }

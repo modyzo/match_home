@@ -2547,7 +2547,6 @@ export const subCategoryDetails = {
 };
 export const mainDetailTranslate = {
   address: 'adres',
-  area: 'Oppervlakte',
   city: 'stad',
   floor: 'verdieping',
   fronts: 'fronten',
@@ -2562,7 +2561,6 @@ export const mainDetailTranslate = {
 
 export const mainDetailTranslateList = [
   'address',
-  'area',
   'city',
   'floor',
   'fronts',
