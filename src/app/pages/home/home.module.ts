@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -27,9 +26,9 @@ import { FilterComponent } from '@app/components/filter/filter.component';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
-      }
-    ])
+        component: HomePage,
+      },
+    ]),
   ],
   declarations: [
     HomePage,
@@ -39,7 +38,4 @@ import { FilterComponent } from '@app/components/filter/filter.component';
     FilterComponent,
   ]
 })
-export class HomePageModule { }
-
-
-
+export class HomePageModule {}
