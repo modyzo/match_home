@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   availabilityOfBuildingList,
@@ -19,16 +19,21 @@ export class FilterComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     public formBuilder: FormBuilder,
+    private navParams: NavParams,
   ) {
     this.filterForm = this.formBuilder.group({
-      price: [{lower: 1, upper: 3000000}],
-      square: [{lower: 1, upper: 1000}],
-      squareGarden: [{lower: 1, upper: 10000}],
+      price: [{ lower: 1, upper: 3000000 }],
+      square: [{ lower: 0, upper: 1000 }],
+      rooms: [{ lower: 0, upper: 15 }],
       bathroom: [null],
       availability: [null],
       stateOfBuild: [null],
       garage: [null]
     });
+
+    if (this.navParams.get('data')) {
+      this.filterForm.patchValue(this.navParams.get('data'));
+    }
   }
 
   ngOnInit() {

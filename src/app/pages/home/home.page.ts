@@ -76,6 +76,7 @@ export class HomePage {
   superLike: boolean;
   nope: boolean;
   clicked: any;
+  public filterFields: any;
 
   constructor(
     public dataService: DataService,
@@ -293,12 +294,16 @@ export class HomePage {
   }
 
   public showFilter() {
-    this.dataService.openRxModal('filter', null, true, '', true).pipe(
+    this.dataService.openRxModal(
+      'filter',
+      this.filterFields,
+      true,
+      '',
+      true
+    ).pipe(
       mergeMap((modalRes) => {
         if (modalRes.data) {
           const data = modalRes.data;
-          console.log(data);
-          
           const requestBody = {
             PriceRange: {
               Min: data.price.lower,
@@ -309,14 +314,14 @@ export class HomePage {
               Min: data.square.lower,
               Max: data.square.upper
             },
-            GardenAreaRange: {
-              Min: data.squareGarden.lower,
-              Max: data.squareGarden.upper
-            },
+            MinRooms: data.rooms.lower,
+            MaxRooms: data.rooms.upper,
             EstateIds: data.stateOfBuild,
             BathRooms: data.bathroom,
             Garage: data.garage
           };
+
+          this.filterFields = data;
           return this.apiService.getList({ Filter: requestBody })
         } else {
           return of(null);
@@ -324,11 +329,11 @@ export class HomePage {
       })
     ).subscribe(
       (res) => {
+        console.log(res);
         this.hasUserData = true;
         if (res && res.estates && res.estates.length) {
           this.cards = res.estates;
-          console.log(res)
-        } else {
+        } else if (res.isValidRequest) {
           this.cards = [];
         }
       }
