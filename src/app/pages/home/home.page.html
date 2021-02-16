@@ -31,7 +31,7 @@
 
 <!-- <ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true">
 </ion-searchbar> -->
-<div class="filter-container">
+<div *ngIf="segmentButton === 'flame'" class="filter-container">
   <ion-icon (click)="showFilter()" name="filter-circle-outline"></ion-icon>
 </div>
 
