@@ -10,7 +10,21 @@
       <p class="ion-text-center ion-margin-bottom">By tapping Login,you agree with our <u> Terms of Services </u> and
         <u> Privacy
           Policy</u></p>
-      <ion-button expand="round" class="facebook ion-text-uppercase"><small>Login with Facebook</small> </ion-button>
+      <!-- <ion-button expand="round" class="facebook ion-text-uppercase"><small>Login with Facebook</small> </ion-button> -->
+      <form [formGroup]="loginForm" novalidate>
+      <ion-item>
+        <ion-input formControlName="email" type="email" placeholder="E-mail"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-button
+        (click)="login()"
+        expand="round"
+        class="facebook ion-text-uppercase">
+        <small>Login</small>
+      </ion-button>
+      </form>
       <ion-button expand="round" class="ion-margin-bottom ion-text-uppercase" color="medium" fill="outline"
         (click)="loginWithPhone()">
         <small>login
@@ -18,7 +32,8 @@
       </ion-button>
       <!-- </ion-label> -->
       <div class="medium">
-        <p class="ion-no-margin" (click)="gotAccountRecovery()"><u>Trouble Logging In?</u></p>
+        <p class="ion-no-margin" (click)="goToSignUp()"><u>Registration</u></p>
+        <!-- <p class="ion-no-margin" (click)="gotAccountRecovery()"><u>Trouble Logging In?</u></p> -->
         <div class="lastItem" (click)="toggleContent()">
         
         </div>

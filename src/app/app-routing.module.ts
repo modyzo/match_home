@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'account-recovery', loadChildren: './pages/account-recovery/account-recovery.module#AccountRecoveryPageModule' },
   { path: 'login-email', loadChildren: './pages/login-email/login-email.module#LoginEmailPageModule' },
   { path: 'team-tinder', loadChildren: './pages/team-tinder/team-tinder.module#TeamTinderPageModule' },
+  { path: 'sign-up',loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule'},
 ];
 
 @NgModule({
