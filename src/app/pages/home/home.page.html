@@ -35,7 +35,6 @@
   <ion-icon (click)="showFilter()" name="filter-circle-outline"></ion-icon>
 </div>
 
-
 <ion-list *ngIf="filterTerm?.length > 0">
   <ion-item *ngFor="let data of userRecords | filter:filterTerm">
     <ion-label>{{data.name}}</ion-label>
@@ -43,80 +42,84 @@
 </ion-list>
 
 <ion-content *ngIf="segmentButton === 'flame'">
-  <div *ngIf="!hasUserData || !cards.length" class="nodataDiv ion-padding">
-    <ion-avatar>
-      <ion-img src="assets/chat/house.png"></ion-img>
-    </ion-avatar>
-    <h3 class="text-center neutra font-caps red" style="font-weight: bolder">
-      {{ cards.length ? 'We are looking for estates around you' : 'No more
-      prospects around you' }}
-    </h3>
-  </div>
-  <div
-    appSwingStack
-    #swingStack
-    (throwoutleft)="voteUp(true)"
-    (throwoutright)="voteUp(false)"
-    (throwout)="onThrowOut($event)"
-    (dragmove)="onDragMove($event)"
-    (dragend)="onDragEnd($event)"
-    [stackConfig]="stackConfig"
-    class="stack"
-  >
-    <ion-card
-      class="card"
-      id="dummycard"
-      appSwingCard
-      #swingCards
-      *ngFor="let item of cards; let i = index"
-      [ngStyle]="{'background':'url('+ item.pictures[0].urlXXL +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}"
-    >
-      <div class="itemdiv">
-        <div class="like" *ngIf="like && i === cards.length -1">
-          <p class="ion-text-uppercase">Like</p>
+  <ng-container *ngIf="cards">
+    <div *ngIf="cards.length > 0; else noData"
+      appSwingStack
+      #swingStack
+      (throwoutleft)="voteUp(true)"
+      (throwoutright)="voteUp(false)"
+      (throwout)="onThrowOut($event)"
+      (dragmove)="onDragMove($event)"
+      (dragend)="onDragEnd($event)"
+      [stackConfig]="stackConfig"
+      class="stack">
+      <ion-card
+        class="card"
+        id="dummycard"
+        appSwingCard
+        #swingCards
+        *ngFor="let item of cards; let i = index"
+        [ngStyle]="{'background':'url('+ item.pictures[0].urlXXL +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}">
+        <div class="itemdiv">
+          <div class="like" *ngIf="like && i === cards.length -1">
+            <p class="ion-text-uppercase">Like</p>
+          </div>
+          <div class="disLike" *ngIf="disLike && i === cards.length -1">
+            <p class="ion-text-uppercase">Nope</p>
+          </div>
+          <div class="superLike" *ngIf="superLike && i === cards.length -1">
+            <p class="ion-text-uppercase">SuperLike</p>
+          </div>
+          <ion-item
+            (click)="openAndHideDetail(item)"
+            *ngIf="i === cards.length -1"
+          >
+            <ion-label>
+              <h1 class="ion-text-start">
+                {{item.name}} , <span>{{item.price}}{{item.currency}}</span>
+              </h1>
+              <div *ngIf="item.rooms" class="sameLineContent">
+                <ion-icon
+                  slot="start"
+                  name="home-outline"
+                  expand="icon-only"
+                ></ion-icon>
+                <p class="ion-text-start">{{item.rooms}} Rooms</p>
+              </div>
+              <div *ngIf="item.bathRooms" class="sameLineContent">
+                <ion-icon
+                  slot="start"
+                  name="water-outline"
+                  expand="icon-only"
+                ></ion-icon>
+                <p class="ion-text-start">{{item.bathRooms}} Bathrooms</p>
+              </div>
+            </ion-label>
+            <ion-icon
+              name="information-circle"
+              slot="end"
+              expand="icon-only"
+              color="light"
+              class="info"
+            ></ion-icon>
+          </ion-item>
         </div>
-        <div class="disLike" *ngIf="disLike && i === cards.length -1">
-          <p class="ion-text-uppercase">Nope</p>
+      </ion-card>
+    </div>
+    <ng-template #noData>
+      <div *ngIf="hasUserData" class="nodataDiv ion-padding">
+        <div class="load">
+          <img src="assets/chat/house.png">
         </div>
-        <div class="superLike" *ngIf="superLike && i === cards.length -1">
-          <p class="ion-text-uppercase">SuperLike</p>
-        </div>
-        <ion-item
-          (click)="openAndHideDetail(item)"
-          *ngIf="i === cards.length -1"
-        >
-          <ion-label>
-            <h1 class="ion-text-start">
-              {{item.name}} , <span>{{item.price}}{{item.currency}}</span>
-            </h1>
-            <div *ngIf="item.rooms" class="sameLineContent">
-              <ion-icon
-                slot="start"
-                name="home-outline"
-                expand="icon-only"
-              ></ion-icon>
-              <p class="ion-text-start">{{item.rooms}} Rooms</p>
-            </div>
-            <div *ngIf="item.bathRooms" class="sameLineContent">
-              <ion-icon
-                slot="start"
-                name="water-outline"
-                expand="icon-only"
-              ></ion-icon>
-              <p class="ion-text-start">{{item.bathRooms}} Bathrooms</p>
-            </div>
-          </ion-label>
-          <ion-icon
-            name="information-circle"
-            slot="end"
-            expand="icon-only"
-            color="light"
-            class="info"
-          ></ion-icon>
-        </ion-item>
+        <h3
+          class="text-center neutra font-caps red"
+          style="font-weight: bolder; color: #113388">
+          {{ cards.length ? 'We are looking for estates around you' : 'No more
+          prospects around you' }}
+        </h3>
       </div>
-    </ion-card>
-  </div>
+    </ng-template>
+  </ng-container>
 </ion-content>
 
 <ion-content *ngIf="segmentButton === 'chatbubbles'" #IonContent>
@@ -140,7 +143,7 @@
   </ion-row>
 </ion-content>
 
-<ion-footer *ngIf="cards.length && segmentButton === 'flame' && hasUserData">
+<ion-footer *ngIf="cards && cards.length > 0 && segmentButton === 'flame'">
   <ion-toolbar>
     <div class="footerContent">
       <div

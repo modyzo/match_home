@@ -17,6 +17,7 @@ import { environment } from '@env/environment';
 import { ApiService } from '@app/services/api.service';
 import { mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { LoadingService } from '@app/shared/services/loading.service';
 
 @Component({
   selector: 'app-home',
@@ -55,7 +56,7 @@ export class HomePage {
 
   segmentButton: any = 'flame';
   userDetail: { userDetails: string }[];
-  cards: Array<any>;
+  cards: Array<any> = [];
   stackConfig: StackConfig;
   recentCard = '';
   slidesImg: { image: string }[];
@@ -82,7 +83,8 @@ export class HomePage {
     public dataService: DataService,
     public route: Router,
     public alertController: AlertController,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private loadingService: LoadingService,
   ) {
     this.data = environment.tabs;
     this.userDetail = environment.details;
@@ -126,14 +128,20 @@ export class HomePage {
   }
 
   private getCards() {
-    this.apiService.getList({}).subscribe(
-      (res) => {
+    this.loadingService.startLoading(
+      this.getCardsRequest()
+    ).subscribe(
+      (res: any) => {
         this.cards = res.estates;
         console.log(this.cards);
         this.hasUserData = true;
       },
       (error) => console.log(error)
     );
+  }
+
+  private getCardsRequest() {
+    return this.apiService.getList({});
   }
 
   clickedIconIs(icon) {
@@ -300,43 +308,50 @@ export class HomePage {
       true,
       '',
       true
-    ).pipe(
-      mergeMap((modalRes) => {
-        if (modalRes.data) {
-          const data = modalRes.data;
-          const requestBody = {
-            PriceRange: {
-              Min: data.price.lower,
-              Max: data.price.upper
-            },
-            AvailabilityIds: data.availability,
-            AreaRange: {
-              Min: data.square.lower,
-              Max: data.square.upper
-            },
-            MinRooms: data.rooms.lower,
-            MaxRooms: data.rooms.upper,
-            EstateIds: data.stateOfBuild,
-            BathRooms: data.bathroom,
-            Garage: data.garage
-          };
-
-          this.filterFields = data;
-          return this.apiService.getList({ Filter: requestBody })
-        } else {
-          return of(null);
-        }
-      })
     ).subscribe(
-      (res) => {
-        console.log(res);
-        this.hasUserData = true;
-        if (res && res.estates && res.estates.length) {
-          this.cards = res.estates;
-        } else if (res.isValidRequest) {
-          this.cards = [];
+      (modalRes) => {
+        if (modalRes.data) {
+          this.hasUserData = false;
+          this.applyFilter(modalRes.data);
         }
       }
     );
+  }
+
+  private applyFilter(data) {
+    this.loadingService.startLoading(
+      this.applyFilterRequest(data)
+    ).subscribe(
+      (res: any) => {
+        this.hasUserData = true;
+        if (res && res.estates && res.estates.length) {
+          this.cards = res.estates;
+        } else if (res && res.isValidRequest) {
+          this.cards = [];
+        }
+      }
+    )
+  }
+
+  private applyFilterRequest(data) {
+    const requestBody = {
+      PriceRange: {
+        Min: data.price.lower,
+        Max: data.price.upper
+      },
+      AvailabilityIds: data.availability,
+      AreaRange: {
+        Min: data.square.lower,
+        Max: data.square.upper
+      },
+      MinRooms: data.rooms.lower,
+      MaxRooms: data.rooms.upper,
+      EstateIds: data.stateOfBuild,
+      BathRooms: data.bathroom,
+      Garage: data.garage
+    };
+
+    this.filterFields = data;
+    return this.apiService.getList({ Filter: requestBody })
   }
 }
