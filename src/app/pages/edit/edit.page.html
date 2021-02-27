@@ -7,8 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list class="cardsList">
+<!-- <ion-list class="cardsList">
     <ion-row>
       <ion-col size="4" *ngFor="let item of imageData; let i = index">
         <ion-card [ngClass]="{'cardBorder': !item.image }">
@@ -17,7 +16,7 @@
           </div>
           <div *ngIf="item.image" class="imageDiv"
             [ngStyle]="{'background':'url('+ item.image +')','background-size':'cover'}">
-            <!-- <ion-img [src]=item.image *ngIf="item.image"></ion-img> -->
+            <ion-img [src]=item.image *ngIf="item.image"></ion-img>
           </div>
           <div class="closeIcon" *ngIf="item.image">
             <ion-icon name="close" expand="icon-only" *ngIf="item.image"></ion-icon>
@@ -28,8 +27,8 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-list>
-  <ion-list *ngFor="let item of data; let i = index" class="ion-padding-top">
+  </ion-list> -->
+<!-- <ion-list *ngFor="let item of data; let i = index" class="ion-padding-top">
     <div *ngIf="item.toggleHeader">
       <ion-item class="item1st">
         <ion-toggle slot="end" color="danger"></ion-toggle>
@@ -56,4 +55,81 @@
       <p *ngIf="item.subhead2" class="subhead1Custom ion-text-capitalize">{{item.subhead2}}</p>
     </ion-item>
   </ion-list>
+</ion-content> -->
+
+<ion-content>
+  <form [formGroup]="editPageForm" novalidate>
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Voornaam</ion-label>
+        <ion-input
+          formControlName="firstName"
+          type="text"
+          placeholder="Voer voornaam in"
+          class="ion-text-capitalize"
+        ></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label position="floating">Achternaam</ion-label>
+        <ion-input
+          formControlName="lastName"
+          type="text"
+          placeholder="Voer achternaam in"
+          class="ion-text-capitalize"
+        ></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label>Beschikbaar</ion-label>
+        <ion-select formControlName="sex" multiple="false">
+          <ion-select-option *ngFor="let item of sexObject" [value]="item.value"
+            >{{ item.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label>Geboortedatum</ion-label>
+        <ion-datetime
+          formControlName="birthDate"
+          placeholder="Select Date"
+          format="'YYYY:MM:DD'"
+          format="'YYYY:MM:DD'"
+        >
+        </ion-datetime>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-text slot="start">Phone</ion-text>
+        <ion-input type="tel" formControlName="phone" maxlength="21" clearInput>
+        </ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-row>
+      <ion-col align-items-center="true">
+        <ion-buttons>
+          <ion-button
+            fill="clear"
+            slot="end"
+            size="small"
+            class="searchItem"
+            color="danger"
+            (click)="applyFilter()"
+          >
+            <div class="flex">
+              <span>Apply</span>
+              <ion-icon name="arrow-down" expand="icon-only"></ion-icon>
+            </div>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>
