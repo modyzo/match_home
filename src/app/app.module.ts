@@ -5,10 +5,12 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
 import { ShareProfileComponent } from '@app/components/share-profile/share-profile.component';
 import { ChatStartComponent } from '@app/components/chat-start/chat-start.component';
@@ -29,6 +31,7 @@ import { environment } from '../environments/environment';
 import { TokenizerService } from './services/tokenizer.service';
 import { AddTokenInterceptor } from './services/add-token-interceptors.service';
 import { CapitalCasePipe } from './shared/pipes/capital-case.pipe';
+import { CustomToastrComponent } from './shared/components/custom-toastr/custom-toastr.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,14 @@ import { CapitalCasePipe } from './shared/pipes/capital-case.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    ToastrModule.forRoot({
+      toastComponent: CustomToastrComponent,
+      preventDuplicates: false,
+      maxOpened: 1,
+      autoDismiss: true
+    }),
   ],
   providers: [
     StatusBar,

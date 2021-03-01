@@ -4,6 +4,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { from } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { mergeMap, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,7 +23,9 @@ export class SignUpPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private firestore: AngularFirestore,
-    private angularFireAuth: AngularFireAuth
+    private angularFireAuth: AngularFireAuth,
+    private localNotificationService: LocalNotificationService,
+    private router: Router
   ) {
     this.signUpForm = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.email])],
@@ -61,8 +66,7 @@ export class SignUpPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   public signUp() {
     return from(this.angularFireAuth.createUserWithEmailAndPassword(
@@ -73,7 +77,7 @@ export class SignUpPage implements OnInit {
         console.log(res);
         const collectinoRef = this.firestore.collection('/Users');
         console.log("collectinoRef", collectinoRef);
-        localStorage.setItem('userId',res.user.uid);
+        localStorage.setItem('userId', res.user.uid);
         return from(collectinoRef.doc(res.user.uid).set(this.signUpForm.value))
       }),
       mergeMap(() => {
@@ -84,9 +88,17 @@ export class SignUpPage implements OnInit {
       })
     ).subscribe(
       (res) => {
-        console.log(res)
+        console.log(res);
+        this.localNotificationService.showNotification(
+          'We have sent an email with a confirmation link to your email address. In order to complete the sign-up process, please click the confirmation link.',
+          'success-main'
+        );
+        this.router.navigate(['login']);
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.localNotificationService.showNotification(error.message, 'error-main');
+      }
     );
   }
 

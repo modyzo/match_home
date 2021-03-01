@@ -1,10 +1,11 @@
 <ion-content>
-  <div>
-    <ion-slides pager="true" [options]="slideOpts" class="ion-margin-bottom" >
+  <div class="login-container">
+    <!-- <ion-slides pager="true" [options]="slideOpts" class="ion-margin-bottom" >
       <ion-slide *ngFor="let slide of data">
         <ion-card [ngStyle]="{'background':'url('+ slide.image +' )'}" no-shadow></ion-card>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
+    <img [src]="data[0].image" class="main-logo"/>
     <div class="logincontent">
       <!-- <ion-label> -->
       <p class="ion-text-center ion-margin-bottom">By tapping Login,you agree with our <u> Terms of Services </u> and
@@ -19,6 +20,7 @@
         <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
       </ion-item>
       <ion-button
+        [disabled]="loginForm.invalid"
         (click)="login()"
         expand="round"
         class="facebook ion-text-uppercase">
