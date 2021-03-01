@@ -4,7 +4,7 @@ export const environment = {
   gold: [
     {
       id: 'refresh',
-      mainHeader: 'Get Tinder Gold',
+      mainHeader: 'Get Match Home Gold',
       icon: 'heart',
       header: 'See who Likes you',
       subHeader: 'Match with them instantly',
@@ -35,7 +35,7 @@ export const environment = {
   refresh: [
     {
       id: 'refresh',
-      mainHeader: 'Get Tinder Plus',
+      mainHeader: 'Get Match Home Plus',
       icon: 'refresh',
       header: 'Unlimited Rewinds',
       subHeader: 'Go back and swipe again!',
@@ -65,7 +65,7 @@ export const environment = {
   star: [
     {
       id: 'star',
-      mainHeader: 'Get Tinder Plus',
+      mainHeader: 'Get Match Home Plus',
       header: 'Unlimited Likes',
       subHeader: '11:52:45',
       image: '../../assets/chat/chat4.jpg',
@@ -103,7 +103,7 @@ export const environment = {
       subHeader:
         'Be the top profile in  your area for 30 minutes to get more matches.',
       button: 'boost me',
-      button1: 'get tinder plus',
+      button1: 'get Match Home plus',
       button2: '(2 free Boost every month)',
       description:
         'By tapping continue, your payment will be charged to your Google play account, and your subscription will automatically renew for the same package length at the same same price until you cancel in settings in the play store at least 24 hours prior to the end of the current period. By tapping continue, you agree to our Privacy Policy and Terms.',
@@ -168,7 +168,7 @@ export const environment = {
       head: 'skip the line',
       subHead:
         'Be the top profile in your area for 30 minutes to get more matches.',
-      head1: 'tinder boost',
+      head1: 'Match Home boost',
       subHead1: 'Give me one free boost every month',
       toggle: true,
     },
@@ -267,9 +267,10 @@ export const environment = {
       head: 'Show my instagram photos',
       toggle: false,
       subhead: 'Connect Instagram',
-      subhead1: 'Control how you share your Tinder Anthem on feed in Settings.',
+      subhead1:
+        'Control how you share your Match Home Anthem on feed in Settings.',
       subhead2:
-        'Control how you share your top Tinder Artists on feed in Settings.',
+        'Control how you share your top Match Home Artists on feed in Settings.',
     },
     {
       head: 'I Am',
@@ -297,11 +298,11 @@ export const environment = {
       toggle: 'true',
     },
     {
-      head: 'Tinder Anthem',
+      head: 'Match Home Anthem',
       toggle: 'true',
     },
     {
-      head: 'top Tinder Artist',
+      head: 'top Match Home Artist',
       toggle: 'true',
     },
     {
@@ -591,7 +592,7 @@ export const environment = {
       slides: [
         {
           icon: 'flame',
-          head: 'get tinder gold',
+          head: 'get Match Home gold',
           subhead: 'See who Likes You and more!',
           color: 'warning',
         },
@@ -610,19 +611,19 @@ export const environment = {
         {
           icon: 'pin',
           head: 'swipe around the world',
-          subhead: 'Passport to anywhere with tinder plus!',
+          subhead: 'Passport to anywhere with Match Home plus!',
           color: 'primary',
         },
         {
           icon: 'key',
           head: 'control your profile',
-          subhead: 'limit what others see with tinder plus',
+          subhead: 'limit what others see with Match Home plus',
           color: 'warning',
         },
         {
           icon: 'heart',
           head: 'increase your chances',
-          subhead: 'Get unlimited Likes with tinder Plus!',
+          subhead: 'Get unlimited Likes with Match Home Plus!',
           color: 'secondary',
         },
       ],

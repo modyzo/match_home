@@ -3,9 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button color="danger"></ion-back-button>
     </ion-buttons>
-    <ion-button slot="end" color="danger" expand="round" class="headerButton ion-text-capitalize"> Get Tinder Plus
+    <ion-button
+      slot="end"
+      color="danger"
+      expand="round"
+      class="headerButton ion-text-capitalize"
+    >
+      Get Match Home Plus
     </ion-button>
-    <ion-title class="ion-text-start ion-no-padding">My Tinder Plus</ion-title>
+    <ion-title class="ion-text-start ion-no-padding"
+      >My Match Home Plus</ion-title
+    >
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +21,10 @@
   <ion-list>
     <ion-card *ngFor="let items of tinderPlusData; let i= index">
       <ion-item>
-        <ion-avatar [ngStyle]="{'background':'url('+ items.image  +')', 'background-size':'cover'}" slot="start">
+        <ion-avatar
+          [ngStyle]="{'background':'url('+ items.image  +')', 'background-size':'cover'}"
+          slot="start"
+        >
         </ion-avatar>
         <ion-label>
           <h2 class="ion-text-capitalize">{{items.head}}</h2>
@@ -22,9 +33,20 @@
       </ion-item>
       <ion-item class="noborderBottom">
         <ion-toggle slot="end" *ngIf="items.toggle" color="danger"></ion-toggle>
-        <ion-icon name="checkmark" expand="icon-only" slot="end" *ngIf="!items.head1right && !items.toggle"
-          color="danger"></ion-icon>
-        <ion-button fill="clear" *ngIf="items.head1right" slot="end" color="medium">{{items.head1right}}</ion-button>
+        <ion-icon
+          name="checkmark"
+          expand="icon-only"
+          slot="end"
+          *ngIf="!items.head1right && !items.toggle"
+          color="danger"
+        ></ion-icon>
+        <ion-button
+          fill="clear"
+          *ngIf="items.head1right"
+          slot="end"
+          color="medium"
+          >{{items.head1right}}</ion-button
+        >
         <ion-label>
           <h2 class="ion-text-capitalize">{{items.head1}}</h2>
           <p class="ion-text-wrap">{{items.subHead1}}</p>
@@ -39,5 +61,4 @@
       </ion-item>
     </ion-card>
   </ion-list>
-
 </ion-content>
