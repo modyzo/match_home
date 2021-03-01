@@ -5,7 +5,6 @@ import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '@app/services/data.service';
 import { environment } from '@env/environment';
-import { error } from 'protractor';
 import { from } from 'rxjs';
 
 @Component({
@@ -26,7 +25,6 @@ export class EditPage implements OnInit {
   constructor(
     public serviceProvider: DataService,
     private firestore: AngularFirestore,
-    private angularFireAuth: AngularFireAuth,
     public formBuilder: FormBuilder
   ) {
     this.data = environment.editInfo;
@@ -66,10 +64,6 @@ export class EditPage implements OnInit {
     this.getUserData();
   }
 
-  getUser() {
-    return from(this.angularFireAuth.currentUser);
-  }
-
   public getUserData() {
     const userId = localStorage.getItem('userId');
     const userRef = this.firestore.collection('Users').doc(userId);
@@ -104,7 +98,6 @@ export class EditPage implements OnInit {
 
   applyForm = () => {
     const collectinoRef = this.firestore.collection('/Users');
-    console.log('collectinoRef', collectinoRef);
     return from(
       collectinoRef
         .doc(localStorage.getItem('userId'))
