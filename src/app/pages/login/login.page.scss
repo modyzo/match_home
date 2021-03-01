@@ -24,6 +24,16 @@ ion-slide {
 }
 }
 
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+
+  .main-logo {
+    margin: 20% auto 2rem auto;
+  }
+}
+
 .logincontent {
   padding-left: 50px;
   padding-right: 50px;

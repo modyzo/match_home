@@ -155,3 +155,79 @@ ion-content {
     opacity: 0;
   }
 }
+
+.overlay-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+
+  app-custom-toastr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0 1rem;
+    background: white;
+    color: #ffffff;
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.02rem;
+  }
+  
+  .error-auth {
+    min-height: 2.5rem;
+    background: #F22A2A;
+    font-size: 0.8rem;
+    line-height: 1rem;
+    letter-spacing: 0.02rem;
+    font-family: 'SFUIDisplay-Semibold';
+  }
+
+  .success-auth {
+    min-height: 2.5rem;
+    background: #25CF9D;
+    font-size: 0.8rem;
+    line-height: 1rem;
+    letter-spacing: 0.02rem;
+    font-family: 'SFUIDisplay-Semibold';
+  }
+
+  .error-main {
+    min-height: 10vh;
+    border-radius: 40px 40px 0 0;
+    padding: 0.5rem 1rem;
+    background: #F22A2A;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.02rem;
+    font-family: 'SFUIDisplay-Medium';
+  }
+
+  .success-main {
+    min-height: 10vh;
+    background: #25CF9D;
+    border-radius: 40px 40px 0 0;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.02rem;
+    font-family: 'SFUIDisplay-Medium';
+  }
+
+  .info-main {
+    min-height: 10vh;
+    background: #01294D;
+    border-radius: 40px 40px 0 0;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.02rem;
+    font-family: 'SFUIDisplay-Medium';
+  }
+}

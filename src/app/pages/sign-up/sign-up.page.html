@@ -78,6 +78,7 @@
     </ion-card>
     <div class="logincontent">
       <ion-button
+        [disabled]="signUpForm.invalid"
         (click)="signUp()"
         expand="round"
         class="facebook ion-text-uppercase">

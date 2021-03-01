@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { from } from 'rxjs';
+import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
     public route: Router,
     public service: DataService,
     private angularFireAuth: AngularFireAuth,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private localNotificationService: LocalNotificationService,
   ) {
     this.showContent = true;
     this.data = environment.LOGIN_SLIDES_DATA;
@@ -65,9 +67,15 @@ export class LoginPage implements OnInit {
           this.route.navigate(['home']);
         } else {
           console.log('No verified');
+          this.localNotificationService.showNotification(
+            'Please, verify you account', 'error-main'
+          );
         }
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.localNotificationService.showNotification(error.message, 'error-main');
+      }
     )
   }
 }

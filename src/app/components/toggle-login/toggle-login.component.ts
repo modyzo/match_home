@@ -25,6 +25,5 @@ export class ToggleLoginComponent implements OnInit {
   loginWithPhone() {
     this.modalCtrl.dismiss();
     this.route.navigate(['login-phone']);
-
   }
 }
