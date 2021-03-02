@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { from } from 'rxjs';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
+import { StorageService } from '@app/shared/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginPage implements OnInit {
     public route: Router,
     public service: DataService,
     private angularFireAuth: AngularFireAuth,
+    private storageService: StorageService,
     private formBuilder: FormBuilder,
     private localNotificationService: LocalNotificationService
   ) {
@@ -41,7 +43,7 @@ export class LoginPage implements OnInit {
       ],
     });
   }
-  ngOnInit() {}
+  ngOnInit() { }
   toggleContent() {
     // this.showContent = !this.showContent
     this.service.openModal(ToggleLoginComponent, '', 'modalBackground');
@@ -67,7 +69,7 @@ export class LoginPage implements OnInit {
       (user) => {
         console.log(user);
         if (user.user.emailVerified) {
-          localStorage.setItem('userId', user.user.uid);
+          this.storageService.setItem('userId', user.user.uid);
           this.route.navigate(['home']);
         } else {
           console.log('No verified');

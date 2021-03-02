@@ -26,6 +26,7 @@ import { Device } from '@ionic-native/device/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 import { environment } from '../environments/environment';
 import { TokenizerService } from './services/tokenizer.service';
@@ -81,6 +82,7 @@ import { CustomToastrComponent } from './shared/components/custom-toastr/custom-
     StatusBar,
     SplashScreen,
     Device,
+    NativeStorage,
     TokenizerService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
