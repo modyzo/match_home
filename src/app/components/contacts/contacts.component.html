@@ -1,12 +1,15 @@
 <div class="slide1" *ngFor="let data of userDetail">
   <div class="oval">
     <div class="ovalsubDiv">
-      <ion-avatar [ngStyle]="{'background':'url('+ data.image  +')', 'background-size':'cover'}"> </ion-avatar>
+      <ion-img class="imageDiv" [src]="objectUrl" *ngIf="objectUrl"></ion-img>
+
       <h4 class="ion-no-margin ion-no-padding">Enappd, 12</h4>
       <ion-item>
         <ion-label class="ion-text-wrap">
           <div class="flex">
-            <p class="paraUserDetails ion-padding-horizontal">{{data.userDetails}}</p>
+            <p class="paraUserDetails ion-padding-horizontal">
+              {{ data.userDetails }}
+            </p>
           </div>
         </ion-label>
       </ion-item>
@@ -15,42 +18,81 @@
     <ion-row>
       <ion-col size="4" *ngFor="let ovalContent of data.ovalContents">
         <div class="ovelDivContent" color="medium" *ngIf="!ovalContent.camera">
-          <div class="backgroundDiv ion-margin-bottom" (click)="gotoFunctions(ovalContent.icon)">
-            <ion-icon name={{ovalContent.icon}} expand="icon-only" class="ovalIcon" color="medium"></ion-icon>
+          <div
+            class="backgroundDiv ion-margin-bottom"
+            (click)="gotoFunctions(ovalContent.icon)"
+          >
+            <ion-icon
+              name="{{ ovalContent.icon }}"
+              expand="icon-only"
+              class="ovalIcon"
+              color="medium"
+            ></ion-icon>
           </div>
-          <ion-text color="medium">{{ovalContent.text}}</ion-text>
+          <ion-text color="medium">{{ ovalContent.text }}</ion-text>
         </div>
-        <div class="ovelDivContentPadding" *ngIf="ovalContent.camera" (click)="gotoAddMedia()">
+        <div
+          class="ovelDivContentPadding"
+          *ngIf="ovalContent.camera"
+          (click)="gotoAddMedia()"
+        >
           <ion-avatar class="ovelDivContentcamera">
-            <ion-icon name={{ovalContent.camera}} expand="icon-only" class="ovalIconCamera ion-no-padding"></ion-icon>
+            <ion-icon
+              name="{{ ovalContent.camera }}"
+              expand="icon-only"
+              class="ovalIconCamera ion-no-padding"
+            ></ion-icon>
             <div class="addIcon">
-              <ion-icon name="add" expand="icon-only" class="ion-no-padding"></ion-icon>
+              <ion-icon
+                name="add"
+                expand="icon-only"
+                class="ion-no-padding"
+              ></ion-icon>
             </div>
           </ion-avatar>
-          <p color="medium">{{ovalContent.cameraText}}</p>
+          <p color="medium">{{ ovalContent.cameraText }}</p>
         </div>
       </ion-col>
     </ion-row>
   </div>
   <div>
-    <ion-slides pager="true" (ionSlideDidChange)="change($event)" #Slides [options]="slideOpts">
+    <ion-slides
+      pager="true"
+      (ionSlideDidChange)="change($event)"
+      #Slides
+      [options]="slideOpts"
+    >
       <ion-slide *ngFor="let slide of data.slides">
         <ion-label>
           <div class="slidesIConText">
-            <ion-icon slot="start" name={{slide.icon}} color={{slide.color}}></ion-icon>
-            <h2 color="dark" class="ion-text-capitalize">{{slide.head}}</h2>
+            <ion-icon
+              slot="start"
+              name="{{ slide.icon }}"
+              color="{{ slide.color }}"
+            ></ion-icon>
+            <h2 color="dark" class="ion-text-capitalize">{{ slide.head }}</h2>
           </div>
-          <p class="ion-text-capitalize" color="dark">{{slide.subhead}}</p>
+          <p class="ion-text-capitalize" color="dark">{{ slide.subhead }}</p>
         </ion-label>
       </ion-slide>
     </ion-slides>
   </div>
   <div class="footerbutton">
-    <ion-button color="gold" expand="block" *ngIf="showButton" class="footerbutton1" (click)="openGoldModal()">Get
-      Match Home Gold
+    <ion-button
+      color="gold"
+      expand="block"
+      *ngIf="showButton"
+      class="footerbutton1"
+      (click)="openGoldModal()"
+      >Get Match Home Gold
     </ion-button>
-    <ion-button color="plus" expand="block" *ngIf="!showButton" class="footerbutton2" (click)="openTinderPlusModal()">My
-      Tinder
-      Plus</ion-button>
+    <ion-button
+      color="plus"
+      expand="block"
+      *ngIf="!showButton"
+      class="footerbutton2"
+      (click)="openTinderPlusModal()"
+      >My Tinder Plus</ion-button
+    >
   </div>
 </div>
