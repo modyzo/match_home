@@ -2,8 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '@app/services/data.service';
+import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 import { environment } from '@env/environment';
 import { from } from 'rxjs';
 
@@ -20,12 +22,17 @@ export class EditPage implements OnInit {
     { value: 'man', name: 'Mens' },
     { value: 'woman', name: 'Vrouw' },
   ];
+  public imageBlob: Blob;
+  public fileToUpload;
+  public objectUrl;
 
   public userDocRef: DocumentReference;
   constructor(
     public serviceProvider: DataService,
     private firestore: AngularFirestore,
-    public formBuilder: FormBuilder
+    private fireStorage: AngularFireStorage,
+    public formBuilder: FormBuilder,
+    private localNotificationService: LocalNotificationService
   ) {
     this.data = environment.editInfo;
     this.imageData = environment.images;
@@ -102,6 +109,46 @@ export class EditPage implements OnInit {
       collectinoRef
         .doc(localStorage.getItem('userId'))
         .set(this.editPageForm.value)
+    ).subscribe(
+      () => {
+        this.localNotificationService.showNotification(
+          'Profile details have succesfully updated',
+          'success-main'
+        );
+      },
+      (error) => {
+        this.localNotificationService.showNotification(error, 'error-main');
+      }
     );
   };
+
+  public handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+
+    this.fileToUpload.arrayBuffer().then((arrayBuffer) => {
+      let blob = new Blob([new Uint8Array(arrayBuffer)], {
+        type: this.fileToUpload.type,
+      });
+      this.imageBlob = blob;
+      this.objectUrl = URL.createObjectURL(this.imageBlob);
+      // Create a root reference
+      var storageRef = this.fireStorage.ref(
+        '/' + localStorage.getItem('userId') + '/profilePicture'
+      );
+
+      // Create a reference to 'mountains.jpg'
+      var avatarRef = storageRef.child('avatar.jpg');
+
+      // Create a reference to 'images/mountains.jpg'
+      var avatarImagesRef = storageRef.child('images/avatar.jpg');
+
+      // While the file names are the same, the references point to different files
+      avatarRef.name === avatarImagesRef.name; // true
+      avatarRef.fullPath === avatarImagesRef.fullPath; // false
+
+      avatarRef.put(this.imageBlob).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
+    });
+  }
 }

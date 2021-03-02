@@ -28,14 +28,17 @@ export class SignUpPage implements OnInit {
     private router: Router
   ) {
     this.signUpForm = this.formBuilder.group({
-      email: [null, Validators.compose([Validators.required, Validators.email])],
+      email: [
+        null,
+        Validators.compose([Validators.required, Validators.email]),
+      ],
       password: [
         null,
         Validators.compose([
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(21)
-        ])
+          Validators.maxLength(21),
+        ]),
       ],
       sex: [null, Validators.required],
       birthDate: [null, Validators.compose([Validators.required])],
@@ -66,40 +69,48 @@ export class SignUpPage implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   public signUp() {
-    return from(this.angularFireAuth.createUserWithEmailAndPassword(
-      this.signUpForm.get('email').value,
-      this.signUpForm.get('password').value
-    )).pipe(
-      mergeMap((res: any) => {
-        console.log(res);
-        const collectinoRef = this.firestore.collection('/Users');
-        console.log("collectinoRef", collectinoRef);
-        localStorage.setItem('userId', res.user.uid);
-        return from(collectinoRef.doc(res.user.uid).set(this.signUpForm.value))
-      }),
-      mergeMap(() => {
-        return from(this.angularFireAuth.currentUser)
-      }),
-      mergeMap((user) => {
-        return from(user.sendEmailVerification());
-      })
-    ).subscribe(
-      (res) => {
-        console.log(res);
-        this.localNotificationService.showNotification(
-          'We have sent an email with a confirmation link to your email address. In order to complete the sign-up process, please click the confirmation link.',
-          'success-main'
-        );
-        this.router.navigate(['login']);
-      },
-      (error) => {
-        console.log(error);
-        this.localNotificationService.showNotification(error.message, 'error-main');
-      }
-    );
+    return from(
+      this.angularFireAuth.createUserWithEmailAndPassword(
+        this.signUpForm.get('email').value,
+        this.signUpForm.get('password').value
+      )
+    )
+      .pipe(
+        mergeMap((res: any) => {
+          console.log(res);
+          const collectinoRef = this.firestore.collection('/Users');
+          console.log('collectinoRef', collectinoRef);
+          localStorage.setItem('userId', res.user.uid);
+          return from(
+            collectinoRef.doc(res.user.uid).set(this.signUpForm.value)
+          );
+        }),
+        mergeMap(() => {
+          return from(this.angularFireAuth.currentUser);
+        }),
+        mergeMap((user) => {
+          return from(user.sendEmailVerification());
+        })
+      )
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.localNotificationService.showNotification(
+            'We have sent an email with a confirmation link to your email address. In order to complete the sign-up process, please click the confirmation link.',
+            'success-main'
+          );
+          this.router.navigate(['login']);
+        },
+        (error) => {
+          console.log(error);
+          this.localNotificationService.showNotification(
+            error.message,
+            'error-main'
+          );
+        }
+      );
   }
-
 }

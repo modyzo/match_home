@@ -4,23 +4,21 @@ import { from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { FilterComponent } from '@app/components/filter/filter.component';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class DataService {
   private componentTypes = {
-    'filter': FilterComponent
+    filter: FilterComponent,
   };
 
-  constructor(public modalCtrl: ModalController) { }
+  constructor(public modalCtrl: ModalController) {}
 
   async openModal(comp, props, cssClass?) {
     const modal = await this.modalCtrl.create({
       component: comp,
       componentProps: { value: props },
-      cssClass: cssClass
+      cssClass: cssClass,
     });
     return modal.present();
   }
@@ -32,19 +30,21 @@ export class DataService {
     cssClass?: string,
     showBackdrop?: boolean
   ) {
-    return from(this.modalCtrl.create({
-      component: this.componentTypes[component],
-      componentProps: data ? { data } : null,
-      backdropDismiss: backdropDismiss ? backdropDismiss : false,
-      cssClass: cssClass ? cssClass : '',
-      showBackdrop: showBackdrop ? showBackdrop : false
-    })).pipe(
+    return from(
+      this.modalCtrl.create({
+        component: this.componentTypes[component],
+        componentProps: data ? { data } : null,
+        backdropDismiss: backdropDismiss ? backdropDismiss : false,
+        cssClass: cssClass ? cssClass : '',
+        showBackdrop: showBackdrop ? showBackdrop : false,
+      })
+    ).pipe(
       mergeMap((modal) => {
         return from(modal.present()).pipe(
           mergeMap(() => {
             return from(modal.onDidDismiss());
           })
-        )
+        );
       })
     );
   }
