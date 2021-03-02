@@ -1,16 +1,31 @@
 /** */
 
+label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .imageWrapper {
   height: 150px;
   width: 150px;
-  border-radius: 50%;
+}
+
+.ovalsubDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  input {
+    opacity: 0;
+    cursor: pointer;
+  }
 }
 .imageDiv {
   width: 150px;
-  object-fit: cover;
-  object-position: center;
-  background-position: center !important;
-  border-radius: 4px;
+  margin-top: -25px;
+  border-radius: 50%;
 }
 
 ion-list {
@@ -36,51 +51,51 @@ ion-item {
   margin: 10px 4px 2px 4px;
 }
 
-.addIcon {
-  position: absolute;
-  bottom: -9px;
-  right: -6px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to right, #f06292, #ff7043);
-  border-radius: 50%;
-  z-index: 999;
-  color: white;
-  font-size: 25px;
-  font-weight: bold;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  ion-icon {
-    font-size: 20px;
-    font-weight: bold;
-  }
-}
+// .addIcon {
+//   position: absolute;
+//   bottom: -9px;
+//   right: -6px;
+//   width: 30px;
+//   height: 30px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background: linear-gradient(to right, #f06292, #ff7043);
+//   border-radius: 50%;
+//   z-index: 999;
+//   color: white;
+//   font-size: 25px;
+//   font-weight: bold;
+//   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+//     0 1px 5px 0 rgba(0, 0, 0, 0.12);
+//   ion-icon {
+//     font-size: 20px;
+//     font-weight: bold;
+//   }
+// }
 
-.closeIcon {
-  position: absolute;
-  bottom: -9px;
-  right: -6px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: white;
-  border-radius: 50%;
-  z-index: 999;
-  color: var(--ion-color-danger-tint);
-  font-size: 25px;
-  font-weight: bold;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  ion-icon {
-    font-size: 20px;
-    font-weight: bold;
-  }
-}
+// .closeIcon {
+//   position: absolute;
+//   bottom: -9px;
+//   right: -6px;
+//   width: 30px;
+//   height: 30px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background: white;
+//   border-radius: 50%;
+//   z-index: 999;
+//   color: var(--ion-color-danger-tint);
+//   font-size: 25px;
+//   font-weight: bold;
+//   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+//     0 1px 5px 0 rgba(0, 0, 0, 0.12);
+//   ion-icon {
+//     font-size: 20px;
+//     font-weight: bold;
+//   }
+// }
 
 .cardBorderless {
   border: none;
@@ -140,4 +155,17 @@ ion-item {
   padding-bottom: 10px;
 }
 
-// add white backgroud and add     box-shadow: 4px 4px 2px #232323; for ion-content, make ion-card smaller
+ion-content {
+  --background: white;
+  form {
+    width: 90%;
+    margin: 0 auto;
+    ion-item {
+      box-shadow: 0 0 2px 2px rgba(22, 22, 22, 0.1);
+    }
+    ion-button {
+      width: 100%;
+      margin: 1rem auto 0 auto;
+    }
+  }
+}

@@ -6,13 +6,17 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { StorageService } from '@app/shared/services/storage.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AddTokenInterceptor implements HttpInterceptor {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService
+  ) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -21,7 +25,7 @@ export class AddTokenInterceptor implements HttpInterceptor {
 
     let jsonReq: HttpRequest<any> = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${this.storageService.getItem('token')}`,
       },
     });
 

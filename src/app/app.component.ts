@@ -5,6 +5,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TokenizerService } from './services/tokenizer.service';
+import { StorageService } from './shared/services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
     public platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private tokenizerService: TokenizerService
+    private tokenizerService: TokenizerService,
+    private storageService: StorageService
   ) {
     this.initializeApp();
   }
@@ -31,7 +33,7 @@ export class AppComponent {
   getToken() {
     this.tokenizerService.getToken().subscribe(
       (data) => {
-        localStorage.setItem('token', data.token);
+        this.storageService.setItem('token', data.token);
       },
       (error) => {
         console.log(`Error in obtaining token ${error}`);
