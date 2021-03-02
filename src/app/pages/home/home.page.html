@@ -147,10 +147,10 @@
   <ion-toolbar>
     <div class="footerContent">
       <div
-        class="icon_background"
         *ngFor="let icon of footerIcon;let i = index"
-        [ngClass]="{'transform-icon': i % 2 != 0}"
-      >
+        [class.is-hide]="icon.title === 'star'"
+        class="icon_background"
+        [ngClass]="{'transform-icon': i % 2 != 0}">
         <ion-icon
           name="{{icon.title}}"
           expand="icon-only"
