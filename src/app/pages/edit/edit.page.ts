@@ -31,6 +31,7 @@ export class EditPage implements OnInit {
     public serviceProvider: DataService,
     private firestore: AngularFirestore,
     private fireStorage: AngularFireStorage,
+    private angularFireAuth: AngularFireAuth,
     public formBuilder: FormBuilder,
     private localNotificationService: LocalNotificationService
   ) {
@@ -80,6 +81,19 @@ export class EditPage implements OnInit {
         if (ref.exists) {
           const userDataDetails = ref.data();
           console.log('userDataDetails', userDataDetails);
+
+          //
+
+          const pathReference = this.fireStorage.ref(
+            userDataDetails.profilePicture
+          );
+
+          from(pathReference.getDownloadURL()).subscribe((dataLink) => {
+            this.objectUrl = dataLink;
+          });
+          console.log(pathReference);
+          //
+
           if (userDataDetails) {
             this.editPageForm
               .get('firstName')
@@ -108,7 +122,7 @@ export class EditPage implements OnInit {
     return from(
       collectinoRef
         .doc(localStorage.getItem('userId'))
-        .set(this.editPageForm.value)
+        .update(this.editPageForm.value)
     ).subscribe(
       () => {
         this.localNotificationService.showNotification(
@@ -133,22 +147,43 @@ export class EditPage implements OnInit {
       this.objectUrl = URL.createObjectURL(this.imageBlob);
       // Create a root reference
       var storageRef = this.fireStorage.ref(
-        '/' + localStorage.getItem('userId') + '/profilePicture'
+        '/users/' + localStorage.getItem('userId') + '/profilePicture'
       );
 
-      // Create a reference to 'mountains.jpg'
       var avatarRef = storageRef.child('avatar.jpg');
 
-      // Create a reference to 'images/mountains.jpg'
       var avatarImagesRef = storageRef.child('images/avatar.jpg');
 
       // While the file names are the same, the references point to different files
       avatarRef.name === avatarImagesRef.name; // true
       avatarRef.fullPath === avatarImagesRef.fullPath; // false
-
-      avatarRef.put(this.imageBlob).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-      });
+      return from(avatarRef.put(this.imageBlob)).subscribe(
+        (snapshot: any) => {
+          console.log('snapshot', snapshot);
+          const collectinoRef = this.firestore.collection('/Users');
+          return from(
+            collectinoRef
+              .doc(localStorage.getItem('userId'))
+              .update({ profilePicture: snapshot.metadata.fullPath })
+          ).subscribe(
+            () => {
+              this.localNotificationService.showNotification(
+                'You have successfully updated your avatar',
+                'success-main'
+              );
+            },
+            (error) => {
+              this.localNotificationService.showNotification(
+                error,
+                'error-main'
+              );
+            }
+          );
+        },
+        (error) => {
+          this.localNotificationService.showNotification(error, 'error-main');
+        }
+      );
     });
   }
 }

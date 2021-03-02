@@ -3,6 +3,7 @@
 .imageWrapper {
   height: 150px;
   width: 150px;
+  border-radius: 50%;
 }
 .imageDiv {
   width: 150px;
@@ -30,10 +31,8 @@ ion-list {
   }
 }
 
-ion-card {
-  height: 150px;
+ion-item {
   overflow: visible;
-  background: rgba(128, 128, 128, 0.31);
   margin: 10px 4px 2px 4px;
 }
 
@@ -140,3 +139,5 @@ ion-item {
 .cardsList {
   padding-bottom: 10px;
 }
+
+// add white backgroud and add     box-shadow: 4px 4px 2px #232323; for ion-content, make ion-card smaller
