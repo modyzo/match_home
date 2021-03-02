@@ -3,16 +3,9 @@
     <div class="ovalsubDiv">
       <ion-img class="imageDiv" [src]="objectUrl" *ngIf="objectUrl"></ion-img>
 
-      <h4 class="ion-no-margin ion-no-padding">Enappd, 12</h4>
-      <ion-item>
-        <ion-label class="ion-text-wrap">
-          <div class="flex">
-            <p class="paraUserDetails ion-padding-horizontal">
-              {{ data.userDetails }}
-            </p>
-          </div>
-        </ion-label>
-      </ion-item>
+      <h4 *ngIf="userDataDetails" class="ion-no-margin ion-no-padding">
+        {{ userDataDetails.firstName }}, {{ userDataDetails.age }}
+      </h4>
     </div>
 
     <ion-row>
@@ -31,7 +24,7 @@
           </div>
           <ion-text color="medium">{{ ovalContent.text }}</ion-text>
         </div>
-        <div
+        <!-- <div
           class="ovelDivContentPadding"
           *ngIf="ovalContent.camera"
           (click)="gotoAddMedia()"
@@ -51,7 +44,7 @@
             </div>
           </ion-avatar>
           <p color="medium">{{ ovalContent.cameraText }}</p>
-        </div>
+        </div> -->
       </ion-col>
     </ion-row>
   </div>

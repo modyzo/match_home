@@ -6,6 +6,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '@app/services/data.service';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
+import { StorageService } from '@app/shared/services/storage.service';
 import { environment } from '@env/environment';
 import { from } from 'rxjs';
 
@@ -33,7 +34,8 @@ export class EditPage implements OnInit {
     private fireStorage: AngularFireStorage,
     private angularFireAuth: AngularFireAuth,
     public formBuilder: FormBuilder,
-    private localNotificationService: LocalNotificationService
+    private localNotificationService: LocalNotificationService,
+    private storageService: StorageService
   ) {
     this.data = environment.editInfo;
     this.imageData = environment.images;
@@ -73,8 +75,8 @@ export class EditPage implements OnInit {
   }
 
   public getUserData() {
-    const userId = localStorage.getItem('userId');
-    const userRef = this.firestore.collection('Users').doc(userId);
+    const userId = this.storageService.getItem('userId');
+    const userRef = this.firestore.collection('Users').doc(userId as string);
     const getData = from(userRef.get()).subscribe(
       (ref: any) => {
         this.userDocRef = ref;
@@ -91,7 +93,6 @@ export class EditPage implements OnInit {
           from(pathReference.getDownloadURL()).subscribe((dataLink) => {
             this.objectUrl = dataLink;
           });
-          console.log(pathReference);
           //
 
           if (userDataDetails) {
@@ -121,7 +122,7 @@ export class EditPage implements OnInit {
     const collectinoRef = this.firestore.collection('/Users');
     return from(
       collectinoRef
-        .doc(localStorage.getItem('userId'))
+        .doc(this.storageService.getItem('userId') as string)
         .update(this.editPageForm.value)
     ).subscribe(
       () => {
@@ -147,7 +148,7 @@ export class EditPage implements OnInit {
       this.objectUrl = URL.createObjectURL(this.imageBlob);
       // Create a root reference
       var storageRef = this.fireStorage.ref(
-        '/users/' + localStorage.getItem('userId') + '/profilePicture'
+        '/users/' + this.storageService.getItem('userId') + '/profilePicture'
       );
 
       var avatarRef = storageRef.child('avatar.jpg');
@@ -163,7 +164,7 @@ export class EditPage implements OnInit {
           const collectinoRef = this.firestore.collection('/Users');
           return from(
             collectinoRef
-              .doc(localStorage.getItem('userId'))
+              .doc(this.storageService.getItem('userId') as string)
               .update({ profilePicture: snapshot.metadata.fullPath })
           ).subscribe(
             () => {

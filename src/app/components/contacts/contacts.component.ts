@@ -8,6 +8,7 @@ import { environment } from '@env/environment';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
+import { StorageService } from '@app/shared/services/storage.service';
 
 @Component({
   selector: 'app-contacts',
@@ -35,7 +36,8 @@ export class ContactsComponent implements OnInit {
     public dataService: DataService,
     private firestore: AngularFirestore,
     private fireStorage: AngularFireStorage,
-    public route: Router
+    public route: Router,
+    private storageService: StorageService
   ) {
     this.userDetail = environment.details;
     this.modalGold = environment.gold;
@@ -48,14 +50,16 @@ export class ContactsComponent implements OnInit {
   }
 
   public getUserData() {
-    const userId = localStorage.getItem('userId');
-    const userRef = this.firestore.collection('Users').doc(userId);
+    const userId = this.storageService.getItem('userId');
+    const userRef = this.firestore.collection('Users').doc(userId as string);
     const getData = from(userRef.get()).subscribe(
       (ref: any) => {
         if (ref.exists) {
           this.userDataDetails = ref.data();
           console.log('userDataDetails', this.userDataDetails);
-
+          this.userDataDetails.age = this.calculateAge(
+            this.userDataDetails.birthDate
+          );
           //
           const pathReference = this.fireStorage.ref(
             this.userDataDetails.profilePicture
@@ -73,6 +77,12 @@ export class ContactsComponent implements OnInit {
         console.log('error, userRef', error);
       }
     );
+  }
+
+  calculateAge(birthday: string) {
+    const ageDifMs = Date.now() - new Date(birthday).getTime();
+    const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 
   openGoldModal() {
