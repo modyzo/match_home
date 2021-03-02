@@ -18,6 +18,7 @@ import { ApiService } from '@app/services/api.service';
 import { mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { LoadingService } from '@app/shared/services/loading.service';
+import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 
 @Component({
   selector: 'app-home',
@@ -85,6 +86,7 @@ export class HomePage {
     public alertController: AlertController,
     private apiService: ApiService,
     private loadingService: LoadingService,
+    private localNotificationService: LocalNotificationService
   ) {
     this.data = environment.tabs;
     this.userDetail = environment.details;
@@ -172,11 +174,15 @@ export class HomePage {
         'modalBackground'
       );
     } else if (icon === 'flash') {
-      this.dataService.openModal(
-        TinderIconsComponent,
-        this.modalFlashData,
-        'modalBackground'
+      this.localNotificationService.showNotification(
+        'This feature is coming soon',
+        'info-main'
       );
+      // this.dataService.openModal(
+      //   TinderIconsComponent,
+      //   this.modalFlashData,
+      //   'modalBackground'
+      // );
     } else if (icon === 'star') {
       this.dataService.openModal(
         TinderIconsComponent,
