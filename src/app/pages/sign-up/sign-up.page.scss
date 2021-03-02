@@ -1,9 +1,28 @@
 
 .logincontent {
-  padding-left: 50px;
-  padding-right: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  ion-button {
+    width: 90%;
+  }
+}
+
+.sign-up-form {
+  width: 90%;
+  margin: 0 auto;
+
+  ion-item {
+    --background: transparent;
+  }
+
+  ion-input, ion-label, ion-text {
+    color: #fff;
+  }
+
+  .facebook {
+    margin-top: 2rem;
+  }
 }

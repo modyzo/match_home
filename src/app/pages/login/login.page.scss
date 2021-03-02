@@ -32,11 +32,20 @@ ion-slide {
   .main-logo {
     margin: 20% auto 2rem auto;
   }
+
+  .login-form {
+    ion-item {
+      --background: transparent;
+      margin-bottom: 1rem;
+    }
+
+    ion-input {
+      color: #fff;
+    }
+  }
 }
 
 .logincontent {
-  padding-left: 50px;
-  padding-right: 50px;
   display: flex;
   justify-content: center;
   align-items: center;

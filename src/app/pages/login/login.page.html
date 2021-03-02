@@ -12,7 +12,7 @@
         <u> Privacy
           Policy</u></p>
       <!-- <ion-button expand="round" class="facebook ion-text-uppercase"><small>Login with Facebook</small> </ion-button> -->
-      <form [formGroup]="loginForm" novalidate>
+      <form [formGroup]="loginForm" class="login-form" novalidate>
       <ion-item>
         <ion-input formControlName="email" type="email" placeholder="E-mail"></ion-input>
       </ion-item>
@@ -27,10 +27,14 @@
         <small>Login</small>
       </ion-button>
       </form>
-      <ion-button expand="round" class="ion-margin-bottom ion-text-uppercase" color="medium" fill="outline"
-        (click)="loginWithPhone()">
-        <small>login
-          in with phone number</small>
+      <ion-button
+        [disabled]="true"
+        (click)="loginWithPhone()"
+        expand="round"
+        class="ion-margin-bottom ion-text-uppercase"
+        color="medium"
+        fill="outline">
+        <small>Login in with phone number</small>
       </ion-button>
       <!-- </ion-label> -->
       <div class="medium">
