@@ -7,37 +7,25 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-row>
-  <ion-col align-items-center="true">
-    <label for="file">
-      <div class="imageWrapper">
-        <input
-          type="file"
-          id="file"
-          (change)="handleFileInput($event.target.files)"
-        />
-
-        <ion-img class="imageDiv" [src]="objectUrl" *ngIf="objectUrl"></ion-img>
-        <div class="closeIcon" *ngIf="imageBlob">
-          <ion-icon
-            name="close"
-            expand="icon-only"
-            *ngIf="imageBlob"
-          ></ion-icon>
-        </div>
-        <div class="addIcon" *ngIf="!imageBlob">
-          <ion-icon
-            name="md-add"
-            expand="icon-only"
-            *ngIf="!imageBlob"
-          ></ion-icon>
-        </div>
-      </div>
-    </label>
-  </ion-col>
-</ion-row>
-
 <ion-content>
+  <ion-item>
+    <div class="ovalsubDiv">
+      <label for="file">
+        <div class="imageWrapper">
+          <input
+            type="file"
+            id="file"
+            (change)="handleFileInput($event.target.files)"
+          />
+          <ion-img
+            class="imageDiv"
+            [src]="objectUrl"
+            *ngIf="objectUrl"
+          ></ion-img>
+        </div>
+      </label>
+    </div>
+  </ion-item>
   <form [formGroup]="editPageForm" novalidate>
     <ion-item>
       <ion-label position="floating">Voornaam</ion-label>
@@ -86,18 +74,16 @@
     </ion-item>
 
     <ion-row>
-      <ion-col align-items-center="true">
-        <ion-buttons>
-          <ion-button
-            expand="round"
-            class="ion-text-uppercase white"
-            fill="outline"
-            (click)="applyForm()"
-          >
-            <span>Apply</span>
-            <ion-icon name="arrow-down" expand="icon-only"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+      <ion-col size="12" align-items-center="true">
+        <ion-button
+          expand="round"
+          class="ion-text-uppercase white"
+          fill="outline"
+          (click)="applyForm()"
+        >
+          <span>Apply</span>
+          <ion-icon name="arrow-down" expand="icon-only"></ion-icon>
+        </ion-button>
       </ion-col>
     </ion-row>
   </form>
