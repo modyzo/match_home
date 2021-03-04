@@ -55,7 +55,7 @@ export class HomePage {
   index = 0;
   data: Array<any> = [];
 
-  segmentButton: any = 'flame';
+  segmentButton: any = 'home';
   userDetail: { userDetails: string }[];
   cards: Array<any> = [];
   stackConfig: StackConfig;
@@ -65,7 +65,7 @@ export class HomePage {
   subSegmentButton = 'messages';
   modalData: any;
   modalStarData: any;
-  modalFlashData: any;
+  modalRocketData: any;
   modalRefreshData: any;
   showButton: boolean;
   modalGold: any;
@@ -93,7 +93,7 @@ export class HomePage {
     this.cards = [];
     this.footerIcon = environment.footer_icons;
     this.modalStarData = environment.star;
-    this.modalFlashData = environment.flash;
+    this.modalRocketData = environment.rocket;
     this.modalRefreshData = environment.refresh;
     this.modalGold = environment.gold;
     this.showButton = true;
@@ -130,9 +130,7 @@ export class HomePage {
   }
 
   private getCards() {
-    this.loadingService.startLoading(
-      this.getCardsRequest()
-    ).subscribe(
+    this.loadingService.startLoading(this.getCardsRequest()).subscribe(
       (res: any) => {
         this.cards = res.estates;
         console.log(this.cards);
@@ -161,7 +159,7 @@ export class HomePage {
         this.superLike = false;
         this.cards.pop();
       }, 200);
-    } else if (icon === 'heart') {
+    } else if (icon === 'home') {
       this.like = true;
       setTimeout(() => {
         this.like = false;
@@ -173,14 +171,14 @@ export class HomePage {
         this.modalStarData,
         'modalBackground'
       );
-    } else if (icon === 'flash') {
+    } else if (icon === 'rocket') {
       this.localNotificationService.showNotification(
         'This feature is coming soon',
         'info-main'
       );
       // this.dataService.openModal(
       //   TinderIconsComponent,
-      //   this.modalFlashData,
+      //   this.modalRocketData,
       //   'modalBackground'
       // );
     } else if (icon === 'star') {
@@ -192,7 +190,7 @@ export class HomePage {
     }
   }
 
-  updateImage(i) { }
+  updateImage(i) {}
   onItemMove(element, x, y, r) {
     const color = '';
     const abs = Math.abs(x);
@@ -308,56 +306,48 @@ export class HomePage {
   }
 
   public showFilter() {
-    this.dataService.openRxModal(
-      'filter',
-      this.filterFields,
-      true,
-      '',
-      true
-    ).subscribe(
-      (modalRes) => {
+    this.dataService
+      .openRxModal('filter', this.filterFields, true, '', true)
+      .subscribe((modalRes) => {
         if (modalRes.data) {
           this.hasUserData = false;
           this.applyFilter(modalRes.data);
         }
-      }
-    );
+      });
   }
 
   private applyFilter(data) {
-    this.loadingService.startLoading(
-      this.applyFilterRequest(data)
-    ).subscribe(
-      (res: any) => {
+    this.loadingService
+      .startLoading(this.applyFilterRequest(data))
+      .subscribe((res: any) => {
         this.hasUserData = true;
         if (res && res.estates && res.estates.length) {
           this.cards = res.estates;
         } else if (res && res.isValidRequest) {
           this.cards = [];
         }
-      }
-    )
+      });
   }
 
   private applyFilterRequest(data) {
     const requestBody = {
       PriceRange: {
         Min: data.price.lower,
-        Max: data.price.upper
+        Max: data.price.upper,
       },
       AvailabilityIds: data.availability,
       AreaRange: {
         Min: data.square.lower,
-        Max: data.square.upper
+        Max: data.square.upper,
       },
       MinRooms: data.rooms.lower,
       MaxRooms: data.rooms.upper,
       EstateIds: data.stateOfBuild,
       BathRooms: data.bathroom,
-      Garage: data.garage
+      Garage: data.garage,
     };
 
     this.filterFields = data;
-    return this.apiService.getList({ Filter: requestBody })
+    return this.apiService.getList({ Filter: requestBody });
   }
 }

@@ -94,9 +94,9 @@ export const environment = {
       ],
     },
   ],
-  flash: [
+  rocket: [
     {
-      id: 'flash',
+      id: 'rocket',
       boost: '0.1x',
       view: 'VIEWS',
       header: 'Out of Boosts!',
@@ -127,7 +127,7 @@ export const environment = {
       ],
       column2: [
         {
-          icon: 'flash',
+          icon: 'rocket',
           view: 'VIEWS',
           header: 'get 2 free Boost every month',
           subHeader: 'skip the line & get more matches!',
@@ -474,7 +474,7 @@ export const environment = {
     { title: 'close', color: 'danger', mode: 'md' },
     { title: 'star', color: 'primary', mode: 'md' },
     { title: 'heart', color: 'secondary', mode: 'md' },
-    { title: 'flash', color: 'warning', mode: 'ios' },
+    { title: 'rocket', color: 'warning', mode: 'ios' },
   ],
   card: [
     {
@@ -568,7 +568,7 @@ export const environment = {
       ],
     },
   ],
-  tabs: [{ title: 'person' }, { title: 'flame' }, { title: 'chatbubbles' }],
+  tabs: [{ title: 'person' }, { title: 'home' }, { title: 'chatbubbles' }],
   details: [
     {
       userDetails:
@@ -591,13 +591,13 @@ export const environment = {
       ],
       slides: [
         {
-          icon: 'flame',
+          icon: 'home',
           head: 'get Match Home gold',
           subhead: 'See who Likes You and more!',
           color: 'warning',
         },
         {
-          icon: 'flash',
+          icon: 'rocket',
           head: 'get matches faster',
           subhead: 'Boost your profile once a month!',
           color: 'tertiary',

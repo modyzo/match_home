@@ -31,7 +31,7 @@
 
 <!-- <ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true">
 </ion-searchbar> -->
-<div *ngIf="segmentButton === 'flame'" class="filter-container">
+<div *ngIf="segmentButton === 'home'" class="filter-container">
   <ion-icon (click)="showFilter()" name="filter-circle-outline"></ion-icon>
 </div>
 
@@ -41,9 +41,10 @@
   </ion-item>
 </ion-list>
 
-<ion-content *ngIf="segmentButton === 'flame'">
+<ion-content *ngIf="segmentButton === 'home'">
   <ng-container *ngIf="cards">
-    <div *ngIf="cards.length > 0; else noData"
+    <div
+      *ngIf="cards.length > 0; else noData"
       appSwingStack
       #swingStack
       (throwoutleft)="voteUp(true)"
@@ -52,14 +53,16 @@
       (dragmove)="onDragMove($event)"
       (dragend)="onDragEnd($event)"
       [stackConfig]="stackConfig"
-      class="stack">
+      class="stack"
+    >
       <ion-card
         class="card"
         id="dummycard"
         appSwingCard
         #swingCards
         *ngFor="let item of cards; let i = index"
-        [ngStyle]="{'background':'url('+ item.pictures[0].urlXXL +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}">
+        [ngStyle]="{'background':'url('+ item.pictures[0].urlXXL +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}"
+      >
         <div class="itemdiv">
           <div class="like" *ngIf="like && i === cards.length -1">
             <p class="ion-text-uppercase">Like</p>
@@ -109,11 +112,12 @@
     <ng-template #noData>
       <div *ngIf="hasUserData" class="nodataDiv ion-padding">
         <div class="load">
-          <img src="assets/chat/house.png">
+          <img src="assets/chat/house.png" />
         </div>
         <h3
           class="text-center neutra font-caps red"
-          style="font-weight: bolder; color: #113388">
+          style="font-weight: bolder; color: #113388"
+        >
           {{ cards.length ? 'We are looking for estates around you' : 'No more
           prospects around you' }}
         </h3>
@@ -143,14 +147,15 @@
   </ion-row>
 </ion-content>
 
-<ion-footer *ngIf="cards && cards.length > 0 && segmentButton === 'flame'">
+<ion-footer *ngIf="cards && cards.length > 0 && segmentButton === 'home'">
   <ion-toolbar>
     <div class="footerContent">
       <div
         *ngFor="let icon of footerIcon;let i = index"
         [class.is-hide]="icon.title === 'star'"
         class="icon_background"
-        [ngClass]="{'transform-icon': i % 2 != 0}">
+        [ngClass]="{'transform-icon': i % 2 != 0}"
+      >
         <ion-icon
           name="{{icon.title}}"
           expand="icon-only"

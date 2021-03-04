@@ -6,31 +6,31 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-tinder-icons',
   templateUrl: './tinder-icons.component.html',
-  styleUrls: ['./tinder-icons.component.scss']
+  styleUrls: ['./tinder-icons.component.scss'],
 })
 export class TinderIconsComponent implements OnInit {
   data: any;
   slideOpts = {
-    effect: 'flip'
+    effect: 'flip',
   };
   @Input() value: any;
   show: boolean;
   isIos: boolean;
-  constructor(public modalCtrl: ModalController,
+  constructor(
+    public modalCtrl: ModalController,
     public navParams: NavParams,
     public route: Router,
-    public platform: Platform) {
+    public platform: Platform
+  ) {
     this.data = this.navParams.get('value');
     this.show = false;
     this.isIos = this.platform.is('ios');
-
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   closeModal(id: any) {
     this.modalCtrl.dismiss();
-    if (id === 'star' || 'refresh' && id !== 'flash') {
+    if (id === 'star' || ('refresh' && id !== 'rocket')) {
       this.route.navigate(['tinder-plus']);
     }
   }
