@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TokenizerService } from './services/tokenizer.service';
 import { StorageService } from './shared/services/storage.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +19,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private tokenizerService: TokenizerService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private fireAuth: AngularFireAuth
   ) {
     this.initializeApp();
   }
@@ -27,6 +30,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.getToken();
+      this.getCurrentUser();
     });
   }
 
@@ -39,5 +43,13 @@ export class AppComponent {
         console.log(`Error in obtaining token ${error}`);
       }
     );
+  }
+  getCurrentUser() {
+    this.fireAuth.onAuthStateChanged((user) => {
+      if (user != null) {
+        return from(this.fireAuth.currentUser);
+      } else {
+      }
+    });
   }
 }
