@@ -5,27 +5,37 @@
         <ion-card [ngStyle]="{'background':'url('+ slide.image +' )'}" no-shadow></ion-card>
       </ion-slide>
     </ion-slides> -->
-    <img [src]="data[0].image" class="main-logo"/>
+    <!-- <img [src]="data[0].image" class="main-logo"/> -->
     <div class="logincontent">
       <!-- <ion-label> -->
-      <p class="ion-text-center ion-margin-bottom">By tapping Login,you agree with our <u> Terms of Services </u> and
-        <u> Privacy
-          Policy</u></p>
+      <p class="ion-text-center ion-margin-bottom">
+        By tapping Login,you agree with our <u> Terms of Services </u> and
+        <u> Privacy Policy</u>
+      </p>
       <!-- <ion-button expand="round" class="facebook ion-text-uppercase"><small>Login with Facebook</small> </ion-button> -->
       <form [formGroup]="loginForm" class="login-form" novalidate>
-      <ion-item>
-        <ion-input formControlName="email" type="email" placeholder="E-mail"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
-      </ion-item>
-      <ion-button
-        [disabled]="loginForm.invalid"
-        (click)="login()"
-        expand="round"
-        class="facebook ion-text-uppercase">
-        <small>Login</small>
-      </ion-button>
+        <ion-item>
+          <ion-input
+            formControlName="email"
+            type="email"
+            placeholder="E-mail"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            formControlName="password"
+            type="password"
+            placeholder="Password"
+          ></ion-input>
+        </ion-item>
+        <ion-button
+          [disabled]="loginForm.invalid"
+          (click)="login()"
+          expand="round"
+          class="facebook ion-text-uppercase"
+        >
+          <small>Login</small>
+        </ion-button>
       </form>
       <ion-button
         [disabled]="true"
@@ -33,16 +43,15 @@
         expand="round"
         class="ion-margin-bottom ion-text-uppercase"
         color="medium"
-        fill="outline">
+        fill="outline"
+      >
         <small>Login in with phone number</small>
       </ion-button>
       <!-- </ion-label> -->
       <div class="medium">
         <p class="ion-no-margin" (click)="goToSignUp()"><u>Registration</u></p>
         <!-- <p class="ion-no-margin" (click)="gotAccountRecovery()"><u>Trouble Logging In?</u></p> -->
-        <div class="lastItem" (click)="toggleContent()">
-        
-        </div>
+        <div class="lastItem" (click)="toggleContent()"></div>
       </div>
     </div>
   </div>
