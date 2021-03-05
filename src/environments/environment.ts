@@ -165,7 +165,7 @@ export const environment = {
       ],
     },
   ],
-  tinderPlus: [
+  matchPlus: [
     {
       image: '../../assets/chat/puzzle.png',
       head: 'Unlimited right swipes',
@@ -187,7 +187,7 @@ export const environment = {
       image: '../../assets/chat/flash2.png',
       head: 'control who you see',
       subHead:
-        "it's simple now to choose the type of people you want to see on Tinder.",
+        "it's simple now to choose the type of people you want to see on Match.",
       head1: 'balanced recommendations',
       subHead1: 'See the most relevant people to you(default setting)',
       head2: 'recently active',
@@ -197,7 +197,7 @@ export const environment = {
     {
       image: '../../assets/chat/flash3.png',
       head: 'control who see you',
-      subHead: 'Only be shown to certain types of people on tinder.',
+      subHead: 'Only be shown to certain types of people on match.',
       head1: 'Standard',
       subHead1:
         'Only be shown to certain types of people for individual recommendations.',

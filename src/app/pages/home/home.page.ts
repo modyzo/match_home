@@ -12,7 +12,7 @@ import {
   DragEvent,
   StackConfig,
 } from '../../ionic-swing/ionic-swing.module';
-import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
+import { MatchIconsComponent } from '@app/components/match-icons/match-icons.component';
 import { environment } from '@env/environment';
 import { ApiService } from '@app/services/api.service';
 import { mergeMap } from 'rxjs/operators';
@@ -146,7 +146,7 @@ export class HomePage {
 
   clickedIconIs(icon) {
     if (icon === 'refresh') {
-      this.dataService.openModal(TinderIconsComponent, this.modalRefreshData);
+      this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
     } else if (icon === 'close') {
       this.disLike = true;
       setTimeout(() => {
@@ -167,7 +167,7 @@ export class HomePage {
       }, 200);
     } else if (icon === 'star') {
       this.dataService.openModal(
-        TinderIconsComponent,
+        MatchIconsComponent,
         this.modalStarData,
         'modalBackground'
       );
@@ -177,13 +177,13 @@ export class HomePage {
         'info-main'
       );
       // this.dataService.openModal(
-      //   TinderIconsComponent,
+      //   MatchIconsComponent,
       //   this.modalRocketData,
       //   'modalBackground'
       // );
     } else if (icon === 'star') {
       this.dataService.openModal(
-        TinderIconsComponent,
+        MatchIconsComponent,
         this.modalStarData,
         'modalBackground'
       );

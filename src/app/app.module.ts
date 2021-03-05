@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TinderIconsComponent } from '@app/components/tinder-icons/tinder-icons.component';
+import { MatchIconsComponent } from '@app/components/match-icons/match-icons.component';
 import { ShareProfileComponent } from '@app/components/share-profile/share-profile.component';
 import { ChatStartComponent } from '@app/components/chat-start/chat-start.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,7 +37,7 @@ import { CustomToastrComponent } from './shared/components/custom-toastr/custom-
 @NgModule({
   declarations: [
     AppComponent,
-    TinderIconsComponent,
+    MatchIconsComponent,
     ShareProfileComponent,
     ChatStartComponent,
     ReportComponent,
@@ -49,7 +49,7 @@ import { CustomToastrComponent } from './shared/components/custom-toastr/custom-
     TermsComponent,
   ],
   entryComponents: [
-    TinderIconsComponent,
+    MatchIconsComponent,
     ShareProfileComponent,
     ChatStartComponent,
     ReportComponent,

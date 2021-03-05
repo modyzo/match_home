@@ -6,13 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TeamTinderPage } from './team-tinder.page';
+import { MatchPlusPage } from './match-plus.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: TeamTinderPage
-  }
+    component: MatchPlusPage,
+  },
 ];
 
 @NgModule({
@@ -20,8 +20,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [TeamTinderPage]
+  declarations: [MatchPlusPage],
 })
-export class TeamTinderPageModule { }
+export class MatchPlusPageModule {}

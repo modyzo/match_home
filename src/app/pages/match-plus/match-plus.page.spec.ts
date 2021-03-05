@@ -2,22 +2,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TinderPlusPage } from './tinder-plus.page';
+import { MatchPlusPage } from './match-plus.page';
 
-describe('TinderPlusPage', () => {
-  let component: TinderPlusPage;
-  let fixture: ComponentFixture<TinderPlusPage>;
+describe('MatchPlusPage', () => {
+  let component: MatchPlusPage;
+  let fixture: ComponentFixture<MatchPlusPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TinderPlusPage],
+      declarations: [MatchPlusPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TinderPlusPage);
+    fixture = TestBed.createComponent(MatchPlusPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
