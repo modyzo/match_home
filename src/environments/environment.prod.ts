@@ -16,7 +16,7 @@ export const environment = {
     {
       id: 'refresh',
       mainHeader: 'Get Match Home Gold',
-      icon: 'heart',
+      icon: 'home',
       header: 'See who Likes you',
       subHeader: 'Match with them instantly',
       button: 'continue',
@@ -418,7 +418,7 @@ export const environment = {
     },
     {
       color: '#EC407A',
-      image: '../../assets/chat/heart.png',
+      image: '../../assets/chat/home.png',
       head: 'i met  ',
       head1: 'someone',
     },
@@ -484,7 +484,7 @@ export const environment = {
     { title: 'refresh', color: 'medium', mode: 'md' },
     { title: 'close', color: 'danger', mode: 'md' },
     { title: 'star', color: 'primary', mode: 'md' },
-    { title: 'heart', color: 'secondary', mode: 'md' },
+    { title: 'home', color: 'secondary', mode: 'md' },
     { title: 'rocket', color: 'warning', mode: 'ios' },
   ],
   card: [
@@ -632,7 +632,7 @@ export const environment = {
           color: 'warning',
         },
         {
-          icon: 'heart',
+          icon: 'home',
           head: 'increase your chances',
           subhead: 'Get unlimited Likes with Match Home Plus!',
           color: 'secondary',

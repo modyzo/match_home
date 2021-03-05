@@ -18,7 +18,6 @@ export class TokenizerService implements OnInit {
   getToken(): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${environment.whiseApi}/token`;
-
     return this.http
       .post(
         url,
