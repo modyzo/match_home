@@ -33,7 +33,6 @@ import { TokenizerService } from './services/tokenizer.service';
 import { AddTokenInterceptor } from './services/add-token-interceptors.service';
 import { CapitalCasePipe } from './shared/pipes/capital-case.pipe';
 import { CustomToastrComponent } from './shared/components/custom-toastr/custom-toastr.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -76,9 +75,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       toastComponent: CustomToastrComponent,
       preventDuplicates: false,
       maxOpened: 1,
-      autoDismiss: true
+      autoDismiss: true,
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     StatusBar,
