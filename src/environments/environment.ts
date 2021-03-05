@@ -11,7 +11,7 @@ export const environment = {
     appId: '1:1075662539136:web:d3530323dceeda5d241965',
     measurementId: 'G-PFRDHC8KGG',
   },
-  whiseApi: 'https://api.whise.eu/',
+  whiseApi: 'https://api.whise.eu',
   gold: [
     {
       id: 'refresh',

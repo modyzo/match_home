@@ -230,6 +230,13 @@ export class HomePage {
   }
 
   segmentChanged(event: any) {
+    if (event.detail.value === 'chatbubbles') {
+      event.preventDefault();
+      return this.localNotificationService.showNotification(
+        'This feature is coming soon',
+        'info-main'
+      );
+    }
     this.segmentButton = event.detail.value;
   }
   openAndHideDetail(userData: any) {

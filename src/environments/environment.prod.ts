@@ -1,6 +1,17 @@
 export const environment = {
   production: true,
-  whiseApi: 'https://api.whise.eu/',
+  firebaseConfig: {
+    apiKey: 'AIzaSyCgOQYrkO3lND3wIwtYE4QuAexIl5zNvgM',
+    authDomain: 'matchmyhome-7054f.firebaseapp.com',
+    databaseURL:
+      'https://matchmyhome-7054f-default-rtdb.europe-west1.firebasedatabase.app',
+    projectId: 'matchmyhome-7054f',
+    storageBucket: 'matchmyhome-7054f.appspot.com',
+    messagingSenderId: '1075662539136',
+    appId: '1:1075662539136:web:d3530323dceeda5d241965',
+    measurementId: 'G-PFRDHC8KGG',
+  },
+  whiseApi: 'https://api.whise.eu',
   gold: [
     {
       id: 'refresh',
@@ -828,20 +839,7 @@ export const environment = {
   ],
   LOGIN_SLIDES_DATA: [
     {
-      quote: 'Discover new and interesting people nearby',
-      image: '../../assets/chat/chat1.jpg',
-    },
-    {
-      quote: 'Swipe right to like some one and swipe left to pass',
-      image: '../../assets/chat/like.jpeg',
-    },
-    {
-      quote: "If they also swipe right, It's a match!",
-      image: '../../assets/chat/match2.jpg',
-    },
-    {
-      quote: "Only people you've matched can message you",
-      image: '../../assets/chat/rose.png',
+      image: '../../assets/chat/logo.png',
     },
   ],
   COUNTRY_DATA: [
