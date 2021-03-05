@@ -150,7 +150,7 @@ export class EditPage implements OnInit {
       // Create a root reference
       this.storageService.getItem('userId').subscribe((userId) => {
         const storageRef = this.fireStorage.ref(
-          '/users/' + this.storageService.getItem('userId') + '/profilePicture'
+          '/users/' + userId + '/profilePicture'
         );
         const avatarRef = storageRef.child('avatar.jpg');
         const avatarImagesRef = storageRef.child('images/avatar.jpg');
