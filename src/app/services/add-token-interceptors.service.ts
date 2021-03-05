@@ -8,6 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { StorageService } from '@app/shared/services/storage.service';
 import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -16,19 +17,24 @@ export class AddTokenInterceptor implements HttpInterceptor {
   constructor(
     private http: HttpClient,
     private storageService: StorageService
-  ) {}
-  intercept(
+  ) { }
+
+  public intercept(
     req: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  ) {
     console.log(`AddTokenInterceptor - ${req.url}`);
+    return this.storageService.getItem('token').pipe(
+      mergeMap((token) => {
+        let jsonReq: HttpRequest<any> = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    let jsonReq: HttpRequest<any> = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.storageService.getItem('token')}`,
-      },
-    });
+        return next.handle(jsonReq);
+      })
+    )
 
-    return next.handle(jsonReq);
   }
 }
