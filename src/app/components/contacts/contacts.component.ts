@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { DataService } from '@app/services/data.service';
 import { Router } from '@angular/router';
-import { TinderIconsComponent } from '../tinder-icons/tinder-icons.component';
+import { MatchIconsComponent } from '../match-icons/match-icons.component';
 import { environment } from '@env/environment';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -51,36 +51,41 @@ export class ContactsComponent implements OnInit {
   }
 
   public getUserData() {
-    this.storageService.getItem('userId').pipe(
-      mergeMap((userId) => {
-        const userRef = this.firestore.collection('Users').doc(userId as string);
-        return from(userRef.get())
-      })
-    ).subscribe(
-      (ref: any) => {
-        if (ref.exists) {
-          this.userDataDetails = ref.data();
-          console.log('userDataDetails', this.userDataDetails);
-          this.userDataDetails.age = this.calculateAge(
-            this.userDataDetails.birthDate
-          );
-          //
-          const pathReference = this.fireStorage.ref(
-            this.userDataDetails.profilePicture
-          );
+    this.storageService
+      .getItem('userId')
+      .pipe(
+        mergeMap((userId) => {
+          const userRef = this.firestore
+            .collection('Users')
+            .doc(userId as string);
+          return from(userRef.get());
+        })
+      )
+      .subscribe(
+        (ref: any) => {
+          if (ref.exists) {
+            this.userDataDetails = ref.data();
+            console.log('userDataDetails', this.userDataDetails);
+            this.userDataDetails.age = this.calculateAge(
+              this.userDataDetails.birthDate
+            );
+            //
+            const pathReference = this.fireStorage.ref(
+              this.userDataDetails.profilePicture
+            );
 
-          from(pathReference.getDownloadURL()).subscribe((dataLink) => {
-            this.objectUrl = dataLink;
-          });
-          //
-        } else {
-          console.log('No such document!');
+            from(pathReference.getDownloadURL()).subscribe((dataLink) => {
+              this.objectUrl = dataLink;
+            });
+            //
+          } else {
+            console.log('No such document!');
+          }
+        },
+        (error) => {
+          console.log('error, userRef', error);
         }
-      },
-      (error) => {
-        console.log('error, userRef', error);
-      }
-    );
+      );
   }
 
   calculateAge(birthday: string) {
@@ -90,10 +95,10 @@ export class ContactsComponent implements OnInit {
   }
 
   openGoldModal() {
-    this.dataService.openModal(TinderIconsComponent, this.modalGold);
+    this.dataService.openModal(MatchIconsComponent, this.modalGold);
   }
-  openTinderPlusModal() {
-    this.dataService.openModal(TinderIconsComponent, this.modalRefreshData);
+  openMatchPlusModal() {
+    this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
   }
   gotoFunctions(data: any) {
     if (data === 'create') {

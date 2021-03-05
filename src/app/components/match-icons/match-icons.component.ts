@@ -4,11 +4,11 @@ import { ModalController, NavParams, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tinder-icons',
-  templateUrl: './tinder-icons.component.html',
-  styleUrls: ['./tinder-icons.component.scss'],
+  selector: 'app-match-icons',
+  templateUrl: './match-icons.component.html',
+  styleUrls: ['./match-icons.component.scss'],
 })
-export class TinderIconsComponent implements OnInit {
+export class MatchIconsComponent implements OnInit {
   data: any;
   slideOpts = {
     effect: 'flip',
@@ -31,7 +31,7 @@ export class TinderIconsComponent implements OnInit {
   closeModal(id: any) {
     this.modalCtrl.dismiss();
     if (id === 'star' || ('refresh' && id !== 'rocket')) {
-      this.route.navigate(['tinder-plus']);
+      this.route.navigate(['match-plus']);
     }
   }
   showCustomButton(index: any) {

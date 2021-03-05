@@ -12,7 +12,7 @@ ion-card {
   margin: 0 16px 10px 16px;
 }
 
-.tinder_gold_Column {
+.match_gold_Column {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +45,8 @@ ion-card {
     align-items: center;
     background: var(--ion-color-light-tint);
     border-radius: 50%;
-    box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.2),
+      0 1px 2px 0 rgba(0, 0, 0, 0.14), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
   }
 
   .super {
