@@ -9,6 +9,7 @@ import { LocalNotificationService } from '@app/shared/services/local-notificatio
 import { StorageService } from '@app/shared/services/storage.service';
 import { environment } from '@env/environment';
 import { from } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit',
@@ -75,17 +76,17 @@ export class EditPage implements OnInit {
   }
 
   public getUserData() {
-    const userId = this.storageService.getItem('userId');
-    const userRef = this.firestore.collection('Users').doc(userId as string);
-    const getData = from(userRef.get()).subscribe(
+    this.storageService.getItem('userId').pipe(
+      mergeMap((userId) => {
+        const userRef = this.firestore.collection('Users').doc(userId);
+        return from(userRef.get());
+      })
+    ).subscribe(
       (ref: any) => {
         this.userDocRef = ref;
         if (ref.exists) {
           const userDataDetails = ref.data();
           console.log('userDataDetails', userDataDetails);
-
-          //
-
           const pathReference = this.fireStorage.ref(
             userDataDetails.profilePicture
           );
@@ -119,11 +120,11 @@ export class EditPage implements OnInit {
   }
 
   applyForm = () => {
-    const collectinoRef = this.firestore.collection('/Users');
-    return from(
-      collectinoRef
-        .doc(this.storageService.getItem('userId') as string)
-        .update(this.editPageForm.value)
+    this.storageService.getItem('userId').pipe(
+      mergeMap((userId) => {
+        const collectinoRef = this.firestore.collection('/Users');
+        return from(collectinoRef.doc(userId).update(this.editPageForm.value))
+      })
     ).subscribe(
       () => {
         this.localNotificationService.showNotification(
@@ -147,44 +148,46 @@ export class EditPage implements OnInit {
       this.imageBlob = blob;
       this.objectUrl = URL.createObjectURL(this.imageBlob);
       // Create a root reference
-      var storageRef = this.fireStorage.ref(
-        '/users/' + this.storageService.getItem('userId') + '/profilePicture'
-      );
+      this.storageService.getItem('userId').subscribe((userId) => {
+        const storageRef = this.fireStorage.ref(
+          '/users/' + this.storageService.getItem('userId') + '/profilePicture'
+        );
+        const avatarRef = storageRef.child('avatar.jpg');
+        const avatarImagesRef = storageRef.child('images/avatar.jpg');
 
-      var avatarRef = storageRef.child('avatar.jpg');
-
-      var avatarImagesRef = storageRef.child('images/avatar.jpg');
-
-      // While the file names are the same, the references point to different files
-      avatarRef.name === avatarImagesRef.name; // true
-      avatarRef.fullPath === avatarImagesRef.fullPath; // false
-      return from(avatarRef.put(this.imageBlob)).subscribe(
-        (snapshot: any) => {
-          console.log('snapshot', snapshot);
-          const collectinoRef = this.firestore.collection('/Users');
-          return from(
-            collectinoRef
-              .doc(this.storageService.getItem('userId') as string)
-              .update({ profilePicture: snapshot.metadata.fullPath })
-          ).subscribe(
-            () => {
-              this.localNotificationService.showNotification(
-                'You have successfully updated your avatar',
-                'success-main'
-              );
-            },
-            (error) => {
-              this.localNotificationService.showNotification(
-                error,
-                'error-main'
-              );
-            }
-          );
-        },
-        (error) => {
-          this.localNotificationService.showNotification(error, 'error-main');
-        }
-      );
+        // While the file names are the same, the references point to different files
+        avatarRef.name === avatarImagesRef.name; // true
+        avatarRef.fullPath === avatarImagesRef.fullPath; // false
+        return from(avatarRef.put(this.imageBlob)).subscribe(
+          (snapshot: any) => {
+            this.storageService.getItem('userId').pipe(
+              mergeMap((userId) => {
+                const collectinoRef = this.firestore.collection('/Users');
+                return from(collectinoRef
+                  .doc(userId)
+                  .update({ profilePicture: snapshot.metadata.fullPath })
+                )
+              })
+            ).subscribe(
+              () => {
+                this.localNotificationService.showNotification(
+                  'You have successfully updated your avatar',
+                  'success-main'
+                );
+              },
+              (error) => {
+                this.localNotificationService.showNotification(
+                  error,
+                  'error-main'
+                );
+              }
+            );
+          },
+          (error) => {
+            this.localNotificationService.showNotification(error, 'error-main');
+          }
+        );
+      })
     });
   }
 }

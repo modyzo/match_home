@@ -9,6 +9,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { StorageService } from '@app/shared/services/storage.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contacts',
@@ -50,9 +51,12 @@ export class ContactsComponent implements OnInit {
   }
 
   public getUserData() {
-    const userId = this.storageService.getItem('userId');
-    const userRef = this.firestore.collection('Users').doc(userId as string);
-    const getData = from(userRef.get()).subscribe(
+    this.storageService.getItem('userId').pipe(
+      mergeMap((userId) => {
+        const userRef = this.firestore.collection('Users').doc(userId as string);
+        return from(userRef.get())
+      })
+    ).subscribe(
       (ref: any) => {
         if (ref.exists) {
           this.userDataDetails = ref.data();

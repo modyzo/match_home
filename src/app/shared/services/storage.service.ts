@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Platform } from '@ionic/angular';
-import { from } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +19,9 @@ export class StorageService {
       : localStorage.setItem(key, value);
   }
 
-  public getItem(key) {
+  public getItem(key): Observable<any> {
     return this.platform.is('cordova')
-      ? from(this.storage.getItem(key)).subscribe((res) => res, (error) => null)
-      : localStorage.getItem(key);
+      ? from(this.storage.getItem(key))
+      : from(localStorage.getItem(key));
   }
 }
