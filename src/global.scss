@@ -1,14 +1,13 @@
-
 // http://ionicframework.com/docs/theming/
-@import "~@ionic/angular/css/core.css";
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
 .swiper-pagination {
   // bottom: 0 !important;
@@ -40,11 +39,11 @@ ion-modal {
   color: var(--ion-color-danger-tint);
 }
 ion-content {
-  --background: linear-gradient(50deg, #113388, #007CBA);
+  --background: linear-gradient(50deg, #113388, #007cba);
 }
 .header-md:after {
   background-image: none !important;
-  content: "";
+  content: '';
 }
 
 .loading {
@@ -60,7 +59,7 @@ ion-content {
   height: 200px;
   /** height is required as absolute value **/
   border-radius: 100px;
-  position:relative;
+  position: relative;
   animation: pulse 2000ms linear infinite;
   -webkit-animation: pulse 2000ms linear infinite;
   -moz-animation: pulse 2000ms linear infinite;
@@ -73,7 +72,7 @@ ion-content {
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
+  content: '';
   width: 200px;
   height: 200px;
   border-radius: 100px;
@@ -95,8 +94,7 @@ ion-content {
 }
 /* outer ripple */
 
-
-@keyframes pulse{
+@keyframes pulse {
   0% {
     transform: scale(0.8);
     filter: alpha(opacity=50);
@@ -179,10 +177,10 @@ ion-content {
     line-height: 1rem;
     letter-spacing: 0.02rem;
   }
-  
+
   .error-auth {
     min-height: 2.5rem;
-    background: #F22A2A;
+    background: #f22a2a;
     font-size: 0.8rem;
     line-height: 1rem;
     letter-spacing: 0.02rem;
@@ -191,7 +189,7 @@ ion-content {
 
   .success-auth {
     min-height: 2.5rem;
-    background: #25CF9D;
+    background: #25cf9d;
     font-size: 0.8rem;
     line-height: 1rem;
     letter-spacing: 0.02rem;
@@ -202,7 +200,7 @@ ion-content {
     min-height: 10vh;
     border-radius: 40px 40px 0 0;
     padding: 0.5rem 1rem;
-    background: #F22A2A;
+    background: #f22a2a;
     font-size: 1rem;
     line-height: 1.5rem;
     letter-spacing: 0.02rem;
@@ -211,7 +209,7 @@ ion-content {
 
   .success-main {
     min-height: 10vh;
-    background: #25CF9D;
+    background: #25cf9d;
     border-radius: 40px 40px 0 0;
     padding: 0.5rem 1rem;
     font-size: 1rem;
@@ -229,5 +227,16 @@ ion-content {
     line-height: 1.5rem;
     letter-spacing: 0.02rem;
     font-family: 'SFUIDisplay-Medium';
+  }
+}
+
+.modal-fullscreen {
+  .modal-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 }

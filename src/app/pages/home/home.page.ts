@@ -160,11 +160,18 @@ export class HomePage {
         this.cards.pop();
       }, 200);
     } else if (icon === 'home') {
-      this.like = true;
-      setTimeout(() => {
-        this.like = false;
-        this.cards.pop();
-      }, 200);
+      return this.showSeaprator(() => {
+        this.like = true;
+        setTimeout(() => {
+          this.like = false;
+          this.cards.pop();
+        }, 200);
+      });
+      // this.like = true;
+      // setTimeout(() => {
+      //   this.like = false;
+      //   this.cards.pop();
+      // }, 200);
     } else if (icon === 'star') {
       this.dataService.openModal(
         MatchIconsComponent,
@@ -188,6 +195,17 @@ export class HomePage {
         'modalBackground'
       );
     }
+  }
+
+  public showSeaprator(callback: () => void) {
+    this.dataService
+      .openRxModal('separator', {}, false, 'modal-fullscreen', false)
+      .subscribe((modalRes) => {
+        if (modalRes.data) {
+          console.log('modalRes.data', modalRes.data);
+          callback();
+        }
+      });
   }
 
   updateImage(i) {}
@@ -291,6 +309,11 @@ export class HomePage {
       const removedCard = this.cards.pop();
       this.addNewCards(1);
       this.recentCard = 'You superliked: ' + removedCard.name;
+    }
+    if (this.like) {
+      return this.showSeaprator(() => {
+        setTimeout(() => {}, 200);
+      });
     }
   }
 

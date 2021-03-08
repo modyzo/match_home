@@ -10,6 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { StorageService } from '@app/shared/services/storage.service';
 import { mergeMap } from 'rxjs/operators';
+import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 
 @Component({
   selector: 'app-contacts',
@@ -38,7 +39,8 @@ export class ContactsComponent implements OnInit {
     private firestore: AngularFirestore,
     private fireStorage: AngularFireStorage,
     public route: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private localNotificationService: LocalNotificationService
   ) {
     this.userDetail = environment.details;
     this.modalGold = environment.gold;
@@ -104,7 +106,11 @@ export class ContactsComponent implements OnInit {
     if (data === 'create') {
       this.route.navigate(['edit']);
     } else if (data === 'settings') {
-      this.route.navigate(['settings']);
+      return this.localNotificationService.showNotification(
+        'This feature is coming soon',
+        'info-main'
+      );
+      // this.route.navigate(['settings']);
     }
   }
   async change() {

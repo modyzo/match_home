@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { FilterComponent } from '@app/components/filter/filter.component';
+import { SeparatorComponent } from '@app/components/separator/separator.component';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { FilterComponent } from '@app/components/filter/filter.component';
 export class DataService {
   private componentTypes = {
     filter: FilterComponent,
+    separator: SeparatorComponent,
   };
 
   constructor(public modalCtrl: ModalController) {}
