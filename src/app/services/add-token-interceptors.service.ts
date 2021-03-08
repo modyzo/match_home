@@ -18,13 +18,10 @@ export class AddTokenInterceptor implements HttpInterceptor {
   constructor(
     private http: HttpClient,
     private storageService: StorageService,
-    private tokenizerService: TokenizerService,
-  ) { }
+    private tokenizerService: TokenizerService
+  ) {}
 
-  public intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ) {
+  public intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log(`AddTokenInterceptor - ${req.url}`);
     if (req.url.includes('token')) {
       return next.handle(req);
@@ -36,7 +33,7 @@ export class AddTokenInterceptor implements HttpInterceptor {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        console.log(jsonReq);
         return next.handle(jsonReq);
       }),
       catchError(() => {
@@ -48,12 +45,12 @@ export class AddTokenInterceptor implements HttpInterceptor {
                 Authorization: `Bearer ${token}`,
               },
             });
+            console.log('error', jsonReq);
 
             return next.handle(jsonReq);
           })
-        )
+        );
       })
-    )
-
+    );
   }
 }
