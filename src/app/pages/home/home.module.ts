@@ -12,6 +12,7 @@ import { ChatComponent } from '@app/components/chat/chat.component';
 import { ContactsComponent } from '@app/components/contacts/contacts.component';
 import { MessageFeedComponent } from '@app/components/message-feed/message-feed.component';
 import { FilterComponent } from '@app/components/filter/filter.component';
+import { SeparatorComponent } from '@app/components/separator/separator.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { FilterComponent } from '@app/components/filter/filter.component';
     ContactsComponent,
     MessageFeedComponent,
     FilterComponent,
-  ]
+    SeparatorComponent,
+  ],
 })
 export class HomePageModule {}
