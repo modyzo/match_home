@@ -33,6 +33,7 @@ import { TokenizerService } from './services/tokenizer.service';
 import { AddTokenInterceptor } from './services/add-token-interceptors.service';
 import { CapitalCasePipe } from './shared/pipes/capital-case.pipe';
 import { CustomToastrComponent } from './shared/components/custom-toastr/custom-toastr.component';
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { CustomToastrComponent } from './shared/components/custom-toastr/custom-
     TokenizerService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
+    File,
   ],
   bootstrap: [AppComponent],
 })
