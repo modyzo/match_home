@@ -50,6 +50,12 @@
         <feature name="CDVWKWebViewEngine">
             <param name="ios-package" value="CDVWKWebViewEngine" />
         </feature>
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>App would like to access the camera.</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+            <string>App would like to access the photo library.</string>
+        </config-file>
         <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
