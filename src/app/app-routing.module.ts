@@ -88,6 +88,10 @@ const routes: Routes = [
     path: 'sign-up',
     loadChildren: './pages/sign-up/sign-up.module#SignUpPageModule',
   },
+  {
+    path: 'verify/:token',
+    loadChildren: './pages/verify/verify.module#VerifyPageModule'
+  }
 ];
 
 @NgModule({

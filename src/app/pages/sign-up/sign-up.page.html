@@ -13,6 +13,7 @@
       <ion-input
         formControlName="email"
         type="email"
+        id="email"
         placeholder="E-mail">
       </ion-input>
     </ion-item>
@@ -20,6 +21,7 @@
       <ion-input
         formControlName="password"
         type="password"
+        id="password"
         placeholder="Wachtwoord">
       </ion-input>
     </ion-item>
@@ -42,7 +44,7 @@
 
     <ion-item>
       <ion-label>Beschikbaar</ion-label>
-      <ion-select formControlName="sex" multiple="false">
+      <ion-select formControlName="gender" multiple="false">
         <ion-select-option *ngFor="let item of sexObject" [value]="item.value">{{ item.name }}
         </ion-select-option>
       </ion-select>
@@ -57,6 +59,13 @@
       <ion-text slot="start">Phone</ion-text>
       <ion-input type="tel" formControlName="phone" maxlength="21" clearInput>
       </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Role</ion-label>
+      <ion-select formControlName="role" multiple="false">
+        <ion-select-option *ngFor="let item of roleObject" [value]="item.value">{{ item.name }}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
     <div class="logincontent">
       <ion-button

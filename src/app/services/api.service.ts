@@ -11,14 +11,14 @@ export class ApiService {
 
   public getRequest(endpoint: string): Observable<Object> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.get(`${environment.whiseApi}/${endpoint}`, {
+    return this.httpClient.get(`${environment.apiUrl}/${endpoint}`, {
       headers,
     });
   }
 
   public postRequest(endpoint: string, data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post(`${environment.whiseApi}/${endpoint}`, data, {
+    return this.httpClient.post(`${environment.apiUrl}/${endpoint}`, data, {
       headers,
     });
   }

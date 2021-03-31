@@ -5,9 +5,10 @@ import { ToggleLoginComponent } from '@app/components/toggle-login/toggle-login.
 import { environment } from '@env/environment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { from } from 'rxjs';
+import { from, of } from 'rxjs';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 import { StorageService } from '@app/shared/services/storage.service';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,9 @@ export class LoginPage implements OnInit {
   showContent: any;
   data: any = [];
   constructor(
-    public route: Router,
+    public router: Router,
     public service: DataService,
+    private authService: AuthService,
     private angularFireAuth: AngularFireAuth,
     private storageService: StorageService,
     private formBuilder: FormBuilder,
@@ -49,35 +51,25 @@ export class LoginPage implements OnInit {
     this.service.openModal(ToggleLoginComponent, '', 'modalBackground');
   }
   loginWithPhone() {
-    this.route.navigate(['login-phone']);
+    this.router.navigate(['login-phone']);
   }
   gotAccountRecovery() {
-    this.route.navigate(['account-recovery']);
+    this.router.navigate(['account-recovery']);
   }
 
   public goToSignUp() {
-    this.route.navigate(['sign-up']);
+    this.router.navigate(['sign-up']);
   }
 
   public login() {
-    return from(
-      this.angularFireAuth.signInWithEmailAndPassword(
-        this.loginForm.get('email').value,
-        this.loginForm.get('password').value
-      )
-    ).subscribe(
-      (user) => {
-        console.log(user);
-        if (user.user.emailVerified) {
-          this.storageService.setItem('userId', user.user.uid);
-          this.route.navigate(['home']);
-        } else {
-          console.log('No verified');
-          this.localNotificationService.showNotification(
-            'Please, verify you account',
-            'error-main'
-          );
-        }
+    return this.authService.signIn({
+      email: this.loginForm.get('email').value,
+      password: this.loginForm.get('password').value,
+    }).subscribe(
+      (data) => {
+        console.log('token', data.token);
+        of(this.authService.sendToken(data.token));
+        this.router.navigate(['/home']);
       },
       (error) => {
         console.log(error);

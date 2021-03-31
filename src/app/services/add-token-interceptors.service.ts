@@ -1,56 +1,98 @@
+import { Injectable } from '@angular/core';
 import {
-  HttpClient,
-  HttpEvent,
+  HttpRequest,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpHeaderResponse,
+  HttpSentEvent,
+  HttpProgressEvent,
+  HttpResponse,
+  HttpUserEvent,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { StorageService } from '@app/shared/services/storage.service';
-import { Observable } from 'rxjs';
-import { mergeMap, catchError } from 'rxjs/operators';
-import { TokenizerService } from './tokenizer.service';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { catchError, switchMap, filter, take } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AddTokenInterceptor implements HttpInterceptor {
+@Injectable()
+export class HttpRequestsInterceptor implements HttpInterceptor {
+  private isRefreshingToken = false;
+  private tokenSubject = new BehaviorSubject<any>(null);
+
   constructor(
-    private http: HttpClient,
-    private storageService: StorageService,
-    private tokenizerService: TokenizerService
+    private authService: AuthService,
   ) {}
 
-  public intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log(`AddTokenInterceptor - ${req.url}`);
-    if (req.url.includes('token')) {
-      return next.handle(req);
-    }
-    return this.storageService.getItem('token').pipe(
-      mergeMap((token) => {
-        let jsonReq: HttpRequest<any> = req.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log(jsonReq);
-        return next.handle(jsonReq);
-      }),
-      catchError(() => {
-        return this.tokenizerService.getToken().pipe(
-          mergeMap((token) => {
-            this.storageService.setItem('token', token);
-            let jsonReq: HttpRequest<any> = req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            console.log('error', jsonReq);
-
-            return next.handle(jsonReq);
-          })
-        );
+  public intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<
+    | HttpSentEvent
+    | HttpHeaderResponse
+    | HttpProgressEvent
+    | HttpResponse<any>
+    | HttpUserEvent<any>
+    | any
+  > {
+    return next.handle(request).pipe(
+      catchError((thrown: any) => {
+        if (thrown instanceof HttpErrorResponse) {
+          switch (thrown.status) {
+            case 400: {
+              return throwError(thrown);
+            }
+            case 401: {
+              return this.handle401Error(request, next);
+            }
+            case 403: {
+              this.authService.logout();
+              return throwError(thrown);
+            }
+            default: {
+              return throwError(thrown);
+            }
+          }
+        } else {
+          return throwError(thrown);
+        }
       })
     );
+  }
+
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+    if (!this.isRefreshingToken) {
+      this.isRefreshingToken = true;
+
+      this.tokenSubject.next(null);
+
+      return this.authService.refreshToken().pipe(
+        switchMap((token: string) => {
+          this.isRefreshingToken = false;
+          this.tokenSubject.next(token);
+          return next.handle(this.addTokenToRequest(request, token));
+        }),
+        catchError(async (error: any) => {
+          this.isRefreshingToken = false;
+
+          this.authService.logout();
+          return throwError(error);
+        })
+      );
+    } else {
+      return this.tokenSubject.pipe(
+        filter((token) => token != null),
+        take(1),
+        switchMap((token: string) => {
+          return next.handle(this.addTokenToRequest(request, token));
+        })
+      );
+    }
+  }
+
+  private addTokenToRequest(
+    request: HttpRequest<any>,
+    token: string
+  ): HttpRequest<any> {
+    return request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
   }
 }

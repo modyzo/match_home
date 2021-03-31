@@ -30,10 +30,11 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 import { environment } from '../environments/environment';
 import { TokenizerService } from './services/tokenizer.service';
-import { AddTokenInterceptor } from './services/add-token-interceptors.service';
 import { CapitalCasePipe } from './shared/pipes/capital-case.pipe';
 import { CustomToastrComponent } from './shared/components/custom-toastr/custom-toastr.component';
 import { File } from '@ionic-native/file/ngx';
+import { HttpRequestsInterceptor } from './services/add-token-interceptors.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -85,8 +86,9 @@ import { File } from '@ionic-native/file/ngx';
     Device,
     NativeStorage,
     TokenizerService,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: AddTokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestsInterceptor, multi: true },
     File,
   ],
   bootstrap: [AppComponent],

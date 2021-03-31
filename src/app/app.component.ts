@@ -29,21 +29,10 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.getToken();
       this.getCurrentUser();
     });
   }
 
-  getToken() {
-    this.tokenizerService.getToken().subscribe(
-      (data) => {
-        this.storageService.setItem('token', data.token);
-      },
-      (error) => {
-        console.log(`Error in obtaining token ${error}`);
-      }
-    );
-  }
   getCurrentUser() {
     this.fireAuth.onAuthStateChanged((user) => {
       if (user != null) {

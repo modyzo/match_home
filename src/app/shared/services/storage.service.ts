@@ -20,4 +20,10 @@ export class StorageService {
       ? from(this.storage.getItem(key))
       : of(localStorage.getItem(key));
   }
+
+  public removeItem(key): Observable<any> {
+    return this.platform.is('cordova')
+      ? from(this.storage.remove(key))
+      : of(localStorage.removeItem(key));
+  }
 }

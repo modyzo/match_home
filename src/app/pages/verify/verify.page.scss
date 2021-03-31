@@ -1,0 +1,169 @@
+
+ion-slide {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  height: 390px;
+  
+  p {
+    width: 68%;
+    // margin-top: 0;
+  }
+  ion-card {
+    height: 70px;
+    width: 60%;
+    background-size: cover !important;
+    background-position: center !important;
+
+    box-shadow: none !important;
+
+  
+  }
+  .swiper-pagination.swiper-pagination-bullets {
+    display: none;
+}
+}
+
+
+.verify-container {
+  display: flex;
+  flex-direction: column;
+
+  .main-logo {
+    margin: 20% auto 2rem auto;
+  }
+
+  .verify-form {
+    ion-item {
+      --background: transparent;
+      margin-bottom: 1rem;
+    }
+
+    ion-input {
+      color: #fff;
+    }
+  }
+}
+
+.verifycontent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+
+  .medium {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+  }
+  p.post {
+    display: flex;
+    font-size: 10px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  p {
+    font-size: 12px;
+    margin-bottom: 5px;
+    padding-left: 32px;
+    padding-right: 32px;
+    color: #fff;
+  }
+}
+ion-button {
+  // --border-radius: 18px;
+  max-width: 250px;
+  min-width: 220px;
+  width: 250px;
+  height: 40px;
+}
+ion-button.facebook {
+  margin-bottom: 10px !important;
+  margin-top: 5px !important;
+  color: #000000;
+  --background: linear-gradient(to right, rgb(246, 246, 246), rgba(255, 255, 255, 0.89));
+  --background-focused: linear-gradient(to right, rgb(26, 35, 126), rgba(63, 81, 181, 0.8901960784313725)) !important;
+}
+p.medium {
+  color: #fff;
+}
+p.ion-icon {
+  font-size: 15px;
+}
+ion-text {
+  font-size: 13px;
+}
+@keyframes example {
+  from {
+    bottom: -100px;
+  }
+  to {
+    bottom: 100%;
+  }
+}
+
+.show {
+  display: block;
+}
+.showAnimate {
+  height: 0;
+  width: 0;
+  display: none;
+}
+@keyframes exampleHidden {
+  from {
+    bottom: 0px;
+  }
+  to {
+    bottom: 220px;
+  }
+}
+.hidden {
+  display: none;
+  height: 0;
+}
+.hiddenAnimate {
+  width: 100%;
+  position: fixed;
+  -webkit-animation-name: exampleHidden;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-name: exampleHidden;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .medium {
+    padding-bottom: 60px;
+  }
+  p.dark {
+    font-weight: bold;
+    color: var(--ion-color-medium-shade);
+  }
+  .privacy {
+    padding-bottom: 25px;
+  }
+  .paddingHorizontal {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .dropDown {
+    margin-bottom: 35px;
+    color: gray;
+    font-weight: bold;
+    font-size: 25px;
+  }
+}
+.lastItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalBackground {
+  --background: rgba(238, 238, 238, 0.81);
+}

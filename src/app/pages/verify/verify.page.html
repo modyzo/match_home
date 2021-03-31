@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="verify-container">
+    <div class="verifycontent">
+      <!-- <ion-label> -->
+      <p class="ion-text-center ion-margin-bottom">
+        By tapping verify,you agree with our <u> Terms of Services </u> and
+        <u> Privacy Policy</u>
+      </p>
+      <form [formGroup]="verifyForm" class="verify-form" novalidate>
+        <ion-item>
+          <ion-input
+            formControlName="token"
+            type="text"
+            placeholder="token"
+          ></ion-input>
+        </ion-item>
+        <ion-button
+          [disabled]="verifyForm.invalid"
+          (click)="verify()"
+          expand="round"
+          class="facebook ion-text-uppercase"
+        >
+          <small>verify</small>
+        </ion-button>
+      </form>
+
+    </div>
+  </div>
+</ion-content>

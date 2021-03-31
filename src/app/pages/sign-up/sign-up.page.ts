@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 import { StorageService } from '@app/shared/services/storage.service';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,15 +18,18 @@ import { StorageService } from '@app/shared/services/storage.service';
 export class SignUpPage implements OnInit {
   public signUpForm: FormGroup;
   public sexObject = [
-    { value: 'man', name: 'Mens' },
-    { value: 'woman', name: 'Vrouw' },
+    { value: 'MALE', name: 'Mens' },
+    { value: 'FEMALE', name: 'Vrouw' },
+  ];
+
+  public roleObject = [
+    { value: 'AGENT', name: 'agent' },
+    { value: 'USER', name: 'user' },
   ];
 
   constructor(
     private formBuilder: FormBuilder,
-    private firestore: AngularFirestore,
-    private angularFireAuth: AngularFireAuth,
-    private storageService: StorageService,
+    private authService: AuthService,
     private localNotificationService: LocalNotificationService,
     private router: Router
   ) {
@@ -42,7 +46,7 @@ export class SignUpPage implements OnInit {
           Validators.maxLength(21),
         ]),
       ],
-      sex: [null, Validators.required],
+      gender: [null, Validators.required],
       birthDate: [null, Validators.compose([Validators.required])],
       phone: [
         null,
@@ -68,31 +72,20 @@ export class SignUpPage implements OnInit {
           Validators.required,
         ]),
       ],
+      role: [
+        null, 
+        Validators.compose([
+          Validators.required,
+        ]),
+      ]
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   public signUp() {
-    return from(
-      this.angularFireAuth.createUserWithEmailAndPassword(
-        this.signUpForm.get('email').value,
-        this.signUpForm.get('password').value
-      )
-    ).pipe(
-      mergeMap((res: any) => {
-        const collectinoRef = this.firestore.collection('/Users');
-        this.storageService.setItem('userId', res.user.uid);
-        return from(
-          collectinoRef.doc(res.user.uid).set(this.signUpForm.value)
-        );
-      }),
-      mergeMap(() => {
-        return from(this.angularFireAuth.currentUser);
-      }),
-      mergeMap((user) => {
-        return from(user.sendEmailVerification());
-      })
+    return this.authService.signUp(
+      this.signUpForm.value
     ).subscribe(
       () => {
         this.localNotificationService.showNotification(

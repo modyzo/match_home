@@ -22,8 +22,8 @@ export class EditPage implements OnInit {
   imageData: any;
   public editPageForm: FormGroup;
   public sexObject = [
-    { value: 'man', name: 'Mens' },
-    { value: 'woman', name: 'Vrouw' },
+    { value: 'male', name: 'Mens' },
+    { value: 'female', name: 'Vrouw' },
   ];
   public imageBlob: Blob;
   public fileToUpload;
