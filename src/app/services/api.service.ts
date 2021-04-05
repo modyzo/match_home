@@ -23,8 +23,15 @@ export class ApiService {
     });
   }
 
-  public getList(requestData) {
-    return this.postRequest('v1/estates/list', requestData);
+  public patchRequest(endpoint: string, data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch(`${environment.apiUrl}/${endpoint}`, data, {
+      headers,
+    });
+  }
+
+  public patchFormDataRequest(endpoint: string, data: any): Observable<any> {
+    return this.httpClient.patch(`${environment.apiUrl}/${endpoint}`, data);
   }
 
   public getClientData(clientId: number) {
@@ -35,5 +42,52 @@ export class ApiService {
     return this.postRequest('v1/contacts/create', clientData);
   }
 
-  ///https://api.whise.eu/v1/estates/usedcities/list
+  public getProfile() {
+    return this.getRequest('profile');
+  }
+
+  public updateProfile(data: any) {
+    return this.patchRequest('profile', data);
+  }
+
+  public updatePhoto(formData: FormData) {
+    return this.patchFormDataRequest('profile/upload/avatar', formData);
+  }
+
+  public downloadImage(url: string): Observable<Blob> {
+    return this.httpClient.get(url, {
+      responseType: 'blob',
+    });
+  }
+
+  public getProperties(data: any) {
+    return this.postRequest(`properties`, data);
+  }
+
+  public getMyProperties() {
+    return this.getRequest('my-properties');
+  }
+
+  public getPropertiesDetails(id: string) {
+    return this.getRequest(`properties/${id}`);
+  }
+
+  public createProperties(data: any) {
+    return this.postRequest(`properties/create`, data);
+  }
+
+  public updateProperties(data: any, id: string) {
+    return this.patchRequest(`properties/${id}`, data);
+  }
+
+  public updatePropertiesPhoto(formData: FormData, id: string) {
+    return this.patchFormDataRequest(
+      `properties/${id}/upload/pictures`,
+      formData
+    );
+  }
+
+  public removePictures(id: string, link: string) {
+    return this.patchRequest(`properties/${id}/remove/pictures${link}`, {});
+  }
 }

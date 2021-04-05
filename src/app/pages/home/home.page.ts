@@ -19,6 +19,7 @@ import { mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { LoadingService } from '@app/shared/services/loading.service';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
+import { serialize } from '@app/shared/helprers/serialize-helper';
 
 @Component({
   selector: 'app-home',
@@ -88,7 +89,11 @@ export class HomePage {
     private loadingService: LoadingService,
     private localNotificationService: LocalNotificationService
   ) {
-    this.data = environment.tabs;
+    this.data = [
+      { title: 'person' },
+      { title: 'home' },
+      { title: 'chatbubbles' },
+    ];
     this.userDetail = environment.details;
     this.cards = [];
     this.footerIcon = environment.footer_icons;
@@ -127,13 +132,28 @@ export class HomePage {
       },
     };
     this.getCards();
+    this.getUsserProfile();
+  }
+
+  private getUsserProfile() {
+    this.apiService.getProfile().subscribe(
+      (data: any) => {
+        console.log('data', data);
+        if (data.isAgentApproved) {
+          this.data.push({ title: 'add-circle' });
+        }
+      },
+      (error) => {
+        console.log('error', error);
+        this.data.push({ title: 'add-circle' });
+      }
+    );
   }
 
   private getCards() {
     this.loadingService.startLoading(this.getCardsRequest()).subscribe(
       (res: any) => {
-        this.cards = res.estates;
-        console.log(this.cards);
+        this.cards = res;
         this.hasUserData = true;
       },
       (error) => console.log(error)
@@ -141,7 +161,7 @@ export class HomePage {
   }
 
   private getCardsRequest() {
-    return this.apiService.getList({});
+    return this.apiService.getProperties('');
   }
 
   clickedIconIs(icon) {
@@ -352,32 +372,38 @@ export class HomePage {
       .subscribe((res: any) => {
         this.hasUserData = true;
         if (res && res.estates && res.estates.length) {
-          this.cards = res.estates;
-        } else if (res && res.isValidRequest) {
-          this.cards = [];
+          this.cards = res;
         }
       });
   }
 
   private applyFilterRequest(data) {
     const requestBody = {
-      PriceRange: {
-        Min: data.price.lower,
-        Max: data.price.upper,
+      price: {
+        min: data.price.lower,
+        max: data.price.upper,
       },
-      AvailabilityIds: data.availability,
-      AreaRange: {
-        Min: data.square.lower,
-        Max: data.square.upper,
+      availabilityIds: data.availability,
+      area: {
+        min: data.square.lower,
+        max: data.square.upper,
       },
-      MinRooms: data.rooms.lower,
-      MaxRooms: data.rooms.upper,
-      EstateIds: data.stateOfBuild,
-      BathRooms: data.bathroom,
-      Garage: data.garage,
+      rooms: {
+        min: data.rooms.lower,
+        max: data.rooms.upper,
+      },
+      bathRooms: {
+        min: 0,
+        max: data.bathroom,
+      },
+      garage: {
+        min: 0,
+        max: data.garage,
+      },
     };
 
     this.filterFields = data;
-    return this.apiService.getList({ Filter: requestBody });
+    console.log('this.filterFields', this.filterFields);
+    return this.apiService.getProperties(requestBody);
   }
 }

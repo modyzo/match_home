@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 import { StorageService } from '@app/shared/services/storage.service';
 import { AuthService } from '@app/services/auth.service';
+import { sexObject } from '@app/shared/constants/variables';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,10 +18,7 @@ import { AuthService } from '@app/services/auth.service';
 })
 export class SignUpPage implements OnInit {
   public signUpForm: FormGroup;
-  public sexObject = [
-    { value: 'MALE', name: 'Mens' },
-    { value: 'FEMALE', name: 'Vrouw' },
-  ];
+  public sexObject = sexObject;
 
   public roleObject = [
     { value: 'AGENT', name: 'agent' },

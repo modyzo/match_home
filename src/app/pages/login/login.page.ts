@@ -23,8 +23,6 @@ export class LoginPage implements OnInit {
     public router: Router,
     public service: DataService,
     private authService: AuthService,
-    private angularFireAuth: AngularFireAuth,
-    private storageService: StorageService,
     private formBuilder: FormBuilder,
     private localNotificationService: LocalNotificationService
   ) {
@@ -47,7 +45,6 @@ export class LoginPage implements OnInit {
   }
   ngOnInit() { }
   toggleContent() {
-    // this.showContent = !this.showContent
     this.service.openModal(ToggleLoginComponent, '', 'modalBackground');
   }
   loginWithPhone() {
@@ -67,7 +64,6 @@ export class LoginPage implements OnInit {
       password: this.loginForm.get('password').value,
     }).subscribe(
       (data) => {
-        console.log('token', data.token);
         of(this.authService.sendToken(data.token));
         this.router.navigate(['/home']);
       },

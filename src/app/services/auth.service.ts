@@ -30,12 +30,13 @@ export class AuthService {
 
   logout() {
     this.storageService.removeItem('token');
-    this.myRoute.navigate(['/auth']);
+    this.myRoute.navigate(['/login']);
   }
 
   public refreshToken(): Observable<any> {
-    return from(of(this.storageService.getItem('token'))).pipe(
+    return this.storageService.getItem('token').pipe(
       mergeMap((token) => {
+        console.log('token refreshing', token);
         return this.refreshTokenRequest(token || '');
       }),
       mergeMap((res: any) => {

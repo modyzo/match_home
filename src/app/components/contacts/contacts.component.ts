@@ -1,16 +1,13 @@
 /** */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
-import { DataService } from '@app/services/data.service';
 import { Router } from '@angular/router';
-import { MatchIconsComponent } from '../match-icons/match-icons.component';
-import { environment } from '@env/environment';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { from } from 'rxjs';
-import { StorageService } from '@app/shared/services/storage.service';
-import { mergeMap } from 'rxjs/operators';
+import { ApiService } from '@app/services/api.service';
+import { DataService } from '@app/services/data.service';
+import { calculateAge } from '@app/shared/helprers/helpers';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
+import { environment } from '@env/environment';
+import { IonSlides } from '@ionic/angular';
+import { MatchIconsComponent } from '../match-icons/match-icons.component';
 
 @Component({
   selector: 'app-contacts',
@@ -36,10 +33,8 @@ export class ContactsComponent implements OnInit {
   public objectUrl;
   constructor(
     public dataService: DataService,
-    private firestore: AngularFirestore,
-    private fireStorage: AngularFireStorage,
+    private apiService: ApiService,
     public route: Router,
-    private storageService: StorageService,
     private localNotificationService: LocalNotificationService
   ) {
     this.userDetail = environment.details;
@@ -53,47 +48,22 @@ export class ContactsComponent implements OnInit {
   }
 
   public getUserData() {
-    this.storageService
-      .getItem('userId')
-      .pipe(
-        mergeMap((userId) => {
-          const userRef = this.firestore
-            .collection('Users')
-            .doc(userId as string);
-          return from(userRef.get());
-        })
-      )
+    this.apiService
+      .getProfile()
       .subscribe(
-        (ref: any) => {
-          if (ref.exists) {
-            this.userDataDetails = ref.data();
-            console.log('userDataDetails', this.userDataDetails);
-            this.userDataDetails.age = this.calculateAge(
-              this.userDataDetails.birthDate
-            );
-            //
-            const pathReference = this.fireStorage.ref(
-              this.userDataDetails.profilePicture
-            );
+        (data: any) => {
+          this.userDataDetails = data;
 
-            from(pathReference.getDownloadURL()).subscribe((dataLink) => {
-              this.objectUrl = dataLink;
-            });
-            //
-          } else {
-            console.log('No such document!');
-          }
+          this.userDataDetails.age = calculateAge(
+            this.userDataDetails.birthDate
+          );
+          this.objectUrl = this.userDataDetails.avatarLink;
+        
         },
         (error) => {
           console.log('error, userRef', error);
         }
       );
-  }
-
-  calculateAge(birthday: string) {
-    const ageDifMs = Date.now() - new Date(birthday).getTime();
-    const ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 
   openGoldModal() {
@@ -113,6 +83,11 @@ export class ContactsComponent implements OnInit {
       // this.route.navigate(['settings']);
     }
   }
+
+  gotoEditProperties() {
+    this.route.navigate(['edit-properties']);
+  }
+
   async change() {
     await this.slides.getActiveIndex().then((data) => (this.index = data));
     if (this.index === 0) {

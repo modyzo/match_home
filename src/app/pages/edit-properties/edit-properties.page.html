@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-uppercase">EditProperties profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <div class="ovalsubDiv">
+      <label for="file">
+        <div class="imageWrapper">
+          <input
+            type="file"
+            id="file"
+            #fileUpload
+            (change)="handleFileInput()"
+          />
+          <ion-img
+            class="imageDiv"
+            [src]="objectUrl"
+            *ngIf="objectUrl"
+          ></ion-img>
+        </div>
+      </label>
+    </div>
+  </ion-item>
+  <form [formGroup]="editPagePropertiesForm" novalidate>
+
+    <ion-item>
+      <ion-label position="floating">price</ion-label>
+      <ion-input
+        formControlName="price"
+        type="number"
+        placeholder="Voer price in"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">currency</ion-label>
+      <ion-input
+        formControlName="currency"
+        type="text"
+        placeholder="Voer currency in"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>name</ion-label>
+      <ion-input
+        formControlName="name"
+        type="text"
+        placeholder="Name"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>area</ion-label>
+      <ion-input
+        formControlName="area"
+        type="text"
+        placeholder="Area"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>rooms</ion-label>
+      <ion-input
+        formControlName="rooms"
+        type="text"
+        placeholder="rooms"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col size="12" align-items-center="true">
+        <ion-button
+          expand="round"
+          class="ion-text-uppercase white"
+          fill="outline"
+          (click)="applyForm()"
+        >
+          <span>Apply</span>
+          <ion-icon name="arrow-down" expand="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

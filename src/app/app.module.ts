@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { Router, RouteReuseStrategy } from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ToastrModule } from 'ngx-toastr';
@@ -35,6 +35,10 @@ import { CustomToastrComponent } from './shared/components/custom-toastr/custom-
 import { File } from '@ionic-native/file/ngx';
 import { HttpRequestsInterceptor } from './services/add-token-interceptors.service';
 import { AuthService } from './services/auth.service';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
+import { from } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { VerifyPage } from './pages/verify/verify.page';
 
 @NgModule({
   declarations: [
@@ -87,10 +91,41 @@ import { AuthService } from './services/auth.service';
     NativeStorage,
     TokenizerService,
     AuthService,
+    Deeplinks,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestsInterceptor, multi: true },
     File,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private deeplinks: Deeplinks,
+    private router: Router,
+    private zone: NgZone,
+    private platform: Platform,
+  ) {
+    this.setupDeeplink();
+  }
+
+  private setupDeeplink() {
+    return from(this.platform.ready()).pipe(
+      mergeMap(() => {
+        return this.deeplinks.route(
+          {
+            '/verify/:token': VerifyPage,
+            // '/reset-password/:token': ResetPasswordComponent,
+          }
+        );
+      })
+    ).subscribe(
+      (match: any) => {
+        console.log(match);
+        this.zone.run(() => this.router.navigate([`${match.$link.path}`], { replaceUrl: true }));
+      },
+      (noMatch) => {
+        console.log(noMatch);
+      }
+    );
+  }
+}

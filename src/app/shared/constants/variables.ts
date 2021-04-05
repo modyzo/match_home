@@ -26,31 +26,57 @@ export const stateOfBuilding = {
 };
 
 export const stateOfBuildingList = [
-  { id: 1, name: 'nieuw' },
-  { id: 2, name: 'uitstekend' },
-  { id: 3, name: 'hernieuwd' },
-  { id: 4, name: 'goede staat' },
-  { id: 5, name: 'deels te renoveren' },
-  { id: 6, name: 'te renoveren' },
-  { id: 7, name: 'te hermaken' },
-  { id: 8, name: 'af te breken' },
-  { id: 9, name: 'niet gekend' },
-  { id: 10, name: 'Groen vastgoed' },
-  { id: 11, name: 'te bouwen' },
-  { id: 12, name: 'ruwbouw' },
-  { id: 13, name: 'nieuwbouw project' },
-  { id: 14, name: 'kleine werken' },
-  { id: 15, name: 'gerenoveerd' },
-  { id: 16, name: 'concept' },
-  { id: 17, name: 'ontwikkeld' },
-  { id: 18, name: 'klaar om te starten' },
-  { id: 19, name: 'water- en winddicht' },
-  { id: 20, name: 'afgewerkt' },
-  { id: 21, name: 'opgeleverd' },
-  { id: 22, name: 'gepleisterd' },
-  { id: 23, name: 'terrein nog af te werken' },
-  { id: 24, name: 'terrein klaar voor constructie' },
+  { id: 'new', name: 'nieuw' },
+  { id: 'very good state', name: 'uitstekend' },
+  { id: 'renovated', name: 'hernieuwd' },
+  { id: 'good state', name: 'goede staat' },
+  { id: 'to be refreshed', name: 'deels te renoveren' },
+  { id: 'to be renovated', name: 'te renoveren' },
+  { id: 'to be rebuild', name: 'te hermaken' },
+  { id: 'to be destructed', name: 'af te breken' },
+  { id: 'unknown', name: 'niet gekend' },
+  { id: 'Green estate', name: 'Groen vastgoed' },
+  { id: 'to be built', name: 'te bouwen' },
+  { id: 'main work', name: 'ruwbouw' },
+  { id: 'new development', name: 'nieuwbouw project' },
+  { id: 'small works', name: 'kleine werken' },
+  { id: 'minor renovation', name: 'gerenoveerd' },
+  { id: 'concept', name: 'concept' },
+  { id: 'developped', name: 'ontwikkeld' },
+  { id: 'ready to start building', name: 'klaar om te starten' },
+  { id: 'walls closed', name: 'water- en winddicht' },
+  { id: 'construction achieved', name: 'afgewerkt' },
+  { id: 'delivered', name: 'opgeleverd' },
+  { id: 'plastered', name: 'plastered' },
+  { id: 'ground to be prepared', name: 'terrein nog af te werken' },
+  { id: 'ground ready for construction', name: 'terrein klaar voor constructie' },
 ];
+
+export enum StateOfBuild {
+  NEW = 'new',
+  VERY_GOOD_STATE = 'very good state',
+  RENOVATED = 'renovated',
+  GOOD_STATE = 'good state',
+  TO_BE_REFRESHED = 'to be refreshed',
+  TO_BE_RENOVATED = 'to be renovated',
+  TO_BE_REBUILD = 'to be rebuild',
+  TO_BE_DESTRUCTED = 'to be destructed',
+  UNKNOWN = 'unknown',
+  GREEN_ESTATE = 'Green estate',
+  TO_BE_BUILT = 'to be built',
+  MAIN_WORK = 'main work',
+  NEW_DEVELOPMENT = 'new development',
+  MINOR_RENOVATION = 'minor renovation',
+  CONCEPT = 'concept',
+  DEVELOPPED = 'developped',
+  READY_TO_START_BUILDING = 'ready to start building',
+  WALLS_CLOSED = 'walls closed',
+  CONSTRUCTION_ACHIEVED = 'construction achieved',
+  DELIVERED = 'delivered',
+  PLASTERED = 'plastered',
+  GROUND_TO_BE_PREPARED = 'ground to be prepared',
+  GROUND_READY_FOR_CONSTRUCTION = 'ground ready for construction',
+}
 
 export const availabilityOfBuilding = {
   1: 'vanaf akte',
@@ -70,6 +96,16 @@ export const availabilityOfBuildingList = [
   { id: 5, name: 'onmiddellijk' },
   { id: 6, name: 'bij oplevering' },
   { id: 7, name: 'in onderling overleg' },
+];
+
+export const availability = [
+  { name: 'at the contract', value: 'vanaf akte' },
+  { name: 'tbd with the owner', value: 'af te spreken met eigenaar' },
+  { name: 'tbd with the tenant', value: 'mits inachtneming huurders' },
+  { name: 'not available', value: 'niet beschikbaar' },
+  { name: 'immediately', value: 'onmiddellijk' },
+  { name: 'at delivery', value: 'bij oplevering' },
+  { name: 'to be agreed upon', value: 'in onderling overleg' },
 ];
 
 export const detailsReesponse = {
@@ -2571,4 +2607,10 @@ export const mainDetailTranslateList = [
   'rooms',
   'zip',
   'terrace',
+];
+
+
+export const sexObject = [
+  { value: 'MALE', name: 'Mens' },
+  { value: 'FEMALE', name: 'Vrouw' },
 ];

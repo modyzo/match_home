@@ -24,6 +24,17 @@ const routes: Routes = [
   },
   { path: 'edit', loadChildren: './pages/edit/edit.module#EditPageModule' },
   {
+    path: 'edit-properties',
+    loadChildren:
+      './pages/edit-properties/edit-properties.module#EditPagePropertiesModule',
+  },
+  {
+    path: 'properties-list',
+    loadChildren:
+      './pages/properties-list/properties-list.module#PropertiesListPageModule',
+  },
+
+  {
     path: 'settings',
     loadChildren: './pages/settings/settings.module#SettingsPageModule',
   },
@@ -90,8 +101,8 @@ const routes: Routes = [
   },
   {
     path: 'verify/:token',
-    loadChildren: './pages/verify/verify.module#VerifyPageModule'
-  }
+    loadChildren: './pages/verify/verify.module#VerifyPageModule',
+  },
 ];
 
 @NgModule({

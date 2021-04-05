@@ -11,8 +11,9 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { catchError, switchMap, filter, take } from 'rxjs/operators';
+import { catchError, switchMap, filter, take, mergeMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { TokenizerService } from './tokenizer.service';
 
 @Injectable()
 export class HttpRequestsInterceptor implements HttpInterceptor {
@@ -21,6 +22,7 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
+    private tokenizerService: TokenizerService
   ) {}
 
   public intercept(
@@ -34,7 +36,10 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
     | HttpUserEvent<any>
     | any
   > {
-    return next.handle(request).pipe(
+    return this.tokenizerService.getToken().pipe(
+      mergeMap((token) => {
+        return next.handle(this.addTokenToRequest(request, token));
+      }),
       catchError((thrown: any) => {
         if (thrown instanceof HttpErrorResponse) {
           switch (thrown.status) {
@@ -56,7 +61,7 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
           return throwError(thrown);
         }
       })
-    );
+    )
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
