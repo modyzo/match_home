@@ -8,84 +8,29 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <div class="ovalsubDiv">
-      <label for="file">
-        <div class="imageWrapper">
-          <input
-            type="file"
-            id="file"
-            #fileUpload
-            (change)="handleFileInput()"
-          />
-          <ion-img
-            class="imageDiv"
-            [src]="objectUrl"
-            *ngIf="objectUrl"
-          ></ion-img>
+  <ion-buttons (click)="addProperties()" class="add-properties-wrapper">
+    Add properties
+    <ion-icon name="add"></ion-icon>
+  </ion-buttons>
+  <div class="list">
+    <ion-item
+      (click)="changeSelected()"
+      *ngFor="let property of propertiesList; let i = index"
+    >
+      <div class="wrapper-property-list">
+        <div class="name">{{property.name}}</div>
+        <div class="icons-wrapper">
+          <div class="edit" (click)="edit(property.id)">
+            <ion-icon name="construct-outline" expand="icon-only"></ion-icon>
+          </div>
+          <div class="edit" (click)="upload(property.id)">
+            <ion-icon name="cloud-upload" expand="icon-only"></ion-icon>
+          </div>
+          <div class="remove" (click)="remove(property.id)">
+            <ion-icon name="close" expand="icon-only"></ion-icon>
+          </div>
         </div>
-      </label>
-    </div>
-  </ion-item>
-  <form [formGroup]="editPageForm" novalidate>
-    <ion-item>
-      <ion-label position="floating">Voornaam</ion-label>
-      <ion-input
-        formControlName="firstName"
-        type="text"
-        placeholder="Voer voornaam in"
-        class="ion-text-capitalize"
-      ></ion-input>
+      </div>
     </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Achternaam</ion-label>
-      <ion-input
-        formControlName="lastName"
-        type="text"
-        placeholder="Voer achternaam in"
-        class="ion-text-capitalize"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Beschikbaar</ion-label>
-      <ion-select formControlName="gender" multiple="false">
-        <ion-select-option *ngFor="let item of sexObject" [value]="item.value"
-          >{{ item.name }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Geboortedatum</ion-label>
-      <ion-datetime
-        formControlName="birthDate"
-        placeholder="Select Date"
-        format="'YYYY:MM:DD'"
-        format="'YYYY:MM:DD'"
-      >
-      </ion-datetime>
-    </ion-item>
-
-    <ion-item>
-      <ion-text slot="start">Phone</ion-text>
-      <ion-input type="tel" formControlName="phone" maxlength="21" clearInput>
-      </ion-input>
-    </ion-item>
-
-    <ion-row>
-      <ion-col size="12" align-items-center="true">
-        <ion-button
-          expand="round"
-          class="ion-text-uppercase white"
-          fill="outline"
-          (click)="applyForm()"
-        >
-          <span>Apply</span>
-          <ion-icon name="arrow-down" expand="icon-only"></ion-icon>
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
+  </div>
 </ion-content>

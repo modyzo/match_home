@@ -27,7 +27,8 @@
           min="0"
           max="3000000"
           step="100"
-          color="danger">
+          color="danger"
+        >
         </ion-range>
       </ion-item>
     </ion-card>
@@ -35,8 +36,11 @@
       <ion-item>
         <ion-label>Beschikbaar</ion-label>
         <ion-select formControlName="availability" multiple="true">
-          <ion-select-option *ngFor="let item of availability" [value]="item.id">
-            {{ item.name }}
+          <ion-select-option
+            *ngFor="let item of availability"
+            [value]="item.name"
+          >
+            {{ item.value }}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -45,7 +49,10 @@
       <ion-item>
         <ion-label>Staat van het gebouw</ion-label>
         <ion-select formControlName="stateOfBuild" multiple="true">
-          <ion-select-option *ngFor="let item of stateOfBuild" [value]="item.id">
+          <ion-select-option
+            *ngFor="let item of stateOfBuild"
+            [value]="item.id"
+          >
             {{ item.name }}
           </ion-select-option>
         </ion-select>
@@ -53,7 +60,9 @@
     </ion-card>
     <ion-card>
       <ion-item>
-        <ion-text class="textBold" slot="start">Bewoonbare oppervlakte</ion-text>
+        <ion-text class="textBold" slot="start"
+          >Bewoonbare oppervlakte</ion-text
+        >
         <ion-text color="danger" slot="end">
           {{ filterForm.get('square').value?.lower }} -
           {{ filterForm.get('square').value?.upper }} m2
@@ -66,7 +75,8 @@
           min="0"
           max="1000"
           step="2"
-          color="danger">
+          color="danger"
+        >
         </ion-range>
       </ion-item>
     </ion-card>
@@ -85,7 +95,8 @@
           min="0"
           max="15"
           step="1"
-          color="danger">
+          color="danger"
+        >
         </ion-range>
       </ion-item>
     </ion-card>
@@ -93,31 +104,44 @@
       <ion-item>
         <ion-text class="textBold" slot="start">Badkamers</ion-text>
         <ion-text color="danger" slot="end">
-          {{ filterForm.get('bathroom').value }}
-          </ion-text>
+          {{ filterForm.get('bathroom').value?.lower }} -
+          {{ filterForm.get('bathroom').value?.upper }}
+        </ion-text>
       </ion-item>
       <ion-item>
         <ion-range
           formControlName="bathroom"
+          dualKnobs="true"
           min="0"
-          max="10"
+          max="15"
           step="1"
-          color="danger">
+          color="danger"
+        >
         </ion-range>
       </ion-item>
     </ion-card>
+
     <ion-card>
       <ion-item>
-        <ion-label>Garage</ion-label>
-        <ion-select formControlName="garage" interface="popover">
-          <ion-select-option value="true">Ja</ion-select-option>
-          <ion-select-option value="false">Nee</ion-select-option>
-        </ion-select>
+        <ion-text class="textBold" slot="start">Garage</ion-text>
+        <ion-text color="danger" slot="end">
+          {{ filterForm.get('garage').value?.lower }} -
+          {{ filterForm.get('garage').value?.upper }}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-range
+          formControlName="garage"
+          dualKnobs="true"
+          min="0"
+          max="15"
+          step="1"
+          color="danger"
+        >
+        </ion-range>
       </ion-item>
     </ion-card>
   </form>
 </ion-content>
 
-<div (click)="applyFilter()" class="apply-btn">
-  Apply
-</div>
+<div (click)="applyFilter()" class="apply-btn">Apply</div>

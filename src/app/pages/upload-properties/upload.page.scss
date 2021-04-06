@@ -24,8 +24,10 @@ label {
 }
 .imageDiv {
   width: 150px;
-  margin-top: -25px;
-  border-radius: 50%;
+  height: 150px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 ion-list {
@@ -47,7 +49,7 @@ ion-list {
 }
 
 ion-item {
-  overflow: hidden;
+  overflow: visible;
   margin: 10px 4px 2px 4px;
 }
 

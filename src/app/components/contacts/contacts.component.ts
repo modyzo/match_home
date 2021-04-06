@@ -48,22 +48,17 @@ export class ContactsComponent implements OnInit {
   }
 
   public getUserData() {
-    this.apiService
-      .getProfile()
-      .subscribe(
-        (data: any) => {
-          this.userDataDetails = data;
+    this.apiService.getProfile().subscribe(
+      (data: any) => {
+        this.userDataDetails = data;
 
-          this.userDataDetails.age = calculateAge(
-            this.userDataDetails.birthDate
-          );
-          this.objectUrl = this.userDataDetails.avatarLink;
-        
-        },
-        (error) => {
-          console.log('error, userRef', error);
-        }
-      );
+        this.userDataDetails.age = calculateAge(this.userDataDetails.birthDate);
+        this.objectUrl = this.userDataDetails.avatarLink;
+      },
+      (error) => {
+        console.log('error, userRef', error);
+      }
+    );
   }
 
   openGoldModal() {
@@ -82,10 +77,6 @@ export class ContactsComponent implements OnInit {
       );
       // this.route.navigate(['settings']);
     }
-  }
-
-  gotoEditProperties() {
-    this.route.navigate(['edit-properties']);
   }
 
   async change() {

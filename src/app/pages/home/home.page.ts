@@ -28,6 +28,7 @@ import { serialize } from '@app/shared/helprers/serialize-helper';
 })
 export class HomePage {
   filterTerm: string;
+  driveLink = environment.driveLink;
   userRecords = [
     {
       id: 1,
@@ -132,20 +133,18 @@ export class HomePage {
       },
     };
     this.getCards();
-    this.getUsserProfile();
+    this.getUserProfile();
   }
 
-  private getUsserProfile() {
+  private getUserProfile() {
     this.apiService.getProfile().subscribe(
       (data: any) => {
-        console.log('data', data);
         if (data.isAgentApproved) {
           this.data.push({ title: 'add-circle' });
         }
       },
       (error) => {
         console.log('error', error);
-        this.data.push({ title: 'add-circle' });
       }
     );
   }
@@ -161,7 +160,7 @@ export class HomePage {
   }
 
   private getCardsRequest() {
-    return this.apiService.getProperties('');
+    return this.apiService.getProperties({ hasPictures: true });
   }
 
   clickedIconIs(icon) {
@@ -383,7 +382,7 @@ export class HomePage {
         min: data.price.lower,
         max: data.price.upper,
       },
-      availabilityIds: data.availability,
+      availability: data.availability,
       area: {
         min: data.square.lower,
         max: data.square.upper,
@@ -393,14 +392,21 @@ export class HomePage {
         max: data.rooms.upper,
       },
       bathRooms: {
-        min: 0,
-        max: data.bathroom,
+        min: data.bathroom.lower,
+        max: data.bathroom.upper,
       },
       garage: {
-        min: 0,
-        max: data.garage,
+        min: data.garage.lower,
+        max: data.garage.upper,
       },
+      hasPictures: true,
     };
+
+    if (data.availability) {
+      requestBody.availability = data.availability;
+    } else {
+      delete requestBody.availability;
+    }
 
     this.filterFields = data;
     console.log('this.filterFields', this.filterFields);

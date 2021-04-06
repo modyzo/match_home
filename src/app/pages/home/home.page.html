@@ -28,7 +28,9 @@
   <app-contacts></app-contacts>
   <!--Search bar-->
 </ion-content>
-<ion-content *ngIf="segmentButton === 'add-circle'"> HHui</ion-content>
+<ion-content *ngIf="segmentButton === 'add-circle'"
+  ><app-properties-list></app-properties-list
+></ion-content>
 
 <!-- <ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true">
 </ion-searchbar> -->
@@ -62,7 +64,7 @@
         appSwingCard
         #swingCards
         *ngFor="let item of cards; let i = index"
-        [ngStyle]="{'background':'url('+ item.pictures[0].urlXXL +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}"
+        [ngStyle]="{'background':'url('+ driveLink + item.pictures[0] +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}"
       >
         <div class="itemdiv">
           <div class="like" *ngIf="like && i === cards.length -1">

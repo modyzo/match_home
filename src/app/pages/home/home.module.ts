@@ -13,6 +13,7 @@ import { ContactsComponent } from '@app/components/contacts/contacts.component';
 import { MessageFeedComponent } from '@app/components/message-feed/message-feed.component';
 import { FilterComponent } from '@app/components/filter/filter.component';
 import { SeparatorComponent } from '@app/components/separator/separator.component';
+import { PropertiesListPage } from '../properties-list/properties-list.page';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { SeparatorComponent } from '@app/components/separator/separator.componen
     MessageFeedComponent,
     FilterComponent,
     SeparatorComponent,
-  ]
+    PropertiesListPage,
+  ],
 })
 export class HomePageModule {}

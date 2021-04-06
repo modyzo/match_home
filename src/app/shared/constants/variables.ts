@@ -49,7 +49,10 @@ export const stateOfBuildingList = [
   { id: 'delivered', name: 'opgeleverd' },
   { id: 'plastered', name: 'plastered' },
   { id: 'ground to be prepared', name: 'terrein nog af te werken' },
-  { id: 'ground ready for construction', name: 'terrein klaar voor constructie' },
+  {
+    id: 'ground ready for construction',
+    name: 'terrein klaar voor constructie',
+  },
 ];
 
 export enum StateOfBuild {
@@ -89,16 +92,6 @@ export const availabilityOfBuilding = {
 };
 
 export const availabilityOfBuildingList = [
-  { id: 1, name: 'vanaf akte' },
-  { id: 2, name: 'af te spreken met eigenaar' },
-  { id: 3, name: 'mits inachtneming huurders' },
-  { id: 4, name: 'niet beschikbaar' },
-  { id: 5, name: 'onmiddellijk' },
-  { id: 6, name: 'bij oplevering' },
-  { id: 7, name: 'in onderling overleg' },
-];
-
-export const availability = [
   { name: 'at the contract', value: 'vanaf akte' },
   { name: 'tbd with the owner', value: 'af te spreken met eigenaar' },
   { name: 'tbd with the tenant', value: 'mits inachtneming huurders' },
@@ -2609,8 +2602,12 @@ export const mainDetailTranslateList = [
   'terrace',
 ];
 
-
 export const sexObject = [
   { value: 'MALE', name: 'Mens' },
   { value: 'FEMALE', name: 'Vrouw' },
+];
+
+export const currencyObject = [
+  { value: 'EUR', name: 'Euro' },
+  { value: 'USD', name: 'USD' },
 ];

@@ -3,31 +3,21 @@
     <ion-buttons slot="start">
       <ion-back-button color="danger"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-uppercase">EditProperties profile</ion-title>
+    <ion-title class="ion-text-uppercase">Edit Properties</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <div class="ovalsubDiv">
-      <label for="file">
-        <div class="imageWrapper">
-          <input
-            type="file"
-            id="file"
-            #fileUpload
-            (change)="handleFileInput()"
-          />
-          <ion-img
-            class="imageDiv"
-            [src]="objectUrl"
-            *ngIf="objectUrl"
-          ></ion-img>
-        </div>
-      </label>
-    </div>
-  </ion-item>
   <form [formGroup]="editPagePropertiesForm" novalidate>
+    <ion-item>
+      <ion-label>name</ion-label>
+      <ion-input
+        formControlName="name"
+        type="text"
+        placeholder="Name"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
 
     <ion-item>
       <ion-label position="floating">price</ion-label>
@@ -40,25 +30,16 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">currency</ion-label>
-      <ion-input
-        formControlName="currency"
-        type="text"
-        placeholder="Voer currency in"
-        class="ion-text-capitalize"
-      ></ion-input>
+      <ion-label>Voer currency in</ion-label>
+      <ion-select formControlName="currency">
+        <ion-select-option
+          *ngFor="let item of currencyObject"
+          [value]="item.value"
+        >
+          {{ item.name }}
+        </ion-select-option>
+      </ion-select>
     </ion-item>
-
-    <ion-item>
-      <ion-label>name</ion-label>
-      <ion-input
-        formControlName="name"
-        type="text"
-        placeholder="Name"
-        class="ion-text-capitalize"
-      ></ion-input>
-    </ion-item>
-
 
     <ion-item>
       <ion-label>area</ion-label>
@@ -71,13 +52,71 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>rooms</ion-label>
-      <ion-input
+      <ion-text class="textBold" slot="start">Kamers</ion-text>
+      <ion-text color="danger" slot="end">
+        {{ editPagePropertiesForm.get('rooms').value }}
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range
         formControlName="rooms"
-        type="text"
-        placeholder="rooms"
-        class="ion-text-capitalize"
-      ></ion-input>
+        min="0"
+        max="10"
+        step="1"
+        color="danger"
+      >
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Beschikbaar</ion-label>
+      <ion-select formControlName="availability">
+        <ion-select-option *ngFor="let item of availability" [value]="item.id">
+          {{ item.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Staat van het gebouw</ion-label>
+      <ion-select formControlName="stateOfBuild">
+        <ion-select-option *ngFor="let item of stateOfBuild" [value]="item.id">
+          {{ item.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-text class="textBold" slot="start">garage</ion-text>
+      <ion-text color="danger" slot="end">
+        {{ editPagePropertiesForm.get('garage').value }}
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range
+        formControlName="garage"
+        min="0"
+        max="10"
+        step="1"
+        color="danger"
+      >
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <ion-text class="textBold" slot="start">Badkamers</ion-text>
+      <ion-text color="danger" slot="end">
+        {{ editPagePropertiesForm.get('bathRooms').value }}
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range
+        formControlName="bathRooms"
+        min="0"
+        max="10"
+        step="1"
+        color="danger"
+      >
+      </ion-range>
     </ion-item>
 
     <ion-row>

@@ -30,6 +30,12 @@ export class ApiService {
     });
   }
 
+  public deleteRequest(endpoint: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.delete(`${environment.apiUrl}/${endpoint}`, {
+      headers,
+    });
+  }
   public patchFormDataRequest(endpoint: string, data: any): Observable<any> {
     return this.httpClient.patch(`${environment.apiUrl}/${endpoint}`, data);
   }
@@ -65,7 +71,11 @@ export class ApiService {
   }
 
   public getMyProperties() {
-    return this.getRequest('my-properties');
+    return this.getRequest('properties/my');
+  }
+
+  public removeProperties(id: string) {
+    return this.deleteRequest(`properties/${id}`);
   }
 
   public getPropertiesDetails(id: string) {
@@ -87,7 +97,10 @@ export class ApiService {
     );
   }
 
-  public removePictures(id: string, link: string) {
-    return this.patchRequest(`properties/${id}/remove/pictures${link}`, {});
+  public removePictures(id: string, picturesId: string) {
+    return this.patchRequest(
+      `properties/${id}/remove/pictures/${picturesId}`,
+      {}
+    );
   }
 }

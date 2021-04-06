@@ -26,7 +26,7 @@
   >
     <ion-slide *ngFor="let slide of slidesData">
       <ion-card
-        [ngStyle]="{'background':'url('+ slide.urlXXL +')','background-size':'cover'}"
+        [ngStyle]="{'background':'url('+ driveLink + slide +')','background-size':'cover'}"
       >
         <ion-fab
           *ngIf="!isIos"
@@ -57,7 +57,10 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <h3>{{name}}, <span>{{price}}{{profileData.currency}}</span></h3>
+          <h3>
+            {{profileData.name}},
+            <span>{{profileData.price}}{{profileData.currency}}</span>
+          </h3>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -90,26 +93,9 @@
           ></ion-icon>
           <p class="ion-text-start">Oppervlakte: {{profileData.area}} м²</p>
         </div>
-        <div
-          *ngFor="let detail of mainDetailTranslateList; let i = index"
-          [attr.data-index]="i"
-        >
-          <div *ngIf="profileData[detail]" class="sameLineContent">
-            <ion-icon
-              slot="start"
-              name="home-outline"
-              expand="icon-only"
-              mode="ios"
-            ></ion-icon>
-            <p class="ion-text-start">
-              {{mainDetailTranslate[detail] | capitalCase}}:
-              {{profileData[detail]}}
-            </p>
-          </div>
-        </div>
 
         <div
-          *ngIf="stateOfBuilding[profileData.state.id]"
+          *ngIf="stateOfBuilding[profileData.stateOfBuild]"
           class="sameLineContent"
         >
           <ion-icon
@@ -119,30 +105,17 @@
             mode="ios"
           ></ion-icon>
           <p class="ion-text-start">
-            Staat van het gebouw: {{stateOfBuilding[profileData.state.id] |
+            Staat van het gebouw: {{stateOfBuilding[stateOfBuild] |
             capitalCase}}
           </p>
-        </div>
-        <div
-          *ngFor="let item of details; let i = index"
-          [attr.data-index]="i"
-          class="sameLineContent"
-        >
-          <ion-icon
-            slot="start"
-            name="home-outline"
-            expand="icon-only"
-            mode="ios"
-          ></ion-icon>
-          <p class="ion-text-start">{{item | capitalCase}}</p>
         </div>
       </ion-label>
     </ion-item>
     <ion-item class="sameLineContent">
-      <p [innerHTML]="profileData.longDescription[0].content"></p>
+      <p [innerHTML]="profileData.description"></p>
     </ion-item>
     <ion-item class="sameLineContent2">
-      <h6>{{name}} Photos</h6>
+      <h6>{{profileData.name}} Photos</h6>
     </ion-item>
     <ion-list class="nopaddingBottom ion-padding-horizontal">
       <ion-slides pager="false" (ionSlideDidChange)="change($event)">
@@ -155,7 +128,7 @@
             >
               <div
                 (click)="setActiveSliderIndex(i)"
-                [ngStyle]="{'background':'url('+ slide.urlXXL  +')','background-size':'cover'}"
+                [ngStyle]="{'background':'url('+ driveLink + slide  +')','background-size':'cover'}"
                 class="profilePics"
               ></div>
             </ion-col>
@@ -187,7 +160,7 @@
       <ion-item>
         <div class="shareProfile">
           <ion-text color="danger" class="ion-text-uppercase">
-            share {{name}} property</ion-text
+            share {{profileData.name}} property</ion-text
           >
           <!-- <p color="danger" class="ion-text-uppercase"> see what a friend thinks</p>-->
         </div>
@@ -197,7 +170,7 @@
       <ion-item (click)="goForReport()">
         <div class="centreText">
           <ion-text class="ion-text-uppercase ion-text-center" color="medium"
-            >Report this {{name}} property</ion-text
+            >Report this {{profileData.name}} property</ion-text
           >
         </div>
       </ion-item>

@@ -11,7 +11,8 @@ export const environment = {
     appId: '1:1075662539136:web:d3530323dceeda5d241965',
     measurementId: 'G-PFRDHC8KGG',
   },
-  apiUrl: 'https://2909808d7d5d.ngrok.io',
+  apiUrl: 'https://d21294f80a44.ngrok.io',
+  driveLink: 'https://docs.google.com/uc?export=download&id=',
   gold: [
     {
       id: 'refresh',
@@ -579,7 +580,6 @@ export const environment = {
       ],
     },
   ],
-  tabs: [{ title: 'person' }, { title: 'home' }, { title: 'chatbubbles' }],
   details: [
     {
       userDetails:

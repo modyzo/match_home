@@ -51,6 +51,12 @@ ion-item {
   margin: 10px 4px 2px 4px;
 }
 
+ion-icon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+}
+
 .cardBorderless {
   border: none;
 }
@@ -122,4 +128,24 @@ ion-content {
       margin: 1rem auto 0 auto;
     }
   }
+}
+
+.list {
+  border-top: 1px solid #222222;
+}
+
+.wrapper-property-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #222222;
+}
+
+.add-properties-wrapper {
+  padding-left: 20px;
+}
+
+.icons-wrapper {
+  display: flex;
 }

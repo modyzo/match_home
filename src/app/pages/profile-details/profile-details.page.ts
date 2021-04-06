@@ -24,6 +24,7 @@ import { adaptDataToNormalizedInfo } from '@app/shared/helprers/details-helper';
 })
 export class ProfileDetailsPage implements OnInit {
   @ViewChild('mySlider') slider: IonSlides;
+  driveLink = environment.driveLink;
   isIos: boolean;
   profileData: any;
   icons: any;
@@ -59,11 +60,8 @@ export class ProfileDetailsPage implements OnInit {
     this.isIos = this.platform.is('ios');
     this.icons = environment.footer_icons;
     this.activeRouter.params.subscribe((params) => {
+      console.log('params', params);
       this.profileData = JSON.parse(params.userData);
-      this.details = adaptDataToNormalizedInfo(
-        this.profileData.details,
-        this.profileData.currency
-      );
       this.slidesData = this.profileData.pictures;
       this.name = this.profileData.name;
       this.price = this.profileData.price;

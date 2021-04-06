@@ -1,99 +1,70 @@
 /** */
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { ApiService } from '@app/services/api.service';
 import { DataService } from '@app/services/data.service';
-import { sexObject } from '@app/shared/constants/variables';
+
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
-import { StorageService } from '@app/shared/services/storage.service';
-import { environment } from '@env/environment';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-properties-list',
   templateUrl: './properties-list.page.html',
   styleUrls: ['./properties-list.page.scss'],
 })
-export class PropertiesListPage implements OnInit {
-  @ViewChild('fileUpload') fileUpload: ElementRef;
-  data: any;
-  imageData: any;
-  public PropertiesListPageForm: FormGroup;
-  public sexObject = sexObject;
-
-  public imageBlob: Blob;
-  public fileToUpload;
-  public objectUrl;
+export class PropertiesListPage {
+  private propertiesList = [];
 
   constructor(
     public serviceProvider: DataService,
+    public route: Router,
     private apiService: ApiService,
-    private localNotificationService: LocalNotificationService
-  ) {}
-
-  ngOnInit() {
-    this.PropertiesListPageForm.valueChanges.subscribe((res) =>
-      console.log(res)
-    );
-    this.getUserData();
+    private localNotificationService: LocalNotificationService,
+    private activeRouter: ActivatedRoute
+  ) {
+    this.activeRouter.params
+      .pipe(
+        mergeMap((params) => {
+          return this.apiService.getMyProperties();
+        })
+      )
+      .subscribe((data: any) => {
+        this.propertiesList = data;
+      });
   }
 
-  public getUserData() {
-    this.apiService.getProfile().subscribe(
-      (data: any) => {
-        this.PropertiesListPageForm.patchValue(data);
-        this.objectUrl = data.avatarLink;
-      },
-      (error) => {
-        console.log('error', error);
-      }
-    );
+  changeSelected() {
+    console.log('here');
   }
 
-  applyForm = () => {
-    this.apiService.updateProfile(this.PropertiesListPageForm.value).subscribe(
-      () => {
-        this.localNotificationService.showNotification(
-          'Profile details have succesfully updated',
-          'success-main'
-        );
-      },
-      (error) => {
-        this.localNotificationService.showNotification(error, 'error-main');
-      }
-    );
-  };
+  remove(id: string) {
+    this.apiService
+      .removeProperties(id)
+      .pipe(
+        mergeMap((id: string) => {
+          return this.apiService.getMyProperties();
+        })
+      )
+      .subscribe(
+        (data: any) => {
+          this.propertiesList = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 
-  public handleFileInput() {
-    const fileToUpload = this.fileUpload.nativeElement.files[0];
-    const fileType = fileToUpload.type;
+  edit(id: string) {
+    this.route.navigate([`edit-properties/${id}`]);
+  }
 
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(fileToUpload);
-    reader.onloadend = () => {
-      if (reader.error) {
-        return;
-      } else {
-        const arrayBuffer = reader.result;
-        let blob = new Blob([new Uint8Array(arrayBuffer as ArrayBuffer)], {
-          type: fileType,
-        });
-        this.imageBlob = blob;
-        this.objectUrl = URL.createObjectURL(this.imageBlob);
+  upload(id: string) {
+    this.route.navigate([`upload-properties/${id}`]);
+  }
 
-        const formData = new FormData();
-        formData.append(`file`, blob, 'avatar.jpg');
-        return this.apiService.updatePhoto(formData).subscribe(
-          () => {
-            this.localNotificationService.showNotification(
-              'You have successfully updated your avatar',
-              'success-main'
-            );
-          },
-          (error) => {
-            this.localNotificationService.showNotification(error, 'error-main');
-          }
-        );
-      }
-    };
+  addProperties() {
+    this.route.navigate([`add-properties`]);
   }
 }

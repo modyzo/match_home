@@ -24,9 +24,18 @@ const routes: Routes = [
   },
   { path: 'edit', loadChildren: './pages/edit/edit.module#EditPageModule' },
   {
-    path: 'edit-properties',
+    path: 'edit-properties/:id',
     loadChildren:
       './pages/edit-properties/edit-properties.module#EditPagePropertiesModule',
+  },
+  {
+    path: 'add-properties',
+    loadChildren:
+      './pages/add-properties/add-properties.module#AddPagePropertiesModule',
+  },
+  {
+    path: 'upload-properties/:id',
+    loadChildren: './pages/upload-properties/upload.module#UploadPageModule',
   },
   {
     path: 'properties-list',

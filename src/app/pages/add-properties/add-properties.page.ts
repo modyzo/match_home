@@ -1,11 +1,15 @@
 /** */
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from '@app/services/api.service';
 import { DataService } from '@app/services/data.service';
-import { sexObject } from '@app/shared/constants/variables';
+import {
+  availabilityOfBuildingList,
+  currencyObject,
+  sexObject,
+  stateOfBuildingList,
+} from '@app/shared/constants/variables';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 import { StorageService } from '@app/shared/services/storage.service';
 import { environment } from '@env/environment';
@@ -22,13 +26,16 @@ export class AddPageProperties implements OnInit {
   imageData: any;
   public AddPagePropertiesForm: FormGroup;
   public sexObject = sexObject;
+  public availability = availabilityOfBuildingList;
+  public stateOfBuild = stateOfBuildingList;
+  public currencyObject = currencyObject;
 
-  public userDocRef: DocumentReference;
   constructor(
     public serviceProvider: DataService,
     private apiService: ApiService,
     public formBuilder: FormBuilder,
-    private localNotificationService: LocalNotificationService
+    private localNotificationService: LocalNotificationService,
+    private router: Router
   ) {
     this.data = environment.editInfo;
     this.imageData = environment.images;
@@ -44,6 +51,10 @@ export class AddPageProperties implements OnInit {
           Validators.required,
         ]),
       ],
+      bathRooms: [null],
+      garage: [null],
+      availability: [null],
+      stateOfBuild: [null],
       rooms: ['', Validators.compose([Validators.required])],
     });
   }
@@ -70,9 +81,10 @@ export class AddPageProperties implements OnInit {
       .subscribe(
         () => {
           this.localNotificationService.showNotification(
-            'Profile details have succesfully updated',
+            'Properties succesfully added',
             'success-main'
           );
+          this.router.navigate(['/home']);
         },
         (error) => {
           this.localNotificationService.showNotification(error, 'error-main');
