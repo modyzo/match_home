@@ -11,7 +11,7 @@ export const environment = {
     appId: '1:1075662539136:web:d3530323dceeda5d241965',
     measurementId: 'G-PFRDHC8KGG',
   },
-  apiUrl: 'https://d21294f80a44.ngrok.io',
+  apiUrl: 'http://api.matchmyhome.be',
   driveLink: 'https://docs.google.com/uc?export=download&id=',
   gold: [
     {
