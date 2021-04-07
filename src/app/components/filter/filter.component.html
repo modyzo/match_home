@@ -123,6 +123,26 @@
 
     <ion-card>
       <ion-item>
+        <ion-text class="textBold" slot="start">Kitchen</ion-text>
+        <ion-text color="danger" slot="end">
+          {{ filterForm.get('kitchen').value?.lower }} -
+          {{ filterForm.get('kitchen').value?.upper }}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-range
+          formControlName="kitchen"
+          dualKnobs="true"
+          min="0"
+          max="15"
+          step="1"
+          color="danger"
+        >
+        </ion-range>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
         <ion-text class="textBold" slot="start">Garage</ion-text>
         <ion-text color="danger" slot="end">
           {{ filterForm.get('garage').value?.lower }} -

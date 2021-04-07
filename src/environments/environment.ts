@@ -11,7 +11,7 @@ export const environment = {
     appId: '1:1075662539136:web:d3530323dceeda5d241965',
     measurementId: 'G-PFRDHC8KGG',
   },
-  apiUrl: 'https://f58f7b8de18b.ngrok.io',
+  apiUrl: 'https://59fb8e028d95.ngrok.io',
   driveLink: 'https://docs.google.com/uc?export=download&id=',
   gold: [
     {

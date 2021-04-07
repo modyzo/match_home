@@ -82,13 +82,13 @@ export enum StateOfBuild {
 }
 
 export const availabilityOfBuilding = {
-  1: 'vanaf akte',
-  2: 'af te spreken met eigenaar',
-  3: 'mits inachtneming huurders',
-  4: 'niet beschikbaar',
-  5: 'onmiddellijk',
-  6: 'bij oplevering',
-  7: 'in onderling overleg',
+  'at the contract': 'vanaf akte',
+  'tbd with the owner': 'af te spreken met eigenaar',
+  'tbd with the tenant': 'mits inachtneming huurders',
+  'not available': 'niet beschikbaar',
+  immediately: 'onmiddellijk',
+  'at delivery': 'bij oplevering',
+  'to be agreed upon': 'in onderling overleg',
 };
 
 export const availabilityOfBuildingList = [

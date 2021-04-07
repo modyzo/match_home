@@ -400,6 +400,10 @@ export class HomePage {
         max: data.garage.upper,
       },
       hasPictures: true,
+      kitchen: {
+        min: data.kitchen.lower,
+        max: data.kitchen.upper,
+      },
     };
 
     if (data.availability) {
@@ -409,7 +413,6 @@ export class HomePage {
     }
 
     this.filterFields = data;
-    console.log('this.filterFields', this.filterFields);
     return this.apiService.getProperties(requestBody);
   }
 }

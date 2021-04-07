@@ -51,11 +51,13 @@ export class AddPageProperties implements OnInit {
           Validators.required,
         ]),
       ],
+      rooms: ['', Validators.compose([Validators.required])],
       bathRooms: [null],
       garage: [null],
       availability: [null],
       stateOfBuild: [null],
-      rooms: ['', Validators.compose([Validators.required])],
+      kitchen: [null],
+      description: [null],
     });
   }
 

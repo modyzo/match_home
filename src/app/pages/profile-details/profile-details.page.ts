@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '@app/services/data.service';
 import {
   NavController,
@@ -14,6 +14,7 @@ import {
   stateOfBuilding,
   mainDetailTranslate,
   mainDetailTranslateList,
+  availabilityOfBuilding,
 } from '@app/shared/constants/variables';
 import { adaptDataToNormalizedInfo } from '@app/shared/helprers/details-helper';
 
@@ -31,6 +32,7 @@ export class ProfileDetailsPage implements OnInit {
   stateOfBuilding = stateOfBuilding;
   mainDetailTranslateList = mainDetailTranslateList;
   mainDetailTranslate = mainDetailTranslate;
+  availabilityOfBuilding = availabilityOfBuilding;
   slideOpts = {
     effect: 'flip',
     direction: 'horizontal',
@@ -55,7 +57,8 @@ export class ProfileDetailsPage implements OnInit {
     public service: DataService,
     public navCtrl: NavController,
     public popOver: PopoverController,
-    public platform: Platform
+    public platform: Platform,
+    public router: Router
   ) {
     this.isIos = this.platform.is('ios');
     this.icons = environment.footer_icons;
@@ -98,5 +101,9 @@ export class ProfileDetailsPage implements OnInit {
 
   async setActiveSliderIndex(index: any) {
     this.slider.slideTo(index);
+  }
+
+  clickedIconIs(title) {
+    this.router.navigate(['/home']);
   }
 }

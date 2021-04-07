@@ -29,6 +29,7 @@ export class FilterComponent implements OnInit {
       availability: [null],
       stateOfBuild: [null],
       garage: [{ lower: 0, upper: 15 }],
+      kitchen: [{ lower: 0, upper: 15 }],
     });
 
     if (this.navParams.get('data')) {

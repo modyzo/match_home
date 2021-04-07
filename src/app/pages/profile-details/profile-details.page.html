@@ -114,6 +114,21 @@
     <ion-item class="sameLineContent">
       <p [innerHTML]="profileData.description"></p>
     </ion-item>
+    <ion-item
+      class="sameLineContent"
+      *ngIf="availabilityOfBuilding[profileData.availability]"
+    >
+      <p>{{availabilityOfBuilding[profileData.availability]}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.kitchen">
+      keuken-:
+      <p>{{profileData.kitchen}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.garage">
+      garage:
+      <p>{{profileData.garage}}</p>
+    </ion-item>
+
     <ion-item class="sameLineContent2">
       <h6>{{profileData.name}} Photos</h6>
     </ion-item>
@@ -177,7 +192,7 @@
     </ion-list>
   </div>
 </ion-content>
-<ion-footer>
+<!-- <ion-footer>
   <ion-toolbar>
     <div class="footerContent">
       <div
@@ -196,4 +211,4 @@
       </div>
     </div>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
