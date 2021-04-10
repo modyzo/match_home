@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button color="danger"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-uppercase">Edit profile</ion-title>
+    <ion-title class="ion-text-uppercase">Edit Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -50,7 +50,7 @@
 
     <ion-item>
       <ion-label>Beschikbaar</ion-label>
-      <ion-select formControlName="sex" multiple="false">
+      <ion-select formControlName="gender" multiple="false">
         <ion-select-option *ngFor="let item of sexObject" [value]="item.value"
           >{{ item.name }}
         </ion-select-option>

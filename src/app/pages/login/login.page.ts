@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
       ],
     });
   }
-  ngOnInit() { }
+  ngOnInit() {}
   toggleContent() {
     this.service.openModal(ToggleLoginComponent, '', 'modalBackground');
   }
@@ -59,21 +59,23 @@ export class LoginPage implements OnInit {
   }
 
   public login() {
-    return this.authService.signIn({
-      email: this.loginForm.get('email').value,
-      password: this.loginForm.get('password').value,
-    }).subscribe(
-      (data) => {
-        of(this.authService.sendToken(data.token));
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        console.log(error);
-        this.localNotificationService.showNotification(
-          error.message,
-          'error-main'
-        );
-      }
-    );
+    return this.authService
+      .signIn({
+        email: this.loginForm.get('email').value,
+        password: this.loginForm.get('password').value,
+      })
+      .subscribe(
+        (data) => {
+          of(this.authService.sendToken(data.token));
+          this.router.navigate(['home']);
+        },
+        (error) => {
+          console.log(error);
+          this.localNotificationService.showNotification(
+            error.message,
+            'error-main'
+          );
+        }
+      );
   }
 }

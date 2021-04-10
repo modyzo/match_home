@@ -86,7 +86,7 @@ export class AddPageProperties implements OnInit {
             'Properties succesfully added',
             'success-main'
           );
-          this.router.navigate(['/home']);
+          this.router.navigate(['home']);
         },
         (error) => {
           this.localNotificationService.showNotification(error, 'error-main');

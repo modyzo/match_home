@@ -103,4 +103,16 @@ export class ApiService {
       {}
     );
   }
+
+  public addReaction(id: string, reaction: string) {
+    return this.patchRequest(`properties/reactions/${id}/${reaction}`, {});
+  }
+
+  public requestPropertyInfo(id: string, type: string) {
+    return this.patchRequest(`properties/reactions/${id}/request/${type}`, {});
+  }
+
+  public getActivities() {
+    return this.getRequest('activities');
+  }
 }

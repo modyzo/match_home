@@ -5,6 +5,7 @@ import {
   availabilityOfBuildingList,
   stateOfBuildingList,
 } from '@app/shared/constants/variables';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-separator',
@@ -14,11 +15,19 @@ import {
 export class SeparatorComponent implements OnInit {
   public availability = availabilityOfBuildingList;
   public stateOfBuild = stateOfBuildingList;
-
+  public data: any;
+  driveLink = environment.driveLink;
   constructor(
     private modalCtrl: ModalController,
-    public formBuilder: FormBuilder
-  ) {}
+    public formBuilder: FormBuilder,
+    private navParams: NavParams
+  ) {
+    const data = this.navParams.get('data');
+    if (data) {
+      console.log('data', data);
+      this.data = data;
+    }
+  }
 
   ngOnInit() {}
 
@@ -26,8 +35,12 @@ export class SeparatorComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  public applyseparator() {
-    this.modalCtrl.dismiss(true);
+  public applyEmail() {
+    this.modalCtrl.dismiss({ request: 'appointment', id: this.data.id });
+  }
+
+  public applyChat() {
+    this.modalCtrl.dismiss({ request: 'chat', id: this.data.id });
   }
 
   public disapplyseparator() {

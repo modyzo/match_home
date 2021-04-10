@@ -1,5 +1,6 @@
 /** */
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '@app/services/api.service';
 import { DataService } from '@app/services/data.service';
 import { environment } from '@env/environment';
 
@@ -10,11 +11,13 @@ import { environment } from '@env/environment';
 })
 export class FeedPage implements OnInit {
   feedData: any;
-  constructor(public service: DataService) {
+  constructor(public service: DataService, public apiService: ApiService) {
     this.feedData = environment.shareFeed;
   }
 
   ngOnInit() {
+    this.apiService.getActivities().subscribe((activities) => {
+      console.log('data activities', activities);
+    });
   }
-
 }

@@ -1,10 +1,26 @@
 <ion-content>
   <div class="separator-wrapper">
-    <div class="first separator" (click)="applyseparator()">
-      Ik wens een bezoek
-    </div>
-    <div class="second separator" (click)="disapplyseparator()">
-      Ik wens graag meer informatie
+    <div class="main-title">It's a Match!</div>
+    <div class="main-sub-title">U vindt dit eigendom leuk!</div>
+    <div
+      class="property-photo"
+      [ngStyle]="{
+        background: 'url(' + driveLink + data.image + ')',
+        'background-size': 'cover',
+        height: '160px',
+        width: '160px',
+        'margin-bottom': '0px'
+      }"
+    ></div>
+    <div class="wrapper-choise">
+      <div class="email-wrapper separator" (click)="applyEmail()">
+        <div class="img-wrapper"></div>
+        <div class="text-wrapper">Ik wens een bezoek</div>
+      </div>
+      <div class="chat-wrapper separator" (click)="applyChat()">
+        <div class="img-wrapper"></div>
+        <div class="text-wrapper">Ik wens graag meer informatie</div>
+      </div>
     </div>
   </div>
 </ion-content>

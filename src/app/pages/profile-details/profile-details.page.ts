@@ -104,6 +104,6 @@ export class ProfileDetailsPage implements OnInit {
   }
 
   clickedIconIs(title) {
-    this.router.navigate(['/home']);
+    this.router.navigate(['home']);
   }
 }

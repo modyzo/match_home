@@ -15,8 +15,8 @@ import {
 import { MatchIconsComponent } from '@app/components/match-icons/match-icons.component';
 import { environment } from '@env/environment';
 import { ApiService } from '@app/services/api.service';
-import { mergeMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { mergeMap, switchMap } from 'rxjs/operators';
+import { forkJoin, of } from 'rxjs';
 import { LoadingService } from '@app/shared/services/loading.service';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 import { serialize } from '@app/shared/helprers/serialize-helper';
@@ -163,7 +163,8 @@ export class HomePage {
     return this.apiService.getProperties({ hasPictures: true });
   }
 
-  clickedIconIs(icon) {
+  clickedIconIs(icon, id: string, image: string) {
+    console.log('id', id);
     if (icon === 'refresh') {
       this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
     } else if (icon === 'close') {
@@ -179,12 +180,18 @@ export class HomePage {
         this.cards.pop();
       }, 200);
     } else if (icon === 'home') {
-      return this.showSeaprator(() => {
-        this.like = true;
-        setTimeout(() => {
-          this.like = false;
-          this.cards.pop();
-        }, 200);
+      this.apiService.addReaction(id, 'like').subscribe(() => {
+        this.showSeaprator(
+          () => {
+            this.like = true;
+            setTimeout(() => {
+              this.like = false;
+              this.cards.pop();
+            }, 200);
+          },
+          id,
+          image
+        );
       });
       // this.like = true;
       // setTimeout(() => {
@@ -216,14 +223,16 @@ export class HomePage {
     }
   }
 
-  public showSeaprator(callback: () => void) {
+  public showSeaprator(callback: () => void, id: string, image: string) {
     this.dataService
-      .openRxModal('separator', {}, false, 'modal-fullscreen', false)
+      .openRxModal('separator', { id, image }, false, 'modal-fullscreen', false)
+      .pipe(
+        mergeMap((modalRes) => {
+          return this.apiService.requestPropertyInfo(id, modalRes.data.request);
+        })
+      )
       .subscribe((modalRes) => {
-        if (modalRes.data) {
-          console.log('modalRes.data', modalRes.data);
-          callback();
-        }
+        callback();
       });
   }
 
@@ -267,13 +276,6 @@ export class HomePage {
   }
 
   segmentChanged(event: any) {
-    if (event.detail.value === 'chatbubbles') {
-      event.preventDefault();
-      return this.localNotificationService.showNotification(
-        'This feature is coming soon',
-        'info-main'
-      );
-    }
     this.segmentButton = event.detail.value;
   }
   openAndHideDetail(userData: any) {
@@ -330,8 +332,16 @@ export class HomePage {
       this.recentCard = 'You superliked: ' + removedCard.name;
     }
     if (this.like) {
-      return this.showSeaprator(() => {
-        setTimeout(() => {}, 200);
+      const id = this.cards[0].id;
+      const image = this.cards[0].pictures[0];
+      this.apiService.addReaction(id, 'like').subscribe(() => {
+        this.showSeaprator(
+          () => {
+            setTimeout(() => {}, 200);
+          },
+          id,
+          image
+        );
       });
     }
   }
