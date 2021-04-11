@@ -115,4 +115,8 @@ export class ApiService {
   public getActivities() {
     return this.getRequest('activities');
   }
+
+  public getActivitiesByType(type: string) {
+    return this.getRequest(`activities/type/${type}`);
+  }
 }

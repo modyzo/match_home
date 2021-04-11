@@ -1,26 +1,39 @@
 <ion-list>
-  <ion-item class="headerItem">
-    <ion-avatar slot="start">
-      <ion-img src="assets/chat/chat3.jpg"></ion-img>
-    </ion-avatar>
-    <ion-label>
-      <h3>Jessica Alba</h3>
-      <p>New Match</p>
-    </ion-label>
-    <ion-icon name="more" mode="ios" slot="end" expand="icon-only" (click)="openPopover($event)"></ion-icon>
-  </ion-item>
-  <ion-card [ngStyle]="{'background':'url(../../assets/chat/chat5.jpg)','background-size':'cover'}">
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="openChatComponent()">
-        <ion-icon name="chatbubbles"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </ion-card>
-  <ion-item>
-    <ion-icon name="pin" slot="start"></ion-icon>
-    <ion-label>
-      <p>4 Km away</p>
-      <p>12 Dec 2020</p>
-    </ion-label>
-  </ion-item>
+  <div *ngFor="let activity of activities; let i = index">
+    <ion-item class="headerItem">
+      <ion-avatar slot="start">
+        <ion-img src="assets/chat/chat3.jpg"></ion-img>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ activity.property.name }}</h3>
+        <p>New Match</p>
+      </ion-label>
+      <ion-icon
+        name="more"
+        mode="ios"
+        slot="end"
+        expand="icon-only"
+        (click)="openPopover($event)"
+      ></ion-icon>
+    </ion-item>
+    <ion-card
+      [ngStyle]="{
+        background: 'url(' + driveLink + activity.property.pictures[0] + ')',
+        'background-size': 'cover'
+      }"
+    >
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="openChatComponent()">
+          <ion-icon name="chatbubbles"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-card>
+    <ion-item>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label>
+        <p>4 Km away</p>
+        <p>{{ activity.createdAt | date: 'dd/MM/yyyy' }}</p>
+      </ion-label>
+    </ion-item>
+  </div>
 </ion-list>

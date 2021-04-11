@@ -53,26 +53,41 @@
 </ion-list>
 <ion-list>
   <ion-list-header>
-    <ion-label>New Matches</ion-label>
+    <ion-label>Last Matches</ion-label>
   </ion-list-header>
   <ion-row>
     <ion-col size="12">
       <div class="scroll">
         <div
-          *ngFor="let item of imageData; let i = index"
+          *ngFor="let item of activities; let i = index"
           (click)="goForChat(item)"
         >
           <ion-avatar
-            [ngClass]="{ cardBorder: !item.image, cardBorderless: item.image }"
+            *ngIf="
+              item &&
+              item.property &&
+              item.property.pictures &&
+              item.property.pictures[0]
+            "
+            class="cardBorderless"
           >
             <div
               [ngStyle]="{
-                background: 'url(' + item.image + ')',
+                background:
+                  'url(' + driveLink + item.property.pictures[0] + ')',
                 'background-size': 'cover'
               }"
               class="avatarImage"
             >
-              <div *ngIf="item.image" class="absHeart">
+              <div
+                *ngIf="
+                  item &&
+                  item.property &&
+                  item.property.pictures &&
+                  item.property.pictures[0]
+                "
+                class="absHeart"
+              >
                 <ion-icon
                   name="heart"
                   expand="icon-only"

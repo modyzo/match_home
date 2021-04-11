@@ -163,40 +163,40 @@ export class HomePage {
     return this.apiService.getProperties({ hasPictures: true });
   }
 
-  clickedIconIs(icon, id: string, image: string) {
-    console.log('id', id);
+  clickedIconIs(icon) {
     if (icon === 'refresh') {
       this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
     } else if (icon === 'close') {
       this.disLike = true;
       setTimeout(() => {
         this.disLike = false;
-        this.cards.pop();
+        this.cards.shift();
       }, 200);
     } else if (icon === 'star') {
       this.superLike = true;
       setTimeout(() => {
         this.superLike = false;
-        this.cards.pop();
+        this.cards.shift();
       }, 200);
     } else if (icon === 'home') {
-      this.apiService.addReaction(id, 'like').subscribe(() => {
+      console.log('this.cards', this.cards);
+      this.apiService.addReaction(this.cards[0].id, 'like').subscribe(() => {
         this.showSeaprator(
           () => {
             this.like = true;
             setTimeout(() => {
               this.like = false;
-              this.cards.pop();
+              this.cards.shift();
             }, 200);
           },
-          id,
-          image
+          this.cards[0].id,
+          this.cards[0].pictures[0]
         );
       });
       // this.like = true;
       // setTimeout(() => {
       //   this.like = false;
-      //   this.cards.pop();
+      //   this.cards.shift();
       // }, 200);
     } else if (icon === 'star') {
       this.dataService.openModal(
@@ -232,6 +232,7 @@ export class HomePage {
         })
       )
       .subscribe((modalRes) => {
+        console.log('callback israel');
         callback();
       });
   }
@@ -248,7 +249,7 @@ export class HomePage {
   }
 
   voteUp(like: boolean) {
-    const removedCard = this.cards.pop();
+    const removedCard = this.cards.shift();
     this.addNewCards(1);
     if (like) {
       this.recentCard = 'You liked: ' + removedCard.name;
@@ -327,7 +328,7 @@ export class HomePage {
 
   onThrowOut(event: ThrowEvent) {
     if (this.superLike) {
-      const removedCard = this.cards.pop();
+      const removedCard = this.cards.shift();
       this.addNewCards(1);
       this.recentCard = 'You superliked: ' + removedCard.name;
     }

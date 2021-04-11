@@ -16,7 +16,9 @@ import { ApiService } from '@app/services/api.service';
   styleUrls: ['./message-feed.component.scss'],
 })
 export class MessageFeedComponent implements OnInit {
+  driveLink = environment.driveLink;
   profileData: any;
+  public activities = [];
   icons: any;
   slideOpts = {
     effect: 'flip',
@@ -38,6 +40,7 @@ export class MessageFeedComponent implements OnInit {
       console.log(params.userData);
       if (params.userData) {
         this.profileData = JSON.parse(params.userData);
+        console.log('profileData', this.profileData);
       }
     });
   }
@@ -46,8 +49,8 @@ export class MessageFeedComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService.getActivities().subscribe((activities) => {
-      console.log('data activities', activities);
+    this.apiService.getActivities().subscribe((activities: Array<any>) => {
+      this.activities = activities;
     });
   }
 
