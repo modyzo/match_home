@@ -2611,3 +2611,36 @@ export const currencyObject = [
   { value: 'EUR', name: 'Euro' },
   { value: 'USD', name: 'USD' },
 ];
+
+export enum EnergyPerformanceCertificates {
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  E = 'E',
+  F = 'F',
+}
+
+export const energyPerformanceCertificateObject = [
+  { value: 'A', name: 'A' },
+  { value: 'B', name: 'B' },
+  { value: 'C', name: 'C' },
+  { value: 'D', name: 'D' },
+  { value: 'E', name: 'E' },
+  { value: 'F', name: 'F' },
+];
+
+export enum GardenOrientation {
+  FENCEDOFF = 'FENCEDOFF',
+  NEARTHEHOUSE = 'NEARTHEHOUSE',
+}
+
+export const GardenOrientationObject = [
+  { value: 'FENCEDOFF', name: 'Afgesloten' },
+  { value: 'NEARTHEHOUSE', name: 'Dichtbij het huis' },
+];
+
+export const gardenOrientationList = {
+  FENCEDOFF: 'Afgesloten',
+  NEARTHEHOUSE: 'Dichtbij het huis',
+};

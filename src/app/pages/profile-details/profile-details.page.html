@@ -12,12 +12,12 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-item>
+  <ion-item>
     <pre>
     {{profileData | json}} 
   </pre
     >
-  </ion-item> -->
+  </ion-item>
   <ion-slides
     [options]="slideOpts"
     #mySlider
@@ -127,6 +127,37 @@
     <ion-item class="sameLineContent" *ngIf="profileData.garage">
       garage:
       <p>{{profileData.garage}}</p>
+    </ion-item>
+    <ion-item
+      class="sameLineContent"
+      *ngIf="profileData.energyPerformanceCertificate"
+    >
+      energieprestatiecertificaat:
+      <p>{{profileData.energyPerformanceCertificate}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.livingSpace">
+      woonruimte:
+      <p>{{profileData.livingSpace}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.garage">
+      tuin-:
+      <p>{{profileData.garage}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.gardenOrientation">
+      tuin Oriëntatie:
+      <p>{{gardenOrientationList[profileData.gardenOrientation]}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.yearOfConstruction">
+      jaar van constructie:
+      <p>{{profileData.yearOfConstruction}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.landArea">
+      landoppervlak:
+      <p>{{profileData.landArea}}</p>
+    </ion-item>
+    <ion-item class="sameLineContent" *ngIf="profileData.bedrooms">
+      slaapkamers:
+      <p>{{profileData.bedrooms}}</p>
     </ion-item>
 
     <ion-item class="sameLineContent2">

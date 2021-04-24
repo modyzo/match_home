@@ -120,7 +120,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-text class="textBold" slot="start">Kitchen</ion-text>
+      <ion-text class="textBold" slot="start">Keuken</ion-text>
       <ion-text color="danger" slot="end">
         {{ editPagePropertiesForm.get('kitchen').value }}
       </ion-text>
@@ -135,6 +135,81 @@
       >
       </ion-range>
     </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">jaar van constructie</ion-label>
+      <ion-input
+        formControlName="yearOfConstruction"
+        type="number"
+        placeholder="Voer yearOfConstruction in"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">slaapkamers</ion-label>
+      <ion-input
+        formControlName="bedrooms"
+        type="number"
+        placeholder="Voer bedrooms in"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">tuin-</ion-label>
+      <ion-input
+        formControlName="garden"
+        type="number"
+        placeholder="Voer garden in"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">landoppervlak</ion-label>
+      <ion-input
+        formControlName="landArea"
+        type="number"
+        placeholder="Voer landArea in"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Woonruimte</ion-label>
+      <ion-input
+        formControlName="livingSpace"
+        type="number"
+        placeholder="Voer livingSpace in"
+        class="ion-text-capitalize"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Voer Energieprestatiecertificaat in</ion-label>
+      <ion-select formControlName="energyPerformanceCertificate">
+        <ion-select-option
+          *ngFor="let item of energyPerformanceCertificateObject"
+          [value]="item.value"
+        >
+          {{ item.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Voer Tuinoriëntatie in</ion-label>
+      <ion-select formControlName="gardenOrientation">
+        <ion-select-option
+          *ngFor="let item of GardenOrientationObject"
+          [value]="item.value"
+        >
+          {{ item.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
     <ion-item>
       <ion-label>description</ion-label>
       <ion-input

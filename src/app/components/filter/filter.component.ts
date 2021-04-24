@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   availabilityOfBuildingList,
   stateOfBuildingList,
+  energyPerformanceCertificateObject,
+  GardenOrientationObject,
 } from '@app/shared/constants/variables';
 
 @Component({
@@ -15,6 +17,9 @@ export class FilterComponent implements OnInit {
   public filterForm: FormGroup;
   public availability = availabilityOfBuildingList;
   public stateOfBuild = stateOfBuildingList;
+
+  public energyPerformanceCertificateObject = energyPerformanceCertificateObject;
+  public GardenOrientationObject = GardenOrientationObject;
 
   constructor(
     private modalCtrl: ModalController,
@@ -30,6 +35,13 @@ export class FilterComponent implements OnInit {
       stateOfBuild: [null],
       garage: [{ lower: 0, upper: 15 }],
       kitchen: [{ lower: 0, upper: 15 }],
+      yearOfConstruction: [{ lower: 1900, upper: 2020 }],
+      bedrooms: [{ lower: 0, upper: 200 }],
+      garden: [{ lower: 0, upper: 200 }],
+      gardenOrientation: [null],
+      landArea: [{ lower: 0, upper: 200 }],
+      livingSpace: [{ lower: 0, upper: 200 }],
+      energyPerformanceCertificate: [null],
     });
 
     if (this.navParams.get('data')) {

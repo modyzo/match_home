@@ -123,7 +123,7 @@
 
     <ion-card>
       <ion-item>
-        <ion-text class="textBold" slot="start">Kitchen</ion-text>
+        <ion-text class="textBold" slot="start">Keuken</ion-text>
         <ion-text color="danger" slot="end">
           {{ filterForm.get('kitchen').value?.lower }} -
           {{ filterForm.get('kitchen').value?.upper }}
@@ -161,7 +161,121 @@
         </ion-range>
       </ion-item>
     </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-text class="textBold" slot="start">Jaar van constructie</ion-text>
+        <ion-text color="danger" slot="end">
+          {{ filterForm.get('yearOfConstruction').value?.lower }} -
+          {{ filterForm.get('yearOfConstruction').value?.upper }}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-range
+          formControlName="yearOfConstruction"
+          dualKnobs="true"
+          min="1900"
+          max="2021"
+          step="1"
+          color="danger"
+        >
+        </ion-range>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-text class="textBold" slot="start">Tuin</ion-text>
+        <ion-text color="danger" slot="end">
+          {{ filterForm.get('garden').value?.lower }} -
+          {{ filterForm.get('garden').value?.upper }}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-range
+          formControlName="garden"
+          dualKnobs="true"
+          min="0"
+          max="200"
+          step="1"
+          color="danger"
+        >
+        </ion-range>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label>Tuinoriëntatie</ion-label>
+        <ion-select formControlName="gardenOrientation" multiple="true">
+          <ion-select-option
+            *ngFor="let item of GardenOrientationObject"
+            [value]="item.value"
+          >
+            {{ item.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-text class="textBold" slot="start">landoppervlak</ion-text>
+        <ion-text color="danger" slot="end">
+          {{ filterForm.get('landArea').value?.lower }} -
+          {{ filterForm.get('landArea').value?.upper }}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-range
+          formControlName="landArea"
+          dualKnobs="true"
+          min="0"
+          max="200"
+          step="1"
+          color="danger"
+        >
+        </ion-range>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-text class="textBold" slot="start">woonruimte</ion-text>
+        <ion-text color="danger" slot="end">
+          {{ filterForm.get('livingSpace').value?.lower }} -
+          {{ filterForm.get('livingSpace').value?.upper }}
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-range
+          formControlName="livingSpace"
+          dualKnobs="true"
+          min="0"
+          max="200"
+          step="1"
+          color="danger"
+        >
+        </ion-range>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label>Energieprestatiecertificaat</ion-label>
+        <ion-select
+          formControlName="energyPerformanceCertificate"
+          multiple="true"
+        >
+          <ion-select-option
+            *ngFor="let item of energyPerformanceCertificateObject"
+            [value]="item.name"
+          >
+            {{ item.value }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
   </form>
 </ion-content>
 
-<div (click)="applyFilter()" class="apply-btn">Apply</div>
+<div (click)="applyFilter()" class="apply-btn">Van toepassing zijn</div>

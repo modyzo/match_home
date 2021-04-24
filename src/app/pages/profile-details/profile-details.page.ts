@@ -15,6 +15,7 @@ import {
   mainDetailTranslate,
   mainDetailTranslateList,
   availabilityOfBuilding,
+  gardenOrientationList,
 } from '@app/shared/constants/variables';
 import { adaptDataToNormalizedInfo } from '@app/shared/helprers/details-helper';
 
@@ -33,6 +34,7 @@ export class ProfileDetailsPage implements OnInit {
   mainDetailTranslateList = mainDetailTranslateList;
   mainDetailTranslate = mainDetailTranslate;
   availabilityOfBuilding = availabilityOfBuilding;
+  gardenOrientationList = gardenOrientationList;
   slideOpts = {
     effect: 'flip',
     direction: 'horizontal',

@@ -9,6 +9,8 @@ import {
   currencyObject,
   sexObject,
   stateOfBuildingList,
+  energyPerformanceCertificateObject,
+  GardenOrientationObject,
 } from '@app/shared/constants/variables';
 import { LocalNotificationService } from '@app/shared/services/local-notification.service';
 import { StorageService } from '@app/shared/services/storage.service';
@@ -29,6 +31,8 @@ export class AddPageProperties implements OnInit {
   public availability = availabilityOfBuildingList;
   public stateOfBuild = stateOfBuildingList;
   public currencyObject = currencyObject;
+  public energyPerformanceCertificateObject = energyPerformanceCertificateObject;
+  public GardenOrientationObject = GardenOrientationObject;
 
   constructor(
     public serviceProvider: DataService,
@@ -58,6 +62,13 @@ export class AddPageProperties implements OnInit {
       stateOfBuild: [null],
       kitchen: [null],
       description: [null],
+      yearOfConstruction: [null],
+      bedrooms: [null],
+      garden: [null],
+      gardenOrientation: [null],
+      landArea: [null],
+      livingSpace: [null],
+      energyPerformanceCertificate: [null],
     });
   }
 

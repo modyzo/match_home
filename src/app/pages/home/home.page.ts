@@ -386,14 +386,15 @@ export class HomePage {
   }
 
   private applyFilter(data) {
-    this.loadingService
-      .startLoading(this.applyFilterRequest(data))
-      .subscribe((res: any) => {
+    this.loadingService.startLoading(this.applyFilterRequest(data)).subscribe(
+      (res: any) => {
         this.hasUserData = true;
         if (res && res.estates && res.estates.length) {
           this.cards = res;
         }
-      });
+      },
+      (error) => console.log('error', error)
+    );
   }
 
   private applyFilterRequest(data) {
@@ -424,12 +425,47 @@ export class HomePage {
         min: data.kitchen.lower,
         max: data.kitchen.upper,
       },
+      yearOfConstruction: {
+        min: data.yearOfConstruction.lower,
+        max: data.yearOfConstruction.upper,
+      },
+      bedrooms: {
+        min: data.bedrooms.lower,
+        max: data.bedrooms.upper,
+      },
+      garden: {
+        min: data.garden.lower,
+        max: data.garden.upper,
+      },
+      landArea: {
+        min: data.landArea.lower,
+        max: data.landArea.upper,
+      },
+      livingSpace: {
+        min: data.livingSpace.lower,
+        max: data.livingSpace.upper,
+      },
+      energyPerformanceCertificate: data.energyPerformanceCertificate,
+      gardenOrientation: data.gardenOrientation,
     };
 
     if (data.availability) {
       requestBody.availability = data.availability;
     } else {
       delete requestBody.availability;
+    }
+
+    if (data.energyPerformanceCertificate) {
+      requestBody.energyPerformanceCertificate =
+        data.energyPerformanceCertificate;
+    } else {
+      delete requestBody.energyPerformanceCertificate;
+    }
+
+    if (data.gardenOrientation) {
+      requestBody.gardenOrientation = data.gardenOrientation;
+    } else {
+      delete requestBody.gardenOrientation;
     }
 
     this.filterFields = data;
