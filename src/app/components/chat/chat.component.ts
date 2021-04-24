@@ -32,11 +32,9 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.apiService
-      .getActivitiesByType('like')
-      .subscribe((data: Array<any>) => {
-        this.activities = data;
-      });
+    this.apiService.getChats().subscribe((data: Array<any>) => {
+      this.activities = data;
+    });
   }
   changeClick() {
     this.buttonClicked = !this.buttonClicked;

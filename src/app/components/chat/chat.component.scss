@@ -529,7 +529,8 @@ ion-list-header {
 .scroll {
   display: flex;
   overflow: scroll;
-  height: 75px;
+  height: 105px;
+  margin-left: 5px;
   ion-avatar {
     margin-right: 16px;
     justify-content: center;

@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { FilterComponent } from '@app/components/filter/filter.component';
 import { SeparatorComponent } from '@app/components/separator/separator.component';
+import { MatchIconsComponent } from '@app/components/match-icons/match-icons.component';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class DataService {
   private componentTypes = {
     filter: FilterComponent,
     separator: SeparatorComponent,
+    boostPage: MatchIconsComponent,
   };
 
   constructor(public modalCtrl: ModalController) {}

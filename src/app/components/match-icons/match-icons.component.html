@@ -59,9 +59,9 @@
           <ion-row class="row_bottom">
             <ion-col
               size="4"
-              *ngFor="let columns of item.column; let i = index"
+              *ngFor="let columns of boosts; let i = index"
               [ngClass]="{ borders: i === 0 || (1 && i != 2) }"
-              (click)="showCustomButton(i)"
+              (click)="showCustomButton(columns.id)"
             >
               <ion-label class="ion-text-center">
                 <div class="levelDiv">
@@ -69,21 +69,19 @@
                     size="small"
                     expand="block"
                     class="columnButtonTop"
-                    *ngIf="columns.head && show"
+                    *ngIf="columns.name && show"
                     class="custom_button"
-                    ><span>{{ columns.head }}</span></ion-button
+                    ><span>{{ columns.name }}</span></ion-button
                   >
-                  <h1>{{ columns.month }}</h1>
-                  <h3>{{ columns.text }}</h3>
-                  <h2>{{ columns.amount }}</h2>
+                  <h1>{{ columns.type }}</h1>
+                  <h3>{{ columns.description }}</h3>
+                  <h2>{{ columns.price }} EUR</h2>
                 </div>
               </ion-label>
             </ion-col>
           </ion-row>
           <div class="buttonClass ion-padding-vertical">
-            <ion-button expand="block" (click)="closeModal(item.id)">{{
-              item.button
-            }}</ion-button>
+            <ion-button expand="block" (click)="closeModal()">Close</ion-button>
           </div>
         </ion-card>
         <ion-label *ngIf="item.id === 'refresh'" class="ion-text-center">
@@ -111,9 +109,9 @@
         <ion-row class="row_bottom">
           <ion-col
             size="4"
-            *ngFor="let columns of item.column; let i = index"
+            *ngFor="let columns of boosts; let i = index"
             [ngClass]="{ borders: i === 0 || (1 && i != 2) }"
-            (click)="showCustomButton(i)"
+            (click)="showCustomButton(columns.id)"
           >
             <ion-label class="ion-text-center">
               <div class="levelDiv">
@@ -121,37 +119,19 @@
                   size="small"
                   expand="block"
                   class="columnButtonTop"
-                  *ngIf="columns.head && show"
+                  *ngIf="columns.name && show"
                   class="custom_button"
-                  ><span>{{ columns.head }}</span></ion-button
+                  ><span>{{ columns.name }}</span></ion-button
                 >
-                <h1>{{ columns.month }}</h1>
-                <h3>{{ columns.text }}</h3>
-                <h2>{{ columns.amount }}</h2>
+                <h1>{{ columns.type }}</h1>
+                <h3>{{ columns.description }}</h3>
+                <h2>{{ columns.price }} EUR</h2>
               </div>
             </ion-label>
           </ion-col>
         </ion-row>
         <div class="buttonClass ion-padding-vertical">
-          <ion-button expand="block" (click)="closeModal(item.id)">{{
-            item.button
-          }}</ion-button>
-          <div class="border_bottom">
-            <div class="bordeerBottomdiv"></div>
-            <div class="absCenterdivOr">
-              <p>or</p>
-            </div>
-          </div>
-          <ion-button
-            expand="block"
-            (click)="closeModal(item.id)"
-            fill="outline"
-          >
-            <div>
-              <p class="upper">{{ item.button1 }}</p>
-              <p class="bottom">{{ item.button2 }}</p>
-            </div>
-          </ion-button>
+          <ion-button expand="block" (click)="closeModal()">Close</ion-button>
         </div>
       </ion-card>
     </div>
@@ -238,9 +218,9 @@
       <ion-row class="row_bottom">
         <ion-col
           size="4"
-          *ngFor="let columns of item.column; let i = index"
+          *ngFor="let columns of boosts; let i = index"
           [ngClass]="{ borders: i === 0 || (1 && i != 2) }"
-          (click)="showCustomButton(i)"
+          (click)="showCustomButton(columns.id)"
         >
           <ion-label class="ion-text-center">
             <div class="levelDiv">
@@ -248,21 +228,19 @@
                 size="small"
                 expand="block"
                 class="columnButtonTop"
-                *ngIf="columns.head && show"
+                *ngIf="columns.name && show"
                 class="custom_button"
-                ><span>{{ columns.head }}</span></ion-button
+                ><span>{{ columns.name }}</span></ion-button
               >
-              <h1>{{ columns.month }}</h1>
-              <h3>{{ columns.text }}</h3>
-              <h2>{{ columns.amount }}</h2>
+              <h1>{{ columns.type }}</h1>
+              <h3>{{ columns.description }}</h3>
+              <h2>{{ columns.price }} EUR</h2>
             </div>
           </ion-label>
         </ion-col>
       </ion-row>
       <div class="buttonClass ion- padding-vertical">
-        <ion-button expand="block" (click)="closeModal(item.id)">{{
-          item.button
-        }}</ion-button>
+        <ion-button expand="block" (click)="closeModal()">Close</ion-button>
       </div>
     </ion-card>
     <ion-label *ngIf="item.id === 'star'" class="ion-text-center">

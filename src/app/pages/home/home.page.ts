@@ -179,7 +179,6 @@ export class HomePage {
         this.cards.shift();
       }, 200);
     } else if (icon === 'home') {
-      console.log('this.cards', this.cards);
       this.apiService.addReaction(this.cards[0].id, 'like').subscribe(() => {
         this.showSeaprator(
           () => {
@@ -199,28 +198,38 @@ export class HomePage {
       //   this.cards.shift();
       // }, 200);
     } else if (icon === 'star') {
-      this.dataService.openModal(
-        MatchIconsComponent,
-        this.modalStarData,
-        'modalBackground'
-      );
+      this.dataService
+        .openRxModal('boostPage', this.modalRocketData, false, 'modal', false)
+
+        .subscribe((res: any) => {
+          if (res && res.data) this.buyPackage(res.data);
+        });
     } else if (icon === 'rocket') {
-      this.localNotificationService.showNotification(
-        'This feature is coming soon',
-        'info-main'
-      );
-      // this.dataService.openModal(
-      //   MatchIconsComponent,
-      //   this.modalRocketData,
-      //   'modalBackground'
+      // this.localNotificationService.showNotification(
+      //   'This feature is coming soon',
+      //   'info-main'
       // );
+      this.dataService
+        .openRxModal('boostPage', this.modalRocketData, false, 'modal', false)
+
+        .subscribe((res: any) => {
+          if (res && res.data) this.buyPackage(res.data);
+        });
     } else if (icon === 'star') {
-      this.dataService.openModal(
-        MatchIconsComponent,
-        this.modalStarData,
-        'modalBackground'
-      );
+      this.dataService
+        .openRxModal('boostPage', this.modalRocketData, false, 'modal', false)
+
+        .subscribe((res: any) => {
+          if (res && res.data) this.buyPackage(res.data);
+        });
     }
+  }
+
+  buyPackage(id: number) {
+    this.localNotificationService.showNotification(
+      `Open paypay window with payment id: ${id}`,
+      'info-main'
+    );
   }
 
   public showSeaprator(callback: () => void, id: string, image: string) {
@@ -232,7 +241,7 @@ export class HomePage {
         })
       )
       .subscribe((modalRes) => {
-        console.log('callback israel');
+        console.log('callback is real');
         callback();
       });
   }

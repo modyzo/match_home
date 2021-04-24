@@ -56,14 +56,27 @@ export class ContactsComponent implements OnInit {
         this.objectUrl = this.userDataDetails.avatarLink;
       },
       (error) => {
-        console.log('error, userRef', error);
+        console.log('error', error);
       }
     );
   }
 
   openGoldModal() {
-    this.dataService.openModal(MatchIconsComponent, this.modalGold);
+    this.dataService
+      .openRxModal('boostPage', this.modalGold, false, 'modal', false)
+
+      .subscribe((res: any) => {
+        if (res && res.data) this.buyPackage(res.data);
+      });
   }
+
+  buyPackage(id: number) {
+    this.localNotificationService.showNotification(
+      `Open paypay window with payment id: ${id}`,
+      'info-main'
+    );
+  }
+
   openMatchPlusModal() {
     this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
   }

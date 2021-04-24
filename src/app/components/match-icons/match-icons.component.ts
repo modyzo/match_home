@@ -2,6 +2,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, NavParams, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ApiService } from '@app/services/api.service';
 
 @Component({
   selector: 'app-match-icons',
@@ -13,6 +14,7 @@ export class MatchIconsComponent implements OnInit {
   slideOpts = {
     effect: 'flip',
   };
+  boosts = [];
   @Input() value: any;
   show: boolean;
   isIos: boolean;
@@ -20,25 +22,25 @@ export class MatchIconsComponent implements OnInit {
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public route: Router,
-    public platform: Platform
+    public platform: Platform,
+    public apiService: ApiService
   ) {
     this.data = this.navParams.get('value');
+    console.log('this.data', this.data);
     this.show = false;
     this.isIos = this.platform.is('ios');
   }
 
-  ngOnInit() {}
-  closeModal(id: any) {
-    this.modalCtrl.dismiss();
-    if (id === 'star' || ('refresh' && id !== 'rocket')) {
-      this.route.navigate(['match-plus']);
-    }
+  ngOnInit() {
+    this.apiService.getBoosts().subscribe((data: Array<object>) => {
+      this.boosts = data;
+    });
   }
+  closeModal() {
+    this.modalCtrl.dismiss();
+  }
+
   showCustomButton(index: any) {
-    if (index === 1) {
-      this.show = true;
-    } else if (index === 0 || 2) {
-      this.show = false;
-    }
+    this.modalCtrl.dismiss(index);
   }
 }

@@ -119,6 +119,22 @@
       </ion-range>
     </ion-item>
     <ion-item>
+      <ion-text class="textBold" slot="start">Kitchen</ion-text>
+      <ion-text color="danger" slot="end">
+        {{ AddPagePropertiesForm.get('kitchen').value }}
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-range
+        formControlName="kitchen"
+        min="0"
+        max="10"
+        step="1"
+        color="danger"
+      >
+      </ion-range>
+    </ion-item>
+    <ion-item>
       <ion-label>description</ion-label>
       <ion-input
         formControlName="description"

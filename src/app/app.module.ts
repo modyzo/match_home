@@ -39,7 +39,16 @@ import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { from } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { VerifyPage } from './pages/verify/verify.page';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
+const config: SocketIoConfig = {
+  url: environment.ws_url,
+  options: {
+    transports: ['websocket'],
+    pingTimeout: 5000,
+    pingInterval: 25000,
+  },
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +86,7 @@ import { VerifyPage } from './pages/verify/verify.page';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    SocketIoModule.forRoot(config),
     ToastrModule.forRoot({
       toastComponent: CustomToastrComponent,
       preventDuplicates: false,
@@ -93,7 +103,11 @@ import { VerifyPage } from './pages/verify/verify.page';
     AuthService,
     Deeplinks,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestsInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestsInterceptor,
+      multi: true,
+    },
     File,
   ],
   bootstrap: [AppComponent],
@@ -103,29 +117,31 @@ export class AppModule {
     private deeplinks: Deeplinks,
     private router: Router,
     private zone: NgZone,
-    private platform: Platform,
+    private platform: Platform
   ) {
     this.setupDeeplink();
   }
 
   private setupDeeplink() {
-    return from(this.platform.ready()).pipe(
-      mergeMap(() => {
-        return this.deeplinks.route(
-          {
+    return from(this.platform.ready())
+      .pipe(
+        mergeMap(() => {
+          return this.deeplinks.route({
             '/verify/:token': VerifyPage,
             // '/reset-password/:token': ResetPasswordComponent,
-          }
-        );
-      })
-    ).subscribe(
-      (match: any) => {
-        console.log(match);
-        this.zone.run(() => this.router.navigate([`${match.$link.path}`], { replaceUrl: true }));
-      },
-      (noMatch) => {
-        console.log(noMatch);
-      }
-    );
+          });
+        })
+      )
+      .subscribe(
+        (match: any) => {
+          console.log(match);
+          this.zone.run(() =>
+            this.router.navigate([`${match.$link.path}`], { replaceUrl: true })
+          );
+        },
+        (noMatch) => {
+          console.log(noMatch);
+        }
+      );
   }
 }

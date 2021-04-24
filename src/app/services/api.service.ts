@@ -119,4 +119,20 @@ export class ApiService {
   public getActivitiesByType(type: string) {
     return this.getRequest(`activities/type/${type}`);
   }
+
+  public getChats() {
+    return this.getRequest(`chats`);
+  }
+
+  public getBoosts() {
+    return this.getRequest('boosts');
+  }
+
+  public getBoostsById(id: string) {
+    return this.getRequest(`boosts/${id}`);
+  }
+
+  public patcBoost(id: string) {
+    return this.patchRequest(`boosts/${id}/buy`, { id });
+  }
 }
