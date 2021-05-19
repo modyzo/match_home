@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "9GCW59N6Z5.be.matchmyhomes.app",
+        "paths": [
+          "*"
+        ]
+      },
+    ]
+  }
+}

@@ -11,8 +11,8 @@ export const environment = {
     appId: '1:1075662539136:web:d3530323dceeda5d241965',
     measurementId: 'G-PFRDHC8KGG',
   },
-  apiUrl: 'https://3f33538792ee.ngrok.io',
-  ws_url: 'https://3f33538792ee.ngrok.io',
+  apiUrl: 'http://investsolution.eu:3000',
+  ws_url: 'http://investsolution.eu:3000',
   driveLink: 'https://docs.google.com/uc?export=download&id=',
   gold: [
     {

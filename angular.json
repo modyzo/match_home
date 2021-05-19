@@ -21,6 +21,11 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               {
+                "input": "src/assets",
+                "output": "/",
+                "glob": "apple-app-site-association"
+              },
+              {
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
