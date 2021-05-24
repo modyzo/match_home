@@ -14,6 +14,7 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, switchMap, filter, take, mergeMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { TokenizerService } from './tokenizer.service';
+import { environment } from '@env/environment';
 
 @Injectable()
 export class HttpRequestsInterceptor implements HttpInterceptor {
@@ -36,6 +37,10 @@ export class HttpRequestsInterceptor implements HttpInterceptor {
     | HttpUserEvent<any>
     | any
   > {
+
+    if(['sign-in', 'sign-up', 'token', 'token/refresh', 'sign-up/confirm', ].includes(request.url.split(`${environment.apiUrl}/`)[1])){
+      return next.handle(request);
+    }
     return this.tokenizerService.getToken().pipe(
       mergeMap((token) => {
         return next.handle(this.addTokenToRequest(request, token));
