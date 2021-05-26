@@ -13,6 +13,8 @@ export const environment = {
   },
   apiUrl: 'https://investsolution.eu/api',
   ws_url: 'https://investsolution.eu/api',
+  driveLink: 'https://docs.google.com/uc?export=download&id=',
+
   gold: [
     {
       id: 'refresh',
