@@ -26,7 +26,6 @@ import { adaptDataToNormalizedInfo } from '@app/shared/helprers/details-helper';
 })
 export class ProfileDetailsPage implements OnInit {
   @ViewChild('mySlider') slider: IonSlides;
-  driveLink = environment.driveLink;
   isIos: boolean;
   profileData: any;
   icons: any;

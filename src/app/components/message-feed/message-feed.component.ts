@@ -16,7 +16,6 @@ import { ApiService } from '@app/services/api.service';
   styleUrls: ['./message-feed.component.scss'],
 })
 export class MessageFeedComponent implements OnInit {
-  driveLink = environment.driveLink;
   profileData: any;
   public activities = [];
   icons: any;

@@ -19,7 +19,6 @@ export class ChatComponent implements OnInit {
   clickData: any;
   imageData: any;
   activities = [];
-  driveLink = environment.driveLink;
   constructor(
     public route: Router,
     public modalCtrl: ModalController,

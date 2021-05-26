@@ -28,7 +28,6 @@ import { serialize } from '@app/shared/helprers/serialize-helper';
 })
 export class HomePage {
   filterTerm: string;
-  driveLink = environment.driveLink;
   userRecords = [
     {
       id: 1,

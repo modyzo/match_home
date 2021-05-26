@@ -17,7 +17,6 @@ import { mergeMap } from 'rxjs/operators';
 })
 export class UploadPage implements OnInit {
   @ViewChild('fileUpload') fileUpload: ElementRef;
-  driveLink = environment.driveLink;
 
   data: any;
   id: string = '';

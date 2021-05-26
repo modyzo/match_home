@@ -103,7 +103,7 @@
       },
       "cordova-plugin-file": {},
       "ionic-plugin-deeplinks": {
-        "URL_SCHEME": "9GCW59N6Z5.be.matchmyhomes.app",
+        "URL_SCHEME": "matchmyhomes",
         "DEEPLINK_SCHEME": "https",
         "DEEPLINK_HOST": "matchmyhome-7054f.web.app"
       }

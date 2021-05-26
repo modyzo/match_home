@@ -16,7 +16,6 @@ export class SeparatorComponent implements OnInit {
   public availability = availabilityOfBuildingList;
   public stateOfBuild = stateOfBuildingList;
   public data: any;
-  driveLink = environment.driveLink;
   constructor(
     private modalCtrl: ModalController,
     public formBuilder: FormBuilder,

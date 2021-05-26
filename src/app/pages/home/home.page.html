@@ -64,7 +64,7 @@
         appSwingCard
         #swingCards
         *ngFor="let item of cards; let i = index"
-        [ngStyle]="{'background':'url('+ driveLink + item.pictures[0] +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}"
+        [ngStyle]="{'background':'url('+ item.pictures[0] +')','background-size':'cover', 'height': '70%', 'margin-bottom': '0px'}"
       >
         <div class="itemdiv">
           <div class="like" *ngIf="like && i === cards.length -1">

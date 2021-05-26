@@ -16,7 +16,7 @@
         <div
           *ngIf="pictures[item] ; else noData"
           class="imageDiv"
-          [ngStyle]="{'background':'url('+ driveLink + pictures[item] +')','background-size':'cover'}"
+          [ngStyle]="{'background':'url(' + pictures[item] +')','background-size':'cover'}"
         ></div>
         <div
           class="closeIcon"

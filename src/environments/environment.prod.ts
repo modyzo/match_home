@@ -11,9 +11,8 @@ export const environment = {
     appId: '1:1075662539136:web:d3530323dceeda5d241965',
     measurementId: 'G-PFRDHC8KGG',
   },
-  apiUrl: 'http://investsolution.eu:3000',
-  ws_url: 'http://investsolution.eu:3000',
-  driveLink: 'https://docs.google.com/uc?export=download&id=',
+  apiUrl: 'https://investsolution.eu/api',
+  ws_url: 'https://investsolution.eu/api',
   gold: [
     {
       id: 'refresh',
