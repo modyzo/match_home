@@ -47,6 +47,7 @@ const config: SocketIoConfig = {
     transports: ['websocket'],
     pingTimeout: 5000,
     pingInterval: 25000,
+    path: '/api/socket.io/'
   },
 };
 @NgModule({

@@ -258,7 +258,7 @@ export class HomePage {
 
   voteUp(like: boolean) {
     const removedCard = this.cards.shift();
-    this.addNewCards(1);
+    this.addNewCards(removedCard);
     if (like) {
       this.recentCard = 'You liked: ' + removedCard.name;
     } else {
@@ -266,8 +266,8 @@ export class HomePage {
     }
   }
 
-  addNewCards(count: number) {
-    // this.cards.push(this.recentCard);
+  addNewCards(removedCard) {
+    this.cards.push(removedCard);
   }
 
   decimalToHex(d, padding) {

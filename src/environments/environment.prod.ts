@@ -606,7 +606,7 @@ export const environment = {
         {
           icon: 'home',
           head: 'get Match Home gold',
-          subhead: 'See who Likes You and more!',
+          subhead: '',
           color: 'warning',
         },
         {

@@ -43,11 +43,21 @@ export class ChatComponent implements OnInit {
       this.buttonClicked = false;
     }, 500);
   }
+
   async goForChat(chat) {
     const modal = await this.modalCtrl.create({
       component: ChatStartComponent,
       componentProps: { value: chat },
     });
     return await modal.present();
+  }
+
+  async goToViewProperty(property: any) {
+    console.log('propet', property)
+    this.route.navigate([
+      'profile-details',
+      { userData: JSON.stringify(property.property) },
+    ]);
+    console.log(property);
   }
 }
