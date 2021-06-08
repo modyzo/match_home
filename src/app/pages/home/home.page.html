@@ -154,9 +154,10 @@
     <div class="footerContent">
       <div
         *ngFor="let icon of footerIcon;let i = index"
-        [class.is-hide]="icon.title === 'star'"
+        [class.is-hide]="icon.title === 'star' || icon.title == 'rocket' && !isAgent"
         class="icon_background"
         [ngClass]="{'transform-icon': i % 2 != 0}"
+        
       >
         <ion-icon
           name="{{icon.title}}"

@@ -79,6 +79,7 @@ export class HomePage {
   superLike: boolean;
   nope: boolean;
   clicked: any;
+  isAgent = false;
   public filterFields: any;
 
   constructor(
@@ -141,6 +142,9 @@ export class HomePage {
         if (data.isAgentApproved) {
           this.data.push({ title: 'add-circle' });
         }
+        if (data.role ==="AGENT") {
+          this.isAgent = true;
+        }
       },
       (error) => {
         console.log('error', error);
@@ -164,7 +168,14 @@ export class HomePage {
 
   clickedIconIs(icon) {
     if (icon === 'refresh') {
-      this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
+      this.loadingService.startLoading(this.getCardsRequest()).subscribe(
+        (res: any) => {
+          this.cards = res;
+          this.hasUserData = true;
+        },
+        (error) => console.log(error)
+      );
+      // this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
     } else if (icon === 'close') {
       this.disLike = true;
       setTimeout(() => {

@@ -2,6 +2,7 @@
   <div class="oval">
     <div class="ovalsubDiv">
       <ion-img class="imageDiv" [src]="objectUrl" *ngIf="objectUrl"></ion-img>
+      <ion-icon *ngIf="!objectUrl" class="iconDiv" name="person-outline"></ion-icon>
 
       <h4 *ngIf="userDataDetails" class="ion-no-margin ion-no-padding">
         {{ userDataDetails.firstName }}, {{ userDataDetails.age }}
