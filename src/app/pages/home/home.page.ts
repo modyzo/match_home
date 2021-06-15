@@ -178,28 +178,29 @@ export class HomePage {
       // this.dataService.openModal(MatchIconsComponent, this.modalRefreshData);
     } else if (icon === 'close') {
       this.disLike = true;
+      console.log('this.cards before', this.cards);
       setTimeout(() => {
         this.disLike = false;
-        this.cards.shift();
+        this.cards.splice(-1,1);
       }, 200);
     } else if (icon === 'star') {
       this.superLike = true;
       setTimeout(() => {
         this.superLike = false;
-        this.cards.shift();
+        this.cards.splice(-1,1);
       }, 200);
     } else if (icon === 'home') {
-      this.apiService.addReaction(this.cards[0].id, 'like').subscribe(() => {
+      this.apiService.addReaction(this.cards[this.cards.length - 1].id, 'like').subscribe(() => {
         this.showSeaprator(
           () => {
             this.like = true;
             setTimeout(() => {
               this.like = false;
-              this.cards.shift();
+              this.cards.splice(-1,1);
             }, 200);
           },
-          this.cards[0].id,
-          this.cards[0].pictures[0]
+          this.cards[this.cards.length - 1].id,
+          this.cards[this.cards.length - 1].pictures[0]
         );
       });
       // this.like = true;
@@ -347,13 +348,21 @@ export class HomePage {
 
   onThrowOut(event: ThrowEvent) {
     if (this.superLike) {
-      const removedCard = this.cards.shift();
-      this.addNewCards(1);
-      this.recentCard = 'You superliked: ' + removedCard.name;
+      const id = this.cards[this.cards.length - 1].id;
+      const image = this.cards[this.cards.length - 1].pictures[0];
+      this.apiService.addReaction(id, 'like').subscribe(() => {
+        this.showSeaprator(
+          () => {
+            setTimeout(() => {}, 200);
+          },
+          id,
+          image
+        );
+      });
     }
     if (this.like) {
-      const id = this.cards[0].id;
-      const image = this.cards[0].pictures[0];
+      const id = this.cards[this.cards.length - 1].id;
+      const image = this.cards[this.cards.length - 1].pictures[0];
       this.apiService.addReaction(id, 'like').subscribe(() => {
         this.showSeaprator(
           () => {
